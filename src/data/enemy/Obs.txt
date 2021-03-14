@@ -1,0 +1,6 @@
+º Esse do fantasma voando, COLOCA O DO LADO DIREITO.
+    Ele soh tem 1 lado para olhar, n tem o lado direito
+
+
+º O Peixe andante eh o Boss, por isso fiz com que ele seja o dobro do tamanho.
+    Basicamente multiplica todos os valores por 2 no setTextureRect

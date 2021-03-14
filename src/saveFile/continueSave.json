@@ -1,0 +1,9 @@
+{
+    "players": {
+        "multiplayer": false,
+        "phase": 12,
+        "player1Name": "",
+        "player1PositionX": 2048.0,
+        "player1PositionY": 960.0
+    }
+}
