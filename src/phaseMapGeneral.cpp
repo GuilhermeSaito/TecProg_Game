@@ -59,6 +59,8 @@ void PhaseMapGeneral::resetEverythingForTransition()
     player1->setPosition({ 2 * TILE_SIZE, 27 * TILE_SIZE });
     if (player2 != NULL)
         player2->setPosition({ 2 * TILE_SIZE, 27 * TILE_SIZE });
+
+    collisionManager.clearAllLists();
 }
 
 void PhaseMapGeneral::setPlayer1(Entidade::Player::Player1* p1)

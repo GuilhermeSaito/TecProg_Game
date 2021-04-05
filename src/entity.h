@@ -2,6 +2,10 @@
 
 #include "data.h"
 #include "tile.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
+#include <cstring>
 
 namespace Entidade
 {
@@ -26,7 +30,7 @@ namespace Entidade
 		float attackDamage;
 
 	public:
-		Entity(sf::Vector2f pos = { 0 , 0 }, sf::Vector2f spee = { 0, 0 }, float hP = 100, float attack = 10);
+		Entity(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
 		~Entity();
 
 		const sf::Vector2f getPosition() const;

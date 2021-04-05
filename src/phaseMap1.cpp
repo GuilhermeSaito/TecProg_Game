@@ -3,6 +3,7 @@
 using namespace PhaseMap;
 
 PhaseMap1::PhaseMap1(std::string path) :
+    zombiesList(),
     PhaseMapGeneral(path)
 {
     // Transforming the image to 1080 x 1440
@@ -15,15 +16,28 @@ PhaseMap1::PhaseMap1(std::string path) :
         phaseBackGroundSprite.push_back(sprite);
     }
 
-    // Placing zombie enemys in some spaces
-    placingEnemys();
 }
 PhaseMap1::~PhaseMap1()
 {
     for (auto* i : phaseBackGroundSprite)
         delete i;
-    for (auto* i : zombieEnemys)
-        delete i;
+
+    //deleta todos os zumbis da lista se estiver vazio
+    if (!this->zombiesList.isEmpty())
+    {
+        Element<Entidade::Enemy::Zombie>* z = this->zombiesList.getFirst();
+        z = z->getNext();
+        while (z != NULL){
+            Element<Entidade::Enemy::Zombie>* zAux = z->getPrevious();
+            delete zAux;
+            z = z->getNext();
+        }
+        delete z;
+    }
+    this->zombiesList.setNull();
+
+    collisionManager.clearAllLists();
+
     phaseBackGroundSprite.clear();
 }
 
@@ -44,10 +58,14 @@ void PhaseMap1::update(int& controller)
         player2->movementation();
     }
     phaseTransition(controller);
+
+    //updates all zombies
+    if (!this->zombiesList.isEmpty())
+        this->zombiesList.update(player1->getPosition().x);
 }
 
 void PhaseMap1::render(sf::RenderWindow& window, int& controller)
-{                                               
+{                                             
     sf::View player1View(sf::Vector2f(player1->getPosition()), sf::Vector2f(1120, 672));
     window.setView(player1View);
 
@@ -67,11 +85,17 @@ void PhaseMap1::render(sf::RenderWindow& window, int& controller)
 
     window.clear();
     renderPhaseBackGround(window);
-    for (auto* i : zombieEnemys)
-        i->render(window);
+
+
     player1->draw(window);
     if (player2 != NULL)
         player2->draw(window);
+
+    
+    //rendering all zombies
+    if (!this->zombiesList.isEmpty())
+        zombiesList.render(window);
+
 	phaseMapManager.draw(window);
     window.display();
 }
@@ -82,15 +106,26 @@ void PhaseMap1::renderPhaseBackGround(sf::RenderWindow& window)
         window.draw(*i);
 }
 
-void PhaseMap1::placingEnemys()
+void PhaseMap1::placingEnemies()
 {
     // For the zombies
-    Entidade::Enemy::Zombie* z1 = new Entidade::Enemy::Zombie({ 5 * TILE_SIZE, 27 * TILE_SIZE }, { 0, 0 }, 50, 15);
-    Entidade::Enemy::Zombie* z2 = new Entidade::Enemy::Zombie({ 32 * TILE_SIZE, 21 * TILE_SIZE }, { 0, 0 }, 50, 15);
-    Entidade::Enemy::Zombie* z3 = new Entidade::Enemy::Zombie({ 72 * TILE_SIZE, 26 * TILE_SIZE }, { 0, 0 }, 50, 15);
-    Entidade::Enemy::Zombie* z4 = new Entidade::Enemy::Zombie({ 120 * TILE_SIZE, 25 * TILE_SIZE }, { 0, 0 }, 50, 15);
-    zombieEnemys.push_back(z1);
-    zombieEnemys.push_back(z2);
-    zombieEnemys.push_back(z3);
-    zombieEnemys.push_back(z4);
+    Entidade::Enemy::Zombie* z1 = new Entidade::Enemy::Zombie({ 5 * TILE_SIZE, 27 * TILE_SIZE }, { 5, 5 }, 50, 15);
+    Entidade::Enemy::Zombie* z2 = new Entidade::Enemy::Zombie({ 32 * TILE_SIZE, 10 * TILE_SIZE }, { 5, 5 }, 50, 15);
+    Entidade::Enemy::Zombie* z3 = new Entidade::Enemy::Zombie({ 72 * TILE_SIZE, 10 * TILE_SIZE }, { 5, 5 }, 50, 15);
+    Entidade::Enemy::Zombie* z4 = new Entidade::Enemy::Zombie({ 120 * TILE_SIZE, 10 * TILE_SIZE }, { 5, 5 }, 50, 15);
+
+    this->zombiesList.include(z1);
+    this->zombiesList.include(z2);
+    this->zombiesList.include(z3);
+    this->zombiesList.include(z4);
+}
+
+void PhaseMap1::loadZombieListInCollision()
+{
+    collisionManager.setZombieList(&zombiesList);
+}
+
+ListElement<Entidade::Enemy::Zombie>* PhaseMap1::getZombiesList()
+{
+    return &zombiesList;
 }

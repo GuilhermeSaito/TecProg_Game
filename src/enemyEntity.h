@@ -11,8 +11,10 @@ namespace Entidade
 		bool canHitPlayer2;
 		bool isDead;
 
+		int attackDamage = 0;
+
 	public:
-		EnemyEntity(sf::Vector2f pos = { 0 , 0 }, sf::Vector2f spee = { 0, 0 }, float hP = 100, float attack = 10);
+		EnemyEntity(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
 		virtual ~EnemyEntity();
 
 		virtual void timerCanHitPlayer();
@@ -21,6 +23,9 @@ namespace Entidade
 
 		const bool getIsDead() const;
 		void setIsDead(const bool dead);
+
+		void setAttackDamage(int attack);
+		int getAttackDamage();
 
 		void render(sf::RenderWindow& window);
 	};

@@ -21,6 +21,15 @@ const bool EnemyEntity::getCanHitPlayer2() const { return canHitPlayer2; }
 const bool EnemyEntity::getIsDead() const { return isDead; }
 void EnemyEntity::setIsDead(const bool dead) { isDead = dead; }
 
+void EnemyEntity::setAttackDamage(int attack)
+{
+	this->attackDamage = attack;
+}
+int EnemyEntity::getAttackDamage()
+{
+	return this->attackDamage;
+}
+
 void EnemyEntity::render(sf::RenderWindow& window)
 {
 	window.draw(healthBar);

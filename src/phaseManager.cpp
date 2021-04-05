@@ -35,6 +35,8 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
         }
         if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
             return EXIT_GAME;
+        
+        // Da um jeito de dar ums save nos inimigos e dar um load aqui
     }
     else
     {
@@ -50,6 +52,8 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
         phaseMap2.resetEverythingForTransition();
         phaseMap3.resetEverythingForTransition();
         phaseMap4.resetEverythingForTransition();
+
+        loadEnemiesInLevels();
     }
 
     int controller = phase;
@@ -59,11 +63,13 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
         {
         case PHASE1:
             controller = phase;
+            phaseMap1.loadZombieListInCollision();
             phaseMap1.update(phase);
             phaseMap1.render(window, phase);
             break;
         case PHASE2:
             controller = phase;
+            phaseMap2.loadEnemiesListsInCollision();
             phaseMap2.update(phase);
             phaseMap2.render(window, phase);
             break;
@@ -126,7 +132,14 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
         phaseMap3.setPlayer2(&player2);
         phaseMap4.setPlayer2(&player2);
     }
+
     return 1;
+}
+
+void PhaseManager::loadEnemiesInLevels()
+{
+    phaseMap1.placingEnemies();
+    phaseMap2.placingEnemies();
 }
 
 int PhaseManager::showPlayerDie(sf::RenderWindow &window)
