@@ -5,18 +5,17 @@
 
 using namespace Entidade;
 
-Entity::Entity(sf::Vector2f pos, sf::Vector2f spee, float hP, float attack) :
-	position(pos),
-	speed(spee),
-	hp(hP),
-	walkSpeed(8),
-	onGround(false),
-	jumpSpeed(-20),
-	gravityAcceleration((float)1.1),
-	isLookingRight(true),
-	attackDamage(attack)
+Entity::Entity(sf::Vector2f pos, sf::Vector2f spee, float hP, float attack) : position(pos),
+																			  speed(spee),
+																			  hp(hP),
+																			  walkSpeed(8),
+																			  onGround(false),
+																			  jumpSpeed(-20),
+																			  gravityAcceleration((float)1.1),
+																			  isLookingRight(true),
+																			  attackDamage(attack)
 {
-	rect.setSize({ 48, 48 });	
+	rect.setSize({48, 48});
 }
 Entity::~Entity()
 {
@@ -30,9 +29,9 @@ void Entity::setHp(const float hP) { hp = hP; }
 void Entity::setSpeed(const sf::Vector2f spee) { speed = spee; }
 const sf::Vector2f Entity::getSize() const { return rect.getSize(); }
 
-								// Rectangle located at  (x Position, Y Position) with a Size of (X rectSize, Y rectSize)
-sf::FloatRect Entity::getBoundBox() { return sf::FloatRect(position.x, position.y, rect.getSize().x, rect.getSize().y); }
-void Entity::collisionInX(PhaseMap::Tiles::Tile* tile)
+// Rectangle located at  (x Position, Y Position) with a Size of (X rectSize, Y rectSize)
+const sf::FloatRect Entity::getBoundBox() const { return sf::FloatRect(position.x, position.y, rect.getSize().x, rect.getSize().y); }
+void Entity::collisionInX(PhaseMap::Tiles::Tile *tile)
 {
 	// Walking right
 	if (speed.x > 0)
@@ -43,7 +42,7 @@ void Entity::collisionInX(PhaseMap::Tiles::Tile* tile)
 		position.x = tile->getBoundBox().left + tile->getBoundBox().width;
 	speed.x = 0;
 }
-void Entity::collisionInY(PhaseMap::Tiles::Tile* tile)
+void Entity::collisionInY(PhaseMap::Tiles::Tile *tile)
 {
 	// Falling
 	if (speed.y > 0)

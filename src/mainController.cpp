@@ -18,10 +18,10 @@ void MainController::Start()
 {
 	int controller = 0;
 
-	switcher.push_back(&splashScreen);
-	switcher.push_back(&openMenu);
-	switcher.push_back(&phaseSelection);
-	switcher.push_back(&characterSelection);
+	switcher.push_back(static_cast<SwitchPanel *>(&splashScreen));
+	switcher.push_back(static_cast<SwitchPanel *>(&openMenu));
+	switcher.push_back(static_cast<SwitchPanel *>(&phaseSelection));
+	switcher.push_back(static_cast<SwitchPanel *>(&characterSelection));
 
 	// Soh eh permitido entrar no phaseManager depois de passar do splashScreen, openMenu, phaseSelection e characterSelection, por isso que todos esses elementos passados para o phaseManager ja estao prontos
 	while (controller >= 0)

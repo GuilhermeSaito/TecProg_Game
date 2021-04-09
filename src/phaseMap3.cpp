@@ -2,17 +2,15 @@
 
 using namespace PhaseMap;
 
-PhaseMap3::PhaseMap3(std::string path) :
-    PhaseMapGeneral(path)
+PhaseMap3::PhaseMap3(std::string path) : PhaseMapGeneral(path)
 {
     // Transforming the image to 1080 x 720
-
 }
 PhaseMap3::~PhaseMap3()
 {
 }
 
-void PhaseMap3::update(int& controller)
+void PhaseMap3::update(int &controller)
 {
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
@@ -31,10 +29,9 @@ void PhaseMap3::update(int& controller)
     phaseTransition(controller);
 }
 
-void PhaseMap3::render(sf::RenderWindow& window, int& controller)
+void PhaseMap3::render(sf::RenderWindow &window, int &controller)
 {
-    sf::View player1View(sf::Vector2f(player1->getPosition()), sf::Vector2f(1120, 672));
-    window.setView(player1View);
+    setViewInPlayer1(window);
 
     sf::Event event;
     if (window.pollEvent(event))
@@ -58,7 +55,6 @@ void PhaseMap3::render(sf::RenderWindow& window, int& controller)
     window.display();
 }
 
-void PhaseMap3::renderPhaseBackGround(sf::RenderWindow& window)
+void PhaseMap3::renderPhaseBackGround(sf::RenderWindow &window)
 {
-
 }

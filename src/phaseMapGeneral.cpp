@@ -2,22 +2,22 @@
 
 using namespace PhaseMap;
 
-PhaseMapGeneral::PhaseMapGeneral(std::string path) :
-    phaseMapManager(path),
-    player1(NULL),
-    player2(NULL)
+PhaseMapGeneral::PhaseMapGeneral(std::string path) : phaseMapManager(path),
+                                                     player1(NULL),
+                                                     player2(NULL)
 {
+    player1View.setSize(sf::Vector2f(1120, 672));
 }
 PhaseMapGeneral::~PhaseMapGeneral()
 {
 }
 
-void PhaseMapGeneral::update(int& controller)
+void PhaseMapGeneral::update(int &controller)
 {
 }
 
-void PhaseMapGeneral::render(sf::RenderWindow& window, int& controller)
-{      
+void PhaseMapGeneral::render(sf::RenderWindow &window, int &controller)
+{
 }
 bool PhaseMapGeneral::loadPhaseMap()
 {
@@ -26,7 +26,21 @@ bool PhaseMapGeneral::loadPhaseMap()
     return flag;
 }
 
-void PhaseMapGeneral::phaseTransition(int& contoller)
+void PhaseMapGeneral::setViewInPlayer1(sf::RenderWindow &window)
+{
+    if (player1 != NULL)
+        if ((player1->getPosition().x - (12 * TILE_SIZE)) < 0)
+            player1View.setCenter(sf::Vector2f(12 * TILE_SIZE, 23 * TILE_SIZE));
+        else if (player1->getPosition().x > 123 * TILE_SIZE)
+            player1View.setCenter(sf::Vector2f(123 * TILE_SIZE, 23 * TILE_SIZE));
+        else if (player1->getPosition().y < 21 * TILE_SIZE)
+            player1View.setCenter(sf::Vector2f(player1->getPosition().x, player1->getPosition().y));
+        else
+            player1View.setCenter(sf::Vector2f(player1->getPosition().x, 23 * TILE_SIZE));
+    window.setView(player1View);
+}
+
+void PhaseMapGeneral::phaseTransition(int &contoller)
 {
     if (contoller != PHASE4)
     {
@@ -56,19 +70,19 @@ bool PhaseMapGeneral::isPlayerDead()
 
 void PhaseMapGeneral::resetEverythingForTransition()
 {
-    player1->setPosition({ 2 * TILE_SIZE, 27 * TILE_SIZE });
+    player1->setPosition({2 * TILE_SIZE, 27 * TILE_SIZE});
     if (player2 != NULL)
-        player2->setPosition({ 2 * TILE_SIZE, 27 * TILE_SIZE });
+        player2->setPosition({2 * TILE_SIZE, 27 * TILE_SIZE});
 
     collisionManager.clearAllLists();
 }
 
-void PhaseMapGeneral::setPlayer1(Entidade::Player::Player1* p1)
+void PhaseMapGeneral::setPlayer1(Entidade::Player::Player1 *p1)
 {
     player1 = p1;
     collisionManager.setPlayer1(p1);
 }
-void PhaseMapGeneral::setPlayer2(Entidade::Player::Player2* p2)
+void PhaseMapGeneral::setPlayer2(Entidade::Player::Player2 *p2)
 {
     player2 = p2;
     collisionManager.setPlayer2(p2);

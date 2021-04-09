@@ -10,5 +10,6 @@ Alem do SFML, sera necessario do g++. Seria bom tambem ter o make, mas caso nao 
 
 ### Alguma duvida ou sugestao, porfavor, nos contate
 `guilhermetoshiosaito@gmail.com`
+`joaovitorc.passos@gmail.com`
 
 ![Image](./uselessImage/thumbsUpImage.jpeg)

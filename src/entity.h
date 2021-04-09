@@ -7,6 +7,9 @@
 #include <iostream>
 #include <cstring>
 
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
+
 namespace Entidade
 {
 	class Entity
@@ -18,7 +21,7 @@ namespace Entidade
 
 		sf::RectangleShape healthBar;
 		float hp;
-		
+
 		sf::RectangleShape rect;
 		bool onGround;
 		float jumpSpeed;
@@ -31,7 +34,7 @@ namespace Entidade
 
 	public:
 		Entity(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
-		~Entity();
+		virtual ~Entity();
 
 		const sf::Vector2f getPosition() const;
 		void setPosition(const sf::Vector2f pos);
@@ -42,9 +45,9 @@ namespace Entidade
 		const float getHp() const;
 		void setHp(const float hP);
 
-		sf::FloatRect getBoundBox();
-		void collisionInX(PhaseMap::Tiles::Tile* tile);
-		void collisionInY(PhaseMap::Tiles::Tile* tile);
+		const sf::FloatRect getBoundBox() const;
+		void collisionInX(PhaseMap::Tiles::Tile *tile);
+		void collisionInY(PhaseMap::Tiles::Tile *tile);
 		void gravity();
 		const bool getOnGround() const;
 		void setOnGround(const bool onG);
@@ -53,5 +56,7 @@ namespace Entidade
 
 		const float getAttackDamage() const;
 		void setAttackDamage(const float attack);
+
+		virtual json getSave() {}
 	};
 }

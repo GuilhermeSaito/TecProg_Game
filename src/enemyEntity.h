@@ -4,7 +4,7 @@
 
 namespace Entidade
 {
-	class EnemyEntity: public Entity
+	class EnemyEntity : public Entity
 	{
 	protected:
 		bool canHitPlayer1;
@@ -27,6 +27,8 @@ namespace Entidade
 		void setAttackDamage(int attack);
 		int getAttackDamage();
 
-		void render(sf::RenderWindow& window);
+		void render(sf::RenderWindow &window);
+
+		virtual json getSave() {}
 	};
 }

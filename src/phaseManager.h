@@ -29,22 +29,27 @@ namespace PhaseMap
 
 		bool needToLoadPhase;
 
+		int controller;
+
 	public:
 		PhaseManager();
 		~PhaseManager();
 
-		int Start(sf::RenderWindow& window, json jContinueSave, const string player1Name = "", const string player2Name = "", const bool multiplayer = false, const int phaseIs = PHASE1);
+		int Start(sf::RenderWindow &window, json jContinueSave, const string player1Name = "", const string player2Name = "", const bool multiplayer = false, const int phaseIs = PHASE1);
 
 	private:
 		int loadPhaseMap(const bool multiplayer);
 		void loadEnemiesInLevels();
 
-		int showPlayerDie(sf::RenderWindow& window);
-		void normalizeView(sf::RenderWindow& window);
-		void showOptions(sf::RenderWindow& window, int& phase);
+		int showPlayerDie(sf::RenderWindow &window);
+		void normalizeView(sf::RenderWindow &window);
+		void showOptions(sf::RenderWindow &window, int &phase);
+
+		const int loadState(json j);
+		void saveState();
 
 		void ResetALL();
 
-		int notImplementedYet(sf::RenderWindow& window);
+		int notImplementedYet(sf::RenderWindow &window);
 	};
 }

@@ -24,30 +24,33 @@ namespace PhaseMap
 	protected:
 		Tiles::PhaseMapManager phaseMapManager;
 
-		Entidade::Player::Player1* player1;
-		Entidade::Player::Player2* player2;
+		Entidade::Player::Player1 *player1;
+		Entidade::Player::Player2 *player2;
+
+		sf::View player1View;
 
 		CollisionManager collisionManager;
 
-		std::vector<sf::Sprite*> phaseBackGroundSprite;
+		std::vector<sf::Sprite *> phaseBackGroundSprite;
 
 	public:
 		PhaseMapGeneral(std::string path = "");
 		virtual ~PhaseMapGeneral();
 
-		virtual void update(int& controller);
-		virtual void render(sf::RenderWindow& window, int& controller);
+		virtual void update(int &controller);
+		virtual void render(sf::RenderWindow &window, int &controller);
 		bool loadPhaseMap();
 
 	protected:
-		void phaseTransition(int& contoller);
+		void setViewInPlayer1(sf::RenderWindow &window);
+		void phaseTransition(int &contoller);
 		bool isPlayerDead();
 
 	public:
 		void resetEverythingForTransition();
 
-		void setPlayer1(Entidade::Player::Player1* p1);
-		void setPlayer2(Entidade::Player::Player2* p2);
+		void setPlayer1(Entidade::Player::Player1 *p1);
+		void setPlayer2(Entidade::Player::Player2 *p2);
 
 		void ResetAll();
 	};

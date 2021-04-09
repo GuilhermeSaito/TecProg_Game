@@ -2,9 +2,8 @@
 
 using namespace Entidade::Player;
 
-Player1::Player1(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
-	Entity(pos, spee, hP, attackDamage),
-	contAnimation(0)
+Player1::Player1(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(pos, spee, hP, attackDamage),
+																					  contAnimation(0)
 {
 	rect.setPosition(pos);
 
@@ -45,11 +44,20 @@ void Player1::movementation()
 	spriteAnimation();
 }
 
-void Player1::draw(sf::RenderWindow& window)
+void Player1::draw(sf::RenderWindow &window)
 {
 	window.draw(healthBar);
 
 	window.draw(sprite);
+}
+
+json Player1::getSave()
+{
+	json j;
+	j["players1"]["player1PositionX"] = position.x;
+	j["players1"]["player1PositionY"] = position.y;
+
+	return j;
 }
 
 void Player1::spriteAnimation()

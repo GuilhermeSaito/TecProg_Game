@@ -8,7 +8,8 @@ PhaseManager::PhaseManager() : phaseMap1("src/data/phaseMap/PhaseMapsJson/phaseM
                                phaseMap4("src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
                                player1({2 * 48, 27 * 48}, {0, 0}, 100, 30),
                                player2({3 * 48, 27 * 48}, {0, 0}, 100, 40.5),
-                               needToLoadPhase(true)
+                               needToLoadPhase(true),
+                               controller(EXIT_GAME)
 {
 }
 
@@ -18,32 +19,19 @@ PhaseManager::~PhaseManager()
 }
 int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
 {
-    int phase;
-
     // Se ele nao estiver vazio, quer dizer que alguem apertou o continuar.
     // Na verdade, posso colocar tudo isso em um metodo, para ficar bonitinho com 1 linha soh aqui, mas estou com preguica no momento...
     if (!jContinueSave.empty())
     {
-        this->player1Name = jContinueSave["players"]["player1Name"].get<string>();
-        player1.setPosition({jContinueSave["players"]["player1PositionX"], jContinueSave["players"]["player1PositionY"]});
-        this->isMultiplayer = jContinueSave["players"]["multiplayer"];
-        phase = jContinueSave["players"]["phase"];
-        if (this->isMultiplayer)
-        {
-            this->player2Name = jContinueSave["players"]["player2Name"].get<string>();
-            player2.setPosition({jContinueSave["players"]["player2PositionX"], jContinueSave["players"]["player2PositionY"]});
-        }
-        if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
+        if (loadState(jContinueSave) == EXIT_GAME)
             return EXIT_GAME;
-        
-        // Da um jeito de dar ums save nos inimigos e dar um load aqui
     }
     else
     {
         this->player1Name = player1Name;
         this->player2Name = player2Name;
         this->isMultiplayer = multiplayer;
-        phase = phaseIs;
+        controller = phaseIs;
         // Esse precisa ficar aqui, para setar os ponteiros do player1 e player2 antes do resetForTransition
         // E precisa ficar depois de saber se eh multiplayer ou nao
         if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
@@ -56,7 +44,11 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
         loadEnemiesInLevels();
     }
 
-    int controller = phase;
+    // O controller eh para saber em qual fase estah, pois se aperta ESC e vai para save
+    // O "phase" vira OPTIONS, mas controller continua como a ultima fase
+    // Somente aqui que o controller esta na "frente" do phase, pois estou dando o recover com o controller
+    // Daria para passar o save por referencia ou colocar ele como parte da classe
+    int phase = controller;
     while (phase >= 0)
     {
         switch (phase)
@@ -93,7 +85,7 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
                 return EXIT_GAME;
             else if (phase == SAVE)
             {
-                save.continueSave(player1Name, player2Name, multiplayer, controller, player1.getPosition(), player2.getPosition());
+                saveState();
                 ResetALL();
                 return OPEN_MENU;
             }
@@ -258,6 +250,35 @@ void PhaseManager::showOptions(sf::RenderWindow &window, int &phase)
         window.draw(menu3);
         window.display();
     }
+}
+
+const int PhaseManager::loadState(json j)
+{
+    int players = 0, players1 = 1, players2 = j["gamePlaySave"].size() - 1;
+    this->player1Name = j["gamePlaySave"][players]["players"]["player1Name"].get<string>();
+    player1.setPosition({j["gamePlaySave"][players1]["players1"]["player1PositionX"], j["gamePlaySave"][players1]["players1"]["player1PositionY"]});
+    this->isMultiplayer = j["gamePlaySave"][players]["players"]["multiplayer"];
+    controller = j["gamePlaySave"][players]["players"]["phase"];
+    if (this->isMultiplayer)
+    {
+        this->player2Name = j["gamePlaySave"][players]["players"]["player2Name"].get<string>();
+        player2.setPosition({j["gamePlaySave"][players2]["players2"]["player2PositionX"], j["gamePlaySave"][players2]["players2"]["player2PositionY"]});
+    }
+    if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
+        return EXIT_GAME;
+
+    // Da um jeito de dar ums save nos inimigos e dar um load aqui
+}
+
+void PhaseManager::saveState()
+{
+    save.setPhasePlayerName(player1Name, player2Name, isMultiplayer, controller);
+    save.setPlayer1Save(player1.getSave());
+    // Mesmo se o json do player2 for empty, vai ser tratado na classe save
+    save.setPlayer2Save(player2.getSave()); // Eh bom deixar o save do player2 por ultimo, que dai ele ja entra no ultimo espaco do vetor json
+    // SE NAO DEIXAR PARA SETAR O PLAYER2 NO FINAL AQUI, VAI DAR ERRO PARA CARREGAR LAH EM CIMA DE RESTAURAR O SAVE!!!
+    // Seta todos os saves depois chama essa funcao para colocar tudo no json
+    save.continueSave();
 }
 
 void PhaseManager::ResetALL()

@@ -51,6 +51,18 @@ void Player2::draw(sf::RenderWindow &window)
 	window.draw(sprite);
 }
 
+json Player2::getSave()
+{
+	json j;
+	if ((position.x != 2 * 48) && (position.y != 27 * 48))
+	{
+		j["players2"]["player2PositionX"] = position.x;
+		j["players2"]["player2PositionY"] = position.y;
+	}
+
+	return j;
+}
+
 void Player2::spriteAnimation()
 {
 	if (isLookingRight)

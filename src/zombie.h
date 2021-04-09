@@ -15,6 +15,8 @@ namespace Entidade
 
 			void movimentation(float posx);
 			void update(float posx);
+
+			json getSave() override;
 		};
 	}
 }

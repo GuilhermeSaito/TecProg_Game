@@ -2,33 +2,32 @@
 
 using namespace PhaseMap;
 
-PhaseMap1::PhaseMap1(std::string path) :
-    zombiesList(),
-    PhaseMapGeneral(path)
+PhaseMap1::PhaseMap1(std::string path) : zombiesList(),
+                                         PhaseMapGeneral(path)
 {
     // Transforming the image to 1080 x 1440
     for (int i = 0; i < 6; i++)
     {
-        sf::Sprite* sprite = new sf::Sprite;
+        sf::Sprite *sprite = new sf::Sprite;
         sprite->setTexture(*(Data::getInstance()->getBeginnerPhaseBackGround()));
         sprite->setScale(sf::Vector2f(0.5625, 1.5));
-        sprite->setPosition(sf::Vector2f(1080 * i, 48*4));
+        sprite->setPosition(sf::Vector2f(1080 * i, 48 * 4));
         phaseBackGroundSprite.push_back(sprite);
     }
-
 }
 PhaseMap1::~PhaseMap1()
 {
-    for (auto* i : phaseBackGroundSprite)
+    for (auto *i : phaseBackGroundSprite)
         delete i;
 
     //deleta todos os zumbis da lista se estiver vazio
     if (!this->zombiesList.isEmpty())
     {
-        Element<Entidade::Enemy::Zombie>* z = this->zombiesList.getFirst();
+        Element<Entidade::Enemy::Zombie> *z = this->zombiesList.getFirst();
         z = z->getNext();
-        while (z != NULL){
-            Element<Entidade::Enemy::Zombie>* zAux = z->getPrevious();
+        while (z != NULL)
+        {
+            Element<Entidade::Enemy::Zombie> *zAux = z->getPrevious();
             delete zAux;
             z = z->getNext();
         }
@@ -41,7 +40,7 @@ PhaseMap1::~PhaseMap1()
     phaseBackGroundSprite.clear();
 }
 
-void PhaseMap1::update(int& controller)
+void PhaseMap1::update(int &controller)
 {
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
@@ -64,10 +63,9 @@ void PhaseMap1::update(int& controller)
         this->zombiesList.update(player1->getPosition().x);
 }
 
-void PhaseMap1::render(sf::RenderWindow& window, int& controller)
-{                                             
-    sf::View player1View(sf::Vector2f(player1->getPosition()), sf::Vector2f(1120, 672));
-    window.setView(player1View);
+void PhaseMap1::render(sf::RenderWindow &window, int &controller)
+{
+    setViewInPlayer1(window);
 
     sf::Event event;
     if (window.pollEvent(event))
@@ -86,33 +84,31 @@ void PhaseMap1::render(sf::RenderWindow& window, int& controller)
     window.clear();
     renderPhaseBackGround(window);
 
-
     player1->draw(window);
     if (player2 != NULL)
         player2->draw(window);
 
-    
     //rendering all zombies
     if (!this->zombiesList.isEmpty())
         zombiesList.render(window);
 
-	phaseMapManager.draw(window);
+    phaseMapManager.draw(window);
     window.display();
 }
 
-void PhaseMap1::renderPhaseBackGround(sf::RenderWindow& window)
+void PhaseMap1::renderPhaseBackGround(sf::RenderWindow &window)
 {
-    for (auto* i : phaseBackGroundSprite)
+    for (auto *i : phaseBackGroundSprite)
         window.draw(*i);
 }
 
 void PhaseMap1::placingEnemies()
 {
     // For the zombies
-    Entidade::Enemy::Zombie* z1 = new Entidade::Enemy::Zombie({ 5 * TILE_SIZE, 27 * TILE_SIZE }, { 5, 5 }, 50, 15);
-    Entidade::Enemy::Zombie* z2 = new Entidade::Enemy::Zombie({ 32 * TILE_SIZE, 10 * TILE_SIZE }, { 5, 5 }, 50, 15);
-    Entidade::Enemy::Zombie* z3 = new Entidade::Enemy::Zombie({ 72 * TILE_SIZE, 10 * TILE_SIZE }, { 5, 5 }, 50, 15);
-    Entidade::Enemy::Zombie* z4 = new Entidade::Enemy::Zombie({ 120 * TILE_SIZE, 10 * TILE_SIZE }, { 5, 5 }, 50, 15);
+    Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {5, 5}, 50, 15);
+    Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({32 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+    Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie({72 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+    Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie({120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
 
     this->zombiesList.include(z1);
     this->zombiesList.include(z2);
@@ -125,7 +121,7 @@ void PhaseMap1::loadZombieListInCollision()
     collisionManager.setZombieList(&zombiesList);
 }
 
-ListElement<Entidade::Enemy::Zombie>* PhaseMap1::getZombiesList()
+ListElement<Entidade::Enemy::Zombie> *PhaseMap1::getZombiesList()
 {
     return &zombiesList;
 }

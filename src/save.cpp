@@ -17,27 +17,17 @@ Save::~Save()
 {
 }
 
-void Save::continueSave(const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs, sf::Vector2f player1Location, sf::Vector2f player2Location)
+// Classe chamada depois que seta todos os saves
+void Save::continueSave()
 {
 	ofstream out("src/saveFile/continueSave.json", ios::out | ios::trunc);
 	out.exceptions(ios::badbit);
 
-	json j;
-	j["players"]["player1Name"] = player1Name;
-	j["players"]["player1PositionX"] = player1Location.x;
-	j["players"]["player1PositionY"] = player1Location.y;
-	j["players"]["multiplayer"] = multiplayer;
-	j["players"]["phase"] = phaseIs;
-	if (multiplayer)
-	{
-		j["players"]["player2Name"] = player2Name;
-		j["players"]["player2PositionX"] = player2Location.x;
-		j["players"]["player2PositionY"] = player2Location.y;
-	}
-
+	json jSave = json::object();
+	jSave["gamePlaySave"] = jArray;
 	try
 	{
-		out << setw(4) << j << endl;
+		out << setw(4) << jSave << endl;
 	}
 	catch (std::ofstream::failure e)
 	{
@@ -82,4 +72,36 @@ json Save::continueRestore()
 	in.close();
 
 	return j;
+}
+
+void Save::setPhasePlayerName(const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
+{
+	json j = json::object();
+
+	// Na verdade, da para mudar o phaseIs, multiplayer, para outros nomes, mas ai vai ficando grande o save...
+	j["players"]["player1Name"] = player1Name;
+	j["players"]["multiplayer"] = multiplayer;
+	j["players"]["phase"] = phaseIs;
+	if (multiplayer)
+		j["players"]["player2Name"] = player2Name;
+
+	jArray.push_back(j);
+}
+
+void Save::setPlayer1Save(json jPlayer1)
+{
+	jArray.push_back(jPlayer1);
+}
+
+void Save::setZombieSave(json jZombie)
+{
+	jArray.push_back(jZombie);
+}
+
+void Save::setPlayer2Save(json jPlayer2)
+{
+	if (!jPlayer2.empty())
+		jArray.push_back(jPlayer2);
+	else
+		std::cout << "Player 2 json is empty!!" << std::endl;
 }

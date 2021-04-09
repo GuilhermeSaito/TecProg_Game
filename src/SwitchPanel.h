@@ -19,7 +19,7 @@ class SwitchPanel
 {
 public:
 	SwitchPanel() {}
-	~SwitchPanel() {}
+	virtual ~SwitchPanel() {}
 
-	virtual int Start(sf::RenderWindow& window) = 0;
+	virtual int Start(sf::RenderWindow &window) = 0;
 };
