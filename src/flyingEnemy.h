@@ -10,20 +10,23 @@ namespace Entidade
 {
     namespace Enemy
     {
-        class GoblinMage: public EnemyEntity
+        class FlyingEnemy: public EnemyEntity
         {
         private:
             sf::Clock clock;
             sf::Time elapsed;
+            //the following atributes will be used for the wave aquation on the Y axis.
+            float originalYposition;
 
             ListElement<Projectile> projectiles;
 
         public:
-            GoblinMage(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
-			~GoblinMage();
+            FlyingEnemy(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+			~FlyingEnemy();
+
 
             ListElement<Projectile>* getProjectiles();
-            void shootProjectile(sf::Vector2f playerPosition);
+            void shootProjectile();
 
 			void movimentation(sf::Vector2f playerPosition);
 			void update(Entidade::Player::Player1* p);

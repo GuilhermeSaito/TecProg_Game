@@ -27,8 +27,9 @@ private:
 	sf::Texture playerDieBackGround;
 	sf::Texture zombieTexture;
 	sf::Texture goblinMageTexture;
-	sf::Texture reaperFlyTexture;
+	sf::Texture flyingEnemyTexture;
 	sf::Texture bossTexture;
+	sf::Texture projectileTexture;
 
 	sf::Font openMenufont;
 
@@ -57,8 +58,9 @@ public:
 	sf::Texture* getPlayerDieBackGroundTexture();
 	sf::Texture* getZombieTexture();
 	sf::Texture* getGoblinMageTexture();
-	sf::Texture* getReaperFlyTexture();
+	sf::Texture* getFlyingEnemyTexture();
 	sf::Texture* getBossTexture();
+	sf::Texture* getProjectileTexture();
 
 	sf::Font* getOpenMenufont();
 

@@ -21,11 +21,11 @@ Zombie::~Zombie()
 {
 }
 
-void Zombie::movimentation(float posx)
+void Zombie::movimentation(sf::Vector2f playerPosition)
 {
   gravity();
 
-  if (posx <= this->position.x)
+  if (playerPosition.x <= this->position.x)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
@@ -33,7 +33,7 @@ void Zombie::movimentation(float posx)
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
   }
 
-  else if (posx > this->position.x)
+  else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
@@ -49,11 +49,11 @@ void Zombie::movimentation(float posx)
   this->sprite.setPosition(position);
 }
 
-void Zombie::update(float posx)
+void Zombie::update(Entidade::Player::Player1* p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
-  movimentation(posx);
+  movimentation(p->getPosition());
 }
 
 // Ainda precisa colocar a healthBar, e mais algumas coisas, mas por enquanto, soh to colocando as posicoes

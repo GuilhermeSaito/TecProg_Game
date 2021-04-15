@@ -1,4 +1,4 @@
-#include "zombie.h"
+#include "player1.h"
 #include "element.h"
 
 #pragma once
@@ -10,29 +10,57 @@ private:
     Element<KIND>* first;
     Element<KIND>* last;
 
+    //this "quantity" atribute has many utilities
+    int quantity;
+
 public:
     ListElement()
     {
         this->first = NULL;
         this->last = NULL;
+
+        this->quantity = 0;
     }
 
     ~ListElement()
     {
         this->first = NULL;
         this->last = NULL;
+
+        this->quantity = 0;
     }
 
     void setNull()
     {
+        Element<KIND> *z = this->first;
+        if (z->getNext() == NULL)
+        {
+            kill(z);
+        }
+
+        else
+        {
+            z = z->getNext();
+            while (z != NULL && z->getNext() != NULL)
+            {
+                Element<KIND> *zAux = z->getPrevious();
+                kill(zAux);
+                z = z->getNext();
+            }
+            kill(z);
+        }
+
         this->first = NULL;
         this->last = NULL;
+
+        this->quantity = 0;
     }
 
     void include(KIND* z)
     {
         Element<KIND>* aux = new Element<KIND>();
         aux->setInfo(z);
+        //caso a lista esteja vazia
         if (this->first == NULL)
         {
             this->first = aux;
@@ -44,14 +72,16 @@ public:
             aux->setPrevious(this->last);
             this->last = aux;
         }
+
+        this->quantity++;
     }
 
-    void update(float posx)
+    void update(Entidade::Player::Player1* p)
     {
         Element<KIND>* aux = this->first;
         while (aux != NULL)
         {
-            aux->getInfo()->update(posx);
+            aux->getInfo()->update(p);
             aux = aux->getNext();
         }
     }
@@ -108,5 +138,13 @@ public:
         return (this->first == NULL);
     }
 
+    void setQuantity(int i)
+    {
+        this->quantity = i;
+    }
+    const int getQuantity() const
+    {
+        return this->quantity;
+    }
 
 };

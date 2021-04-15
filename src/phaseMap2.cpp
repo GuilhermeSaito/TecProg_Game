@@ -15,28 +15,12 @@ PhaseMap2::~PhaseMap2()
 
     if (!this->zombiesList.isEmpty())
     {
-        Element<Entidade::Enemy::Zombie> *z = this->zombiesList.getFirst();
-        z = z->getNext();
-        while (z != NULL)
-        {
-            Element<Entidade::Enemy::Zombie> *zAux = z->getPrevious();
-            delete zAux;
-            z = z->getNext();
-        }
-        delete z;
+        this->zombiesList.setNull();
     }
 
     if (!this->goblinMagesList.isEmpty())
     {
-        Element<Entidade::Enemy::GoblinMage> *g = this->goblinMagesList.getFirst();
-        g = g->getNext();
-        while (g != NULL)
-        {
-            Element<Entidade::Enemy::GoblinMage> *gAux = g->getPrevious();
-            delete gAux;
-            g = g->getNext();
-        }
-        delete g;
+       this->goblinMagesList.setNull();
     }
 
     collisionManager.clearAllLists();
@@ -46,6 +30,8 @@ PhaseMap2::~PhaseMap2()
 
 void PhaseMap2::update(int &controller)
 {
+    placingEnemies();
+
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
     {
@@ -63,10 +49,10 @@ void PhaseMap2::update(int &controller)
     phaseTransition(controller);
 
     if (!this->zombiesList.isEmpty())
-        this->zombiesList.update(this->player1->getPosition().x);
+        this->zombiesList.update(this->player1);
 
     if (!this->goblinMagesList.isEmpty())
-        this->goblinMagesList.update(this->player1->getPosition().x);
+        this->goblinMagesList.update(this->player1);
 }
 
 void PhaseMap2::render(sf::RenderWindow &window, int &controller)
@@ -109,17 +95,30 @@ void PhaseMap2::renderPhaseBackGround(sf::RenderWindow &window)
         window.draw(*i);
 }
 
+//places enemies according to player's position on the level
 void PhaseMap2::placingEnemies()
 {
-    Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15);
-    Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({32 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
-    Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage({7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
-    Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage({28 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->zombiesList.getQuantity() == 0)
+    {
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->zombiesList.include(z1);
+    }
+    if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->zombiesList.getQuantity() == 1)
+    {
+        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->zombiesList.include(z2);
+    }
 
-    this->zombiesList.include(z1);
-    this->zombiesList.include(z2);
-    this->goblinMagesList.include(g1);
-    this->goblinMagesList.include(g2);
+    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->goblinMagesList.getQuantity() == 0)
+    {
+        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage({7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->goblinMagesList.include(g1);
+    }
+    if (this->player1->getPosition().x >= 60 * TILE_SIZE && this->goblinMagesList.getQuantity() == 1)
+    {
+        Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage({78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->goblinMagesList.include(g2);
+    }
 }
 
 void PhaseMap2::loadEnemiesListsInCollision()

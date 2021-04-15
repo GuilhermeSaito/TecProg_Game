@@ -42,9 +42,11 @@ Data::Data()
 		EXIT_FAILURE;
 	if (!goblinMageTexture.loadFromFile("src/data/enemy/goblinMageTexture.png"))
 		EXIT_FAILURE;
-	if (!reaperFlyTexture.loadFromFile("src/data/enemy/reaperFlyTexture.png"))
+	if (!flyingEnemyTexture.loadFromFile("src/data/enemy/reaperFlyTexture.png"))
 		EXIT_FAILURE;
 	if (!bossTexture.loadFromFile("src/data/enemy/bossTexture.png"))
+		EXIT_FAILURE;
+	if (!projectileTexture.loadFromFile("src/data/enemy/projectileTexture.png"))
 		EXIT_FAILURE;
 
 	if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
@@ -142,13 +144,17 @@ sf::Texture *Data::getGoblinMageTexture()
 {
 	return &goblinMageTexture;
 }
-sf::Texture *Data::getReaperFlyTexture()
+sf::Texture *Data::getFlyingEnemyTexture()
 {
-	return &reaperFlyTexture;
+	return &flyingEnemyTexture;
 }
 sf::Texture *Data::getBossTexture()
 {
 	return &bossTexture;
+}
+sf::Texture *Data::getProjectileTexture()
+{
+	return &projectileTexture;
 }
 
 sf::Font *Data::getOpenMenufont()

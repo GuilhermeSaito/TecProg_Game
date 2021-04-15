@@ -40,8 +40,6 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
         phaseMap2.resetEverythingForTransition();
         phaseMap3.resetEverythingForTransition();
         phaseMap4.resetEverythingForTransition();
-
-        loadEnemiesInLevels();
     }
 
     // O controller eh para saber em qual fase estah, pois se aperta ESC e vai para save
@@ -67,11 +65,13 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
             break;
         case PHASE3:
             controller = phase;
+            phaseMap3.loadEnemiesListsInCollision();
             phaseMap3.update(phase);
             phaseMap3.render(window, phase);
             break;
         case PHASE4:
             controller = phase;
+            phaseMap4.loadEnemiesListsInCollision();
             phaseMap4.update(phase);
             phaseMap4.render(window, phase);
             break;
@@ -126,12 +126,6 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
     }
 
     return 1;
-}
-
-void PhaseManager::loadEnemiesInLevels()
-{
-    phaseMap1.placingEnemies();
-    phaseMap2.placingEnemies();
 }
 
 int PhaseManager::showPlayerDie(sf::RenderWindow &window)

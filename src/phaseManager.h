@@ -39,8 +39,7 @@ namespace PhaseMap
 
 	private:
 		int loadPhaseMap(const bool multiplayer);
-		void loadEnemiesInLevels();
-
+		
 		int showPlayerDie(sf::RenderWindow &window);
 		void normalizeView(sf::RenderWindow &window);
 		void showOptions(sf::RenderWindow &window, int &phase);

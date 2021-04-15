@@ -10,17 +10,17 @@ namespace Entidade
 {
     namespace Enemy
     {
-        class GoblinMage: public EnemyEntity
+        class Boss: public EnemyEntity
         {
         private:
             sf::Clock clock;
             sf::Time elapsed;
-
+            
             ListElement<Projectile> projectiles;
 
         public:
-            GoblinMage(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
-			~GoblinMage();
+            Boss(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+			~Boss();
 
             ListElement<Projectile>* getProjectiles();
             void shootProjectile(sf::Vector2f playerPosition);

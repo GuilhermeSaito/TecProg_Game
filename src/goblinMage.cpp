@@ -3,30 +3,49 @@
 using namespace Entidade::Enemy;
 
 GoblinMage::GoblinMage(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
-	EnemyEntity(pos, spee, hP, attackDamage)
+	  EnemyEntity(pos, spee, hP, attackDamage),
+    projectiles(),
+    clock()
 {
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(33.f, 45.f));
-	rect.setPosition(pos);
+  rect.setPosition(pos);
 
-	sprite.setTexture(*(Data::getInstance()->getGoblinMageTexture()));
-	sprite.setTextureRect(sf::IntRect(0, 0, 33, 45));
-	sprite.setPosition(rect.getPosition());
+  sprite.setTexture(*(Data::getInstance()->getGoblinMageTexture()));
+  sprite.setTextureRect(sf::IntRect(0, 0, 33, 45));
+  sprite.setPosition(rect.getPosition());
 
-	healthBar.setFillColor(sf::Color::Red);
-	// Apagar esse setPosition do healthBar, pois ele vai ficar atualizando quando o inimigo se mover
-	healthBar.setPosition(sf::Vector2f(position.x - 10, position.y - 25));
+  healthBar.setFillColor(sf::Color::Red);
+  // Apagar esse setPosition do healthBar, pois ele vai ficar atualizando quando o inimigo se mover
+  healthBar.setPosition(sf::Vector2f(position.x - 10, position.y - 25));
 }
 GoblinMage::~GoblinMage()
 {
+  this->projectiles.setNull();
 }
 
-void GoblinMage::movimentation(float posx)
+ListElement<Projectile>* GoblinMage::getProjectiles()
+{
+  return &this->projectiles;
+}
+
+void GoblinMage::shootProjectile(sf::Vector2f playerPosition)
+{
+  if (this->projectiles.getQuantity() > 3)
+  {
+    this->projectiles.kill(projectiles.getFirst());
+    this->projectiles.setQuantity(this->projectiles.getQuantity() - 1);
+  }
+    
+  this->projectiles.include(new Projectile(playerPosition, this->position, 10.f));
+}
+
+void GoblinMage::movimentation(sf::Vector2f playerPosition)
 {
   gravity();
 
-  if (posx <= this->position.x)
+  if (playerPosition.x <= this->position.x)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
@@ -34,7 +53,7 @@ void GoblinMage::movimentation(float posx)
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
   }
 
-  else if (posx > this->position.x)
+  else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;
     this->position.x +=this->speed.x;
@@ -50,9 +69,27 @@ void GoblinMage::movimentation(float posx)
   this->sprite.setPosition(position);
 }
 
-void GoblinMage::update(float posx)
+void GoblinMage::update(Entidade::Player::Player1* p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
-  movimentation(posx);
+  movimentation(p->getPosition());
+
+  this->elapsed = this->clock.getElapsedTime();
+  if (this->elapsed.asSeconds() >= 3.0)
+  {
+    shootProjectile(p->getPosition());
+    clock.restart();
+  }
+
+  if (!this->projectiles.isEmpty())
+    projectiles.update(p);
+}
+
+void GoblinMage::render(sf::RenderWindow& window)
+{
+	window.draw(healthBar);
+	window.draw(sprite);
+
+  projectiles.render(window);
 }

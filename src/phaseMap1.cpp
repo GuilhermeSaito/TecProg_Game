@@ -23,17 +23,8 @@ PhaseMap1::~PhaseMap1()
     //deleta todos os zumbis da lista se estiver vazio
     if (!this->zombiesList.isEmpty())
     {
-        Element<Entidade::Enemy::Zombie> *z = this->zombiesList.getFirst();
-        z = z->getNext();
-        while (z != NULL)
-        {
-            Element<Entidade::Enemy::Zombie> *zAux = z->getPrevious();
-            delete zAux;
-            z = z->getNext();
-        }
-        delete z;
+        this->zombiesList.setNull();
     }
-    this->zombiesList.setNull();
 
     collisionManager.clearAllLists();
 
@@ -42,6 +33,8 @@ PhaseMap1::~PhaseMap1()
 
 void PhaseMap1::update(int &controller)
 {
+    placingEnemies();
+
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
     {
@@ -60,7 +53,7 @@ void PhaseMap1::update(int &controller)
 
     //updates all zombies
     if (!this->zombiesList.isEmpty())
-        this->zombiesList.update(player1->getPosition().x);
+        this->zombiesList.update(this->player1);
 }
 
 void PhaseMap1::render(sf::RenderWindow &window, int &controller)
@@ -102,18 +95,31 @@ void PhaseMap1::renderPhaseBackGround(sf::RenderWindow &window)
         window.draw(*i);
 }
 
+//places enemies according to player's position on the level
 void PhaseMap1::placingEnemies()
 {
     // For the zombies
-    Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {5, 5}, 50, 15);
-    Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({32 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
-    Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie({72 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
-    Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie({120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->zombiesList.getQuantity() == 0)
+    {
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {5, 5}, 50, 15);
+        this->zombiesList.include(z1);
+    }
+    if (this->player1->getPosition().x >= 20 * TILE_SIZE && this->zombiesList.getQuantity() == 1)
+    {
+        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({32 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+        this->zombiesList.include(z2);
+    }
+    if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->zombiesList.getQuantity() == 2)
+    {
+        Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie({72 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+        this->zombiesList.include(z3);
+    }
+    if (this->player1->getPosition().x >= 100 * TILE_SIZE && this->zombiesList.getQuantity() == 3)
+    {
+        Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie({120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+        this->zombiesList.include(z4);
+    }
 
-    this->zombiesList.include(z1);
-    this->zombiesList.include(z2);
-    this->zombiesList.include(z3);
-    this->zombiesList.include(z4);
 }
 
 void PhaseMap1::loadZombieListInCollision()
