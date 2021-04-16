@@ -23,7 +23,5 @@ namespace PhaseMap
 		void placingEnemies();
 
 		void loadZombieListInCollision();
-
-		ListElement<Entidade::Enemy::Zombie>* getZombiesList();
 	};
 }

@@ -126,8 +126,3 @@ void PhaseMap1::loadZombieListInCollision()
 {
     collisionManager.setZombieList(&zombiesList);
 }
-
-ListElement<Entidade::Enemy::Zombie> *PhaseMap1::getZombiesList()
-{
-    return &zombiesList;
-}
