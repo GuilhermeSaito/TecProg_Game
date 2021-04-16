@@ -97,3 +97,12 @@ void FlyingEnemy::render(sf::RenderWindow& window)
   projectiles.render(window);
 }
 
+json FlyingEnemy::getSave()
+{
+  json j = json::object();
+
+  j["flyingEnemy"]["positionX"] = position.x;
+  j["flyingEnemy"]["positionY"] = position.y;
+
+  return j;
+}

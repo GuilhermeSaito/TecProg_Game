@@ -93,3 +93,13 @@ void GoblinMage::render(sf::RenderWindow& window)
 
   projectiles.render(window);
 }
+
+json GoblinMage::getSave()
+{
+  json j = json::object();
+
+  j["goblinMage"]["positionX"] = position.x;
+  j["goblinMage"]["positionY"] = position.y;
+
+  return j;
+}

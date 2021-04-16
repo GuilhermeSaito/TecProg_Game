@@ -28,7 +28,5 @@ namespace Entidade
 		int getAttackDamage();
 
 		virtual void render(sf::RenderWindow &window);
-
-		virtual json getSave() {}
 	};
 }

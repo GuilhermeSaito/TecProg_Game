@@ -76,7 +76,7 @@ void PhaseMap4::render(sf::RenderWindow &window, int &controller)
 
 void PhaseMap4::placingEnemies()
 {
-    elapsed = clock.getElapsedTime();
+    this->elapsed = this->clock.getElapsedTime();
     
     if (elapsed.asSeconds() >= 15 && this->flyingEnemiesList.getQuantity() == 0)
     {

@@ -2,22 +2,15 @@
     "gamePlaySave": [
         {
             "players": {
-                "multiplayer": true,
+                "multiplayer": false,
                 "phase": 11,
-                "player1Name": "dw",
-                "player2Name": "aw"
+                "player1Name": ""
             }
         },
         {
             "players1": {
-                "player1PositionX": 1272.0,
-                "player1PositionY": 740.0999755859375
-            }
-        },
-        {
-            "players2": {
-                "player2PositionX": 1488.0,
-                "player2PositionY": 885.5999755859375
+                "player1PositionX": 96.0,
+                "player1PositionY": 1344.0
             }
         }
     ]

@@ -147,9 +147,7 @@ void CollisionManager::zombiesCollisionY()
 		{	
 			//aux guarda a informação de z.next, uma vez que ele será deletado logo após na função kill da classe template Lista
 			Element<Entidade::Enemy::Zombie>* aux = z->getNext();
-			std::cout << "entrou pra matar" << std::endl;
 			this->zombiesList->kill(z);
-			std::cout << "matou" << std::endl;
 			z = aux;
 			//continue pois z já recebeu o que seria seu próximo
 			continue;

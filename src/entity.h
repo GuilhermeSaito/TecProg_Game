@@ -57,6 +57,6 @@ namespace Entidade
 		const float getAttackDamage() const;
 		void setAttackDamage(const float attack);
 
-		virtual json getSave() {}
+		virtual json getSave() = 0;
 	};
 }

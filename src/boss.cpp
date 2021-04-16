@@ -94,3 +94,13 @@ void Boss::render(sf::RenderWindow& window)
 
   projectiles.render(window);
 }
+
+json Boss::getSave()
+{
+  json j = json::object();
+
+  j["boss"]["positionX"] = position.x;
+  j["boss"]["positionY"] = position.y;
+
+  return j;
+}

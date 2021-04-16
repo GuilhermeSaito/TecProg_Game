@@ -269,6 +269,8 @@ void PhaseManager::saveState()
     save.setPhasePlayerName(player1Name, player2Name, isMultiplayer, controller);
     save.setPlayer1Save(player1.getSave());
     // Mesmo se o json do player2 for empty, vai ser tratado na classe save
+
+    
     save.setPlayer2Save(player2.getSave()); // Eh bom deixar o save do player2 por ultimo, que dai ele ja entra no ultimo espaco do vetor json
     // SE NAO DEIXAR PARA SETAR O PLAYER2 NO FINAL AQUI, VAI DAR ERRO PARA CARREGAR LAH EM CIMA DE RESTAURAR O SAVE!!!
     // Seta todos os saves depois chama essa funcao para colocar tudo no json

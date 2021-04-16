@@ -28,6 +28,8 @@ namespace Entidade
 			void movimentation(sf::Vector2f playerPosition);
 			void update(Entidade::Player::Player1* p);
             void render(sf::RenderWindow &window);
+
+            json getSave() override;
         };
     }
 }
