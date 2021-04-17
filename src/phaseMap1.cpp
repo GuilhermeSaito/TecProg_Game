@@ -19,6 +19,7 @@ PhaseMap1::~PhaseMap1()
 {
     for (auto *i : phaseBackGroundSprite)
         delete i;
+    phaseBackGroundSprite.clear();
 
     //deleta todos os zumbis da lista se estiver vazio
     if (!this->zombiesList.isEmpty())
@@ -27,8 +28,6 @@ PhaseMap1::~PhaseMap1()
     }
 
     collisionManager.clearAllLists();
-
-    phaseBackGroundSprite.clear();
 }
 
 void PhaseMap1::update(int &controller)
@@ -58,7 +57,7 @@ void PhaseMap1::update(int &controller)
 
 void PhaseMap1::render(sf::RenderWindow &window, int &controller)
 {
-    setViewInPlayer1(window);
+    setViewInPlayer1(window, controller);
 
     sf::Event event;
     if (window.pollEvent(event))
@@ -119,7 +118,6 @@ void PhaseMap1::placingEnemies()
         Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie({120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
         this->zombiesList.include(z4);
     }
-
 }
 
 void PhaseMap1::loadZombieListInCollision()

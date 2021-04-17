@@ -26,7 +26,7 @@ bool PhaseMapGeneral::loadPhaseMap()
     return flag;
 }
 
-void PhaseMapGeneral::setViewInPlayer1(sf::RenderWindow &window)
+void PhaseMapGeneral::setViewInPlayer1(sf::RenderWindow &window, const int controller)
 {
     if (player1 != NULL)
         if ((player1->getPosition().x - (12 * TILE_SIZE)) < 0)
@@ -34,9 +34,14 @@ void PhaseMapGeneral::setViewInPlayer1(sf::RenderWindow &window)
         else if (player1->getPosition().x > 123 * TILE_SIZE)
             player1View.setCenter(sf::Vector2f(123 * TILE_SIZE, 23 * TILE_SIZE));
         else if (player1->getPosition().y < 21 * TILE_SIZE)
-            player1View.setCenter(sf::Vector2f(player1->getPosition().x, player1->getPosition().y));
+        {
+            if (controller != PHASE4)
+                player1View.setCenter(sf::Vector2f(player1->getPosition().x, player1->getPosition().y));
+        }
         else
             player1View.setCenter(sf::Vector2f(player1->getPosition().x, 23 * TILE_SIZE));
+    // Pegando o View aqui e colocando no player 1 pois eu preciso saber o center do view para colocar o score certinho na tela
+    player1->setPlayer1View(&player1View);
     window.setView(player1View);
 }
 

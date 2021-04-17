@@ -6,12 +6,21 @@ PhaseMap2::PhaseMap2(std::string path) : PhaseMapGeneral(path),
                                          zombiesList(),
                                          goblinMagesList()
 {
-    // Transforming the image to 1080 x 720
+    // Transforming the image to 1080 x 1440
+    for (int i = 0; i < 6; i++)
+    {
+        sf::Sprite *sprite = new sf::Sprite;
+        sprite->setTexture(*(Data::getInstance()->getBlueOceanPhaseBackGround()));
+        sprite->setScale(sf::Vector2f(0.308571429, 0.731335703));
+        sprite->setPosition(sf::Vector2f(1080 * i, 48 * 4));
+        phaseBackGroundSprite.push_back(sprite);
+    }
 }
 PhaseMap2::~PhaseMap2()
 {
     for (auto *i : phaseBackGroundSprite)
         delete i;
+    phaseBackGroundSprite.clear();
 
     if (!this->zombiesList.isEmpty())
     {
@@ -20,12 +29,10 @@ PhaseMap2::~PhaseMap2()
 
     if (!this->goblinMagesList.isEmpty())
     {
-       this->goblinMagesList.setNull();
+        this->goblinMagesList.setNull();
     }
 
     collisionManager.clearAllLists();
-
-    phaseBackGroundSprite.clear();
 }
 
 void PhaseMap2::update(int &controller)
@@ -57,7 +64,7 @@ void PhaseMap2::update(int &controller)
 
 void PhaseMap2::render(sf::RenderWindow &window, int &controller)
 {
-    setViewInPlayer1(window);
+    setViewInPlayer1(window, controller);
 
     sf::Event event;
     if (window.pollEvent(event))

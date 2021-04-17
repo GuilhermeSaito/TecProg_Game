@@ -9,8 +9,10 @@
         },
         {
             "players1": {
-                "player1PositionX": 96.0,
-                "player1PositionY": 1344.0
+                "hp": 100.0,
+                "player1PositionX": 616.0,
+                "player1PositionY": 888.0,
+                "score": 0
             }
         }
     ]

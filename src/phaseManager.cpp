@@ -249,31 +249,39 @@ void PhaseManager::showOptions(sf::RenderWindow &window, int &phase)
 const int PhaseManager::loadState(json j)
 {
     int players = 0, players1 = 1, players2 = j["gamePlaySave"].size() - 1;
-    this->player1Name = j["gamePlaySave"][players]["players"]["player1Name"].get<string>();
+    //------------------- Load do Player1 -------------------
     player1.setPosition({j["gamePlaySave"][players1]["players1"]["player1PositionX"], j["gamePlaySave"][players1]["players1"]["player1PositionY"]});
+    player1.setHp(j["gamePlaySave"][players1]["players1"]["hp"]);
+    player1.setScore(j["gamePlaySave"][players1]["players1"]["score"]);
+    //------------------- Load do "Map" -------------------
+    this->player1Name = j["gamePlaySave"][players]["players"]["player1Name"].get<string>();
     this->isMultiplayer = j["gamePlaySave"][players]["players"]["multiplayer"];
     controller = j["gamePlaySave"][players]["players"]["phase"];
+    //------------------- Load do Player2 -------------------
     if (this->isMultiplayer)
     {
         this->player2Name = j["gamePlaySave"][players]["players"]["player2Name"].get<string>();
         player2.setPosition({j["gamePlaySave"][players2]["players2"]["player2PositionX"], j["gamePlaySave"][players2]["players2"]["player2PositionY"]});
+        player2.setHp(j["gamePlaySave"][players2]["players2"]["hp"]);
     }
+    //------------------- Load dos Inimitgos -------------------
+    //  :D e.e :v U.U
     if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
         return EXIT_GAME;
-
-    // Da um jeito de dar ums save nos inimigos e dar um load aqui
 }
 
 void PhaseManager::saveState()
 {
+    //------------------- Save da "phase" -------------------
     save.setPhasePlayerName(player1Name, player2Name, isMultiplayer, controller);
+    //------------------- Save do Player1 -------------------
     save.setPlayer1Save(player1.getSave());
     // Mesmo se o json do player2 for empty, vai ser tratado na classe save
-
-    
+    //------------------- Save do Player2 -------------------
     save.setPlayer2Save(player2.getSave()); // Eh bom deixar o save do player2 por ultimo, que dai ele ja entra no ultimo espaco do vetor json
     // SE NAO DEIXAR PARA SETAR O PLAYER2 NO FINAL AQUI, VAI DAR ERRO PARA CARREGAR LAH EM CIMA DE RESTAURAR O SAVE!!!
     // Seta todos os saves depois chama essa funcao para colocar tudo no json
+    //------------------- Save dos Inimigos -------------------
     save.continueSave();
 }
 

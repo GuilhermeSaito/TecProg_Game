@@ -31,6 +31,7 @@ namespace PhaseMap
 
 		CollisionManager collisionManager;
 
+		// Em vez de ir criando varios Sprite para o background, eu coloco tudo no vector, dai eh soh percorrer e dar um draw
 		std::vector<sf::Sprite *> phaseBackGroundSprite;
 
 	public:
@@ -42,7 +43,7 @@ namespace PhaseMap
 		bool loadPhaseMap();
 
 	protected:
-		void setViewInPlayer1(sf::RenderWindow &window);
+		void setViewInPlayer1(sf::RenderWindow &window, const int controller);
 		void phaseTransition(int &contoller);
 		bool isPlayerDead();
 

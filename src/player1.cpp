@@ -3,7 +3,9 @@
 using namespace Entidade::Player;
 
 Player1::Player1(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(pos, spee, hP, attackDamage),
-																					  contAnimation(0)
+																					  contAnimation(0),
+																					  score(0),
+																					  player1View(NULL)
 {
 	rect.setPosition(pos);
 
@@ -11,9 +13,14 @@ Player1::Player1(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDama
 	sprite.setPosition(rect.getPosition());
 
 	healthBar.setFillColor(sf::Color::Blue);
+
+	textScore.setFont(*(Data::getInstance()->getOpenMenufont()));
+	textScore.setCharacterSize(30);
+	textScore.setString("Score: " + std::to_string(score));
 }
 Player1::~Player1()
 {
+	player1View = NULL;
 }
 
 void Player1::movementation()
@@ -46,9 +53,22 @@ void Player1::movementation()
 
 void Player1::draw(sf::RenderWindow &window)
 {
+	if (player1View != NULL)
+		textScore.setPosition(player1View->getCenter().x + 48 * 8, player1View->getCenter().y - 48 * 7);
+	window.draw(textScore);
 	window.draw(healthBar);
 
 	window.draw(sprite);
+}
+
+void Player1::setPlayer1View(sf::View *player1View) { this->player1View = player1View; }
+
+void Player1::setScore(const int s) { score = s; }
+const int Player1::getScore() const { return score; }
+void Player1::updateScore(const int somaPontos)
+{
+	score += somaPontos;
+	textScore.setString("Score: " + std::to_string(score));
 }
 
 json Player1::getSave()
@@ -56,6 +76,8 @@ json Player1::getSave()
 	json j;
 	j["players1"]["player1PositionX"] = position.x;
 	j["players1"]["player1PositionY"] = position.y;
+	j["players1"]["hp"] = hp;
+	j["players1"]["score"] = score;
 
 	return j;
 }

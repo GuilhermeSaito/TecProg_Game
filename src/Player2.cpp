@@ -58,6 +58,7 @@ json Player2::getSave()
 	{
 		j["players2"]["player2PositionX"] = position.x;
 		j["players2"]["player2PositionY"] = position.y;
+		j["players2"]["hp"] = hp;
 	}
 
 	return j;
