@@ -1,6 +1,9 @@
 #pragma once
 
 #include "entity.h"
+#include "listManager.h"
+#include "projectile.h"
+#include "player1.h"
 
 namespace Entidade
 {
@@ -10,6 +13,7 @@ namespace Entidade
 		bool canHitPlayer1;
 		bool canHitPlayer2;
 		bool isDead;
+		bool hasProjectiles;
 
 		int attackDamage = 0;
 
@@ -24,9 +28,15 @@ namespace Entidade
 		const bool getIsDead() const;
 		void setIsDead(const bool dead);
 
+		const bool getHasProjectiles() const;
+		void setHasProjectiles(const bool y);
+
 		void setAttackDamage(int attack);
 		int getAttackDamage();
 
-		virtual void render(sf::RenderWindow &window);
+		virtual ListElement<Projectile>* getProjectiles() = 0;
+		virtual void movimentation(sf::Vector2f playerPosition) = 0;
+		virtual void update(Entidade::Player::Player1* p) = 0;
+		virtual void render(sf::RenderWindow &window) = 0;
 	};
 }

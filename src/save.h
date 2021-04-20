@@ -13,6 +13,7 @@ namespace SaveGame
 	{
 	private:
 		json jArray = json::array();
+		json jArrayEnemies = json::array();
 
 	public:
 		Save();
@@ -23,7 +24,7 @@ namespace SaveGame
 
 		void setPhasePlayerName(const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs);
 		void setPlayer1Save(json jPlayer1);
-		void setZombieSave(json jZombie);
+		void setEnemiesSave(json jZombie);
 		void setPlayer2Save(json jPlayer2);
 	};
 }

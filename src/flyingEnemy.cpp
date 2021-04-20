@@ -11,6 +11,7 @@ FlyingEnemy::FlyingEnemy(sf::Vector2f pos, sf::Vector2f spee, float hP, float at
     clock(),
     originalYposition(pos.y)
 {
+    this->hasProjectiles = true;
     this->walkSpeed = spee.x;
 
     rect.setSize(sf::Vector2f(38.f, 42.f));
@@ -101,8 +102,10 @@ json FlyingEnemy::getSave()
 {
   json j = json::object();
 
-  j["flyingEnemy"]["positionX"] = position.x;
-  j["flyingEnemy"]["positionY"] = position.y;
+  j["kind"] = FLYING_ENEMY;
+  j["positionX"] = this->position.x;
+  j["positionY"] = this->position.y;
+  j["hp"] = this->hp;
 
   return j;
 }

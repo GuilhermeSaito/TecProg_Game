@@ -27,6 +27,8 @@ namespace PhaseMap
 		Entidade::Player::Player1 *player1;
 		Entidade::Player::Player2 *player2;
 
+		EnemiesList enemiesList;
+
 		sf::View player1View;
 
 		CollisionManager collisionManager;
@@ -52,6 +54,8 @@ namespace PhaseMap
 
 		void setPlayer1(Entidade::Player::Player1 *p1);
 		void setPlayer2(Entidade::Player::Player2 *p2);
+		void loadEnemiesListInCollision();
+		EnemiesList* getEnemiesList();
 
 		void ResetAll();
 	};

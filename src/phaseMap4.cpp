@@ -4,9 +4,7 @@ using namespace PhaseMap;
 
 PhaseMap4::PhaseMap4(std::string path) : PhaseMapGeneral(path),
                                          clock(),
-                                         elapsed(),
-                                         boss({50 * TILE_SIZE, 10 * TILE_SIZE}, {4.f, 4.f}, 300.f, 15.f),
-                                         flyingEnemiesList()
+                                         elapsed()
 {
     // Transforming the image to 1080 x 1440
     // Esse aqui vou colocar em dimensoes um pouco diferentes
@@ -45,11 +43,8 @@ void PhaseMap4::update(int &controller)
         player2->movementation();
     }
 
-    if (!this->flyingEnemiesList.isEmpty())
-        this->flyingEnemiesList.update(this->player1);
-
-    //if (clock.getElapsedTime().asSeconds() > 10)
-    this->boss.update(this->player1);
+    if (!this->enemiesList.isEmpty())
+        this->enemiesList.update(this->player1);
 
     phaseTransition(controller);
 }
@@ -78,10 +73,8 @@ void PhaseMap4::render(sf::RenderWindow &window, int &controller)
     if (player2 != NULL)
         player2->draw(window);
 
-    if (!this->flyingEnemiesList.isEmpty())
-        this->flyingEnemiesList.render(window);
-
-    this->boss.render(window);
+    if (!this->enemiesList.isEmpty())
+        this->enemiesList.render(window);
 
     phaseMapManager.draw(window);
     window.display();
@@ -97,21 +90,27 @@ void PhaseMap4::placingEnemies()
 {
     this->elapsed = this->clock.getElapsedTime();
 
-    if (elapsed.asSeconds() >= 15 && this->flyingEnemiesList.getQuantity() == 0)
+    if (elapsed.asSeconds() >= 4 && this->enemiesList.getQuantity() == 0)
+    {
+        std::cout << elapsed.asSeconds() << std::endl;
+        Entidade::Enemy::Boss *b = new Entidade::Enemy::Boss({50 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 300, 30.f);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(b));
+    }
+    if (elapsed.asSeconds() >= 15 && this->enemiesList.getQuantity() == 1)
     {
         std::cout << elapsed.asSeconds() << std::endl;
         Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy({7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->flyingEnemiesList.include(f1);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(f1));
     }
-    if (elapsed.asSeconds() >= 25 && this->flyingEnemiesList.getQuantity() == 1)
+    if (elapsed.asSeconds() >= 25 && this->enemiesList.getQuantity() == 2)
     {
         std::cout << elapsed.asSeconds() << std::endl;
         Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy({65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->flyingEnemiesList.include(f2);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(f2));
     }
 }
-void PhaseMap4::loadEnemiesListsInCollision()
+
+void PhaseMap4::resetClock()
 {
-    collisionManager.setBoss(&this->boss);
-    collisionManager.setFlyingEnemiesList(&this->flyingEnemiesList);
+    this->clock.restart();
 }

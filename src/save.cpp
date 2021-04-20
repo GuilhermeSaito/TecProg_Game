@@ -23,6 +23,12 @@ void Save::continueSave()
 	ofstream out("src/saveFile/continueSave.json", ios::out | ios::trunc);
 	out.exceptions(ios::badbit);
 
+	//creating the object that will contain all the information from jArrayEnemies
+	json jObjEnemy = json::object();
+	jObjEnemy["enemies"] = jArrayEnemies;
+	//including this object in the main array
+	jArray.push_back(jObjEnemy);
+
 	json jSave = json::object();
 	jSave["gamePlaySave"] = jArray;
 	try
@@ -93,9 +99,9 @@ void Save::setPlayer1Save(json jPlayer1)
 	jArray.push_back(jPlayer1);
 }
 
-void Save::setZombieSave(json jZombie)
+void Save::setEnemiesSave(json jEnemie)
 {
-	jArray.push_back(jZombie);
+	jArrayEnemies.push_back(jEnemie);
 }
 
 void Save::setPlayer2Save(json jPlayer2)

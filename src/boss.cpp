@@ -7,6 +7,7 @@ Boss::Boss(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
     projectiles(),
     clock()
 {
+  this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(2*87.f, 2*96.f));
@@ -99,8 +100,10 @@ json Boss::getSave()
 {
   json j = json::object();
 
-  j["boss"]["positionX"] = position.x;
-  j["boss"]["positionY"] = position.y;
+  j["kind"] = BOSS; 
+  j["positionX"] = position.x;
+  j["positionY"] = position.y;
+  j["hp"] = this->hp;
 
   return j;
 }

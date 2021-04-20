@@ -21,6 +21,8 @@ namespace PhaseMap
 		Entidade::Player::Player1 player1;
 		Entidade::Player::Player2 player2;
 
+		EnemiesList* enemiesList;
+
 		SaveGame::Save save;
 
 		string player1Name;

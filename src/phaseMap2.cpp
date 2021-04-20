@@ -2,9 +2,7 @@
 
 using namespace PhaseMap;
 
-PhaseMap2::PhaseMap2(std::string path) : PhaseMapGeneral(path),
-                                         zombiesList(),
-                                         goblinMagesList()
+PhaseMap2::PhaseMap2(std::string path) : PhaseMapGeneral(path)
 {
     // Transforming the image to 1080 x 1440
     for (int i = 0; i < 6; i++)
@@ -22,14 +20,9 @@ PhaseMap2::~PhaseMap2()
         delete i;
     phaseBackGroundSprite.clear();
 
-    if (!this->zombiesList.isEmpty())
+    if (!this->enemiesList.isEmpty())
     {
-        this->zombiesList.setNull();
-    }
-
-    if (!this->goblinMagesList.isEmpty())
-    {
-        this->goblinMagesList.setNull();
+        this->enemiesList.setNull();
     }
 
     collisionManager.clearAllLists();
@@ -55,11 +48,8 @@ void PhaseMap2::update(int &controller)
     }
     phaseTransition(controller);
 
-    if (!this->zombiesList.isEmpty())
-        this->zombiesList.update(this->player1);
-
-    if (!this->goblinMagesList.isEmpty())
-        this->goblinMagesList.update(this->player1);
+    if (!this->enemiesList.isEmpty())
+        this->enemiesList.update(this->player1);
 }
 
 void PhaseMap2::render(sf::RenderWindow &window, int &controller)
@@ -86,11 +76,8 @@ void PhaseMap2::render(sf::RenderWindow &window, int &controller)
         player2->draw(window);
 
     //rendering enemies
-    if (!this->zombiesList.isEmpty())
-        this->zombiesList.render(window);
-
-    if (!this->goblinMagesList.isEmpty())
-        this->goblinMagesList.render(window);
+    if (!this->enemiesList.isEmpty())
+        this->enemiesList.render(window);
 
     phaseMapManager.draw(window);
     window.display();
@@ -105,31 +92,18 @@ void PhaseMap2::renderPhaseBackGround(sf::RenderWindow &window)
 //places enemies according to player's position on the level
 void PhaseMap2::placingEnemies()
 {
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->zombiesList.getQuantity() == 0)
+    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
     {
         Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->zombiesList.include(z1);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(z1));
+        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage({7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(g1));
     }
-    if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->zombiesList.getQuantity() == 1)
+    if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->enemiesList.getQuantity() == 2)
     {
         Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->zombiesList.include(z2);
-    }
-
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->goblinMagesList.getQuantity() == 0)
-    {
-        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage({7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->goblinMagesList.include(g1);
-    }
-    if (this->player1->getPosition().x >= 60 * TILE_SIZE && this->goblinMagesList.getQuantity() == 1)
-    {
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(z2));
         Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage({78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->goblinMagesList.include(g2);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(g2));
     }
-}
-
-void PhaseMap2::loadEnemiesListsInCollision()
-{
-    collisionManager.setZombieList(&this->zombiesList);
-    collisionManager.setGoblinMageList(&this->goblinMagesList);
 }

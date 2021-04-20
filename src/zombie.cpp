@@ -4,6 +4,7 @@ using namespace Entidade::Enemy;
 
 Zombie::Zombie(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(pos, spee, hP, attackDamage)
 {
+  this->hasProjectiles = false;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(32.f, 47.f));
@@ -56,13 +57,26 @@ void Zombie::update(Entidade::Player::Player1* p)
   movimentation(p->getPosition());
 }
 
+void Zombie::render(sf::RenderWindow& window)
+{
+	window.draw(healthBar);
+	window.draw(sprite);
+}
+
+ListElement<Projectile>* Zombie::getProjectiles()
+{
+  return NULL;
+}
+
 // Ainda precisa colocar a healthBar, e mais algumas coisas, mas por enquanto, soh to colocando as posicoes
 json Zombie::getSave()
 {
   json j = json::object();
 
-  j["zombie"]["positionX"] = position.x;
-  j["zombie"]["positionY"] = position.y;
+  j["kind"] = ZOMBIE;
+  j["positionX"] = this->position.x;
+  j["positionY"] = this->position.y;
+  j["hp"] = this->hp;
 
   return j;
 }

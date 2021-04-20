@@ -4,6 +4,8 @@
 #include "data.h"
 #include "player1.h"
 
+#define ZOMBIE 31
+
 namespace Entidade
 {
 	namespace Enemy
@@ -15,7 +17,10 @@ namespace Entidade
 			~Zombie();
 
 			void movimentation(sf::Vector2f playerPosition);
-			void update(Entidade::Player::Player1* p);
+			void update(Entidade::Player::Player1* p) override;
+			void render(sf::RenderWindow &window) override;
+
+			ListElement<Projectile>* getProjectiles();
 
 			json getSave() override;
 		};

@@ -1,8 +1,9 @@
 #include "enemyEntity.h"
 #include "data.h"
-#include "listManager.h"
 #include "projectile.h"
 #include "player1.h"
+
+#define BOSS 34
 
 #pragma once
 
@@ -26,8 +27,8 @@ namespace Entidade
             void shootProjectile(sf::Vector2f playerPosition);
 
 			void movimentation(sf::Vector2f playerPosition);
-			void update(Entidade::Player::Player1* p);
-            void render(sf::RenderWindow &window);
+			void update(Entidade::Player::Player1* p) override;
+            void render(sf::RenderWindow &window) override;
 
             json getSave() override;
         };

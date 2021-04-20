@@ -4,7 +4,8 @@ using namespace PhaseMap;
 
 PhaseMapGeneral::PhaseMapGeneral(std::string path) : phaseMapManager(path),
                                                      player1(NULL),
-                                                     player2(NULL)
+                                                     player2(NULL),
+                                                     enemiesList()
 {
     player1View.setSize(sf::Vector2f(1120, 672));
 }
@@ -79,6 +80,9 @@ void PhaseMapGeneral::resetEverythingForTransition()
     if (player2 != NULL)
         player2->setPosition({2 * TILE_SIZE, 27 * TILE_SIZE});
 
+    if (!enemiesList.isEmpty())
+        enemiesList.setNull();
+
     collisionManager.clearAllLists();
 }
 
@@ -93,9 +97,20 @@ void PhaseMapGeneral::setPlayer2(Entidade::Player::Player2 *p2)
     collisionManager.setPlayer2(p2);
 }
 
+void PhaseMapGeneral::loadEnemiesListInCollision()
+{
+    collisionManager.setEnemiesList(&enemiesList);
+}
+EnemiesList* PhaseMapGeneral::getEnemiesList()
+{
+    return &enemiesList;
+}
+
 void PhaseMapGeneral::ResetAll()
 {
     player1 = NULL;
     player2 = NULL;
+    if (!enemiesList.isEmpty())
+        enemiesList.setNull();
     collisionManager.ResetAll();
 }

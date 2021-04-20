@@ -6,7 +6,8 @@ EnemyEntity::EnemyEntity(sf::Vector2f pos, sf::Vector2f spee, float hp, float at
 	Entity(pos, spee, hp, attack),
 	canHitPlayer1(true),
 	canHitPlayer2(true),
-	isDead(false)
+	isDead(false),
+	hasProjectiles(false)
 {
 }
 EnemyEntity::~EnemyEntity()
@@ -21,6 +22,9 @@ const bool EnemyEntity::getCanHitPlayer2() const { return canHitPlayer2; }
 const bool EnemyEntity::getIsDead() const { return isDead; }
 void EnemyEntity::setIsDead(const bool dead) { isDead = dead; }
 
+const bool EnemyEntity::getHasProjectiles() const {return hasProjectiles;}
+void EnemyEntity::setHasProjectiles(const bool y) {hasProjectiles = y;}
+
 void EnemyEntity::setAttackDamage(int attack)
 {
 	this->attackDamage = attack;
@@ -28,10 +32,4 @@ void EnemyEntity::setAttackDamage(int attack)
 int EnemyEntity::getAttackDamage()
 {
 	return this->attackDamage;
-}
-
-void EnemyEntity::render(sf::RenderWindow& window)
-{
-	window.draw(healthBar);
-	window.draw(sprite);
 }

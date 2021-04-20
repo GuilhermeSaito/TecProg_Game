@@ -9,7 +9,8 @@ PhaseManager::PhaseManager() : phaseMap1("src/data/phaseMap/PhaseMapsJson/phaseM
                                player1({2 * 48, 27 * 48}, {0, 0}, 100, 30),
                                player2({3 * 48, 27 * 48}, {0, 0}, 100, 40.5),
                                needToLoadPhase(true),
-                               controller(EXIT_GAME)
+                               controller(EXIT_GAME),
+                               enemiesList(NULL)
 {
 }
 
@@ -53,25 +54,29 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
         {
         case PHASE1:
             controller = phase;
-            phaseMap1.loadZombieListInCollision();
+            this->enemiesList = phaseMap1.getEnemiesList();
+            phaseMap1.loadEnemiesListInCollision();
             phaseMap1.update(phase);
             phaseMap1.render(window, phase);
             break;
         case PHASE2:
             controller = phase;
-            phaseMap2.loadEnemiesListsInCollision();
+            this->enemiesList = phaseMap2.getEnemiesList();
+            phaseMap2.loadEnemiesListInCollision();
             phaseMap2.update(phase);
             phaseMap2.render(window, phase);
             break;
         case PHASE3:
             controller = phase;
-            phaseMap3.loadEnemiesListsInCollision();
+            this->enemiesList = phaseMap3.getEnemiesList();
+            phaseMap3.loadEnemiesListInCollision();
             phaseMap3.update(phase);
             phaseMap3.render(window, phase);
             break;
         case PHASE4:
             controller = phase;
-            phaseMap4.loadEnemiesListsInCollision();
+            this->enemiesList = phaseMap4.getEnemiesList();
+            phaseMap4.loadEnemiesListInCollision();
             phaseMap4.update(phase);
             phaseMap4.render(window, phase);
             break;
@@ -264,8 +269,8 @@ const int PhaseManager::loadState(json j)
         player2.setPosition({j["gamePlaySave"][players2]["players2"]["player2PositionX"], j["gamePlaySave"][players2]["players2"]["player2PositionY"]});
         player2.setHp(j["gamePlaySave"][players2]["players2"]["hp"]);
     }
-    //------------------- Load dos Inimitgos -------------------
-    //  :D e.e :v U.U
+    //------------------- Load dos Inimigos -------------------
+    //  :D e.e :v U.U UwU
     if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
         return EXIT_GAME;
 }
@@ -276,6 +281,13 @@ void PhaseManager::saveState()
     save.setPhasePlayerName(player1Name, player2Name, isMultiplayer, controller);
     //------------------- Save do Player1 -------------------
     save.setPlayer1Save(player1.getSave());
+    //------------------- Save dos Inimigos -------------------
+    Element<Entidade::EnemyEntity>* e = this->enemiesList->getFirst();
+    while(e != NULL)
+    {
+        save.setEnemiesSave(e->getInfo()->getSave());
+        e = e->getNext();
+    }
     // Mesmo se o json do player2 for empty, vai ser tratado na classe save
     //------------------- Save do Player2 -------------------
     save.setPlayer2Save(player2.getSave()); // Eh bom deixar o save do player2 por ultimo, que dai ele ja entra no ultimo espaco do vetor json

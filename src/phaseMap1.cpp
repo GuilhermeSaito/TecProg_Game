@@ -2,8 +2,7 @@
 
 using namespace PhaseMap;
 
-PhaseMap1::PhaseMap1(std::string path) : zombiesList(),
-                                         PhaseMapGeneral(path)
+PhaseMap1::PhaseMap1(std::string path) : PhaseMapGeneral(path)
 {
     // Transforming the image to 1080 x 1440
     for (int i = 0; i < 6; i++)
@@ -22,9 +21,9 @@ PhaseMap1::~PhaseMap1()
     phaseBackGroundSprite.clear();
 
     //deleta todos os zumbis da lista se estiver vazio
-    if (!this->zombiesList.isEmpty())
+    if (!this->enemiesList.isEmpty())
     {
-        this->zombiesList.setNull();
+        this->enemiesList.setNull();
     }
 
     collisionManager.clearAllLists();
@@ -51,8 +50,8 @@ void PhaseMap1::update(int &controller)
     phaseTransition(controller);
 
     //updates all zombies
-    if (!this->zombiesList.isEmpty())
-        this->zombiesList.update(this->player1);
+    if (!this->enemiesList.isEmpty())
+        this->enemiesList.update(this->player1);
 }
 
 void PhaseMap1::render(sf::RenderWindow &window, int &controller)
@@ -81,8 +80,8 @@ void PhaseMap1::render(sf::RenderWindow &window, int &controller)
         player2->draw(window);
 
     //rendering all zombies
-    if (!this->zombiesList.isEmpty())
-        zombiesList.render(window);
+    if (!this->enemiesList.isEmpty())
+        enemiesList.render(window);
 
     phaseMapManager.draw(window);
     window.display();
@@ -98,29 +97,24 @@ void PhaseMap1::renderPhaseBackGround(sf::RenderWindow &window)
 void PhaseMap1::placingEnemies()
 {
     // For the zombies
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->zombiesList.getQuantity() == 0)
+    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
     {
         Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {5, 5}, 50, 15);
-        this->zombiesList.include(z1);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(z1));
     }
-    if (this->player1->getPosition().x >= 20 * TILE_SIZE && this->zombiesList.getQuantity() == 1)
+    if (this->player1->getPosition().x >= 20 * TILE_SIZE && this->enemiesList.getQuantity() == 1)
     {
         Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({32 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
-        this->zombiesList.include(z2);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(z2));
     }
-    if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->zombiesList.getQuantity() == 2)
+    if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->enemiesList.getQuantity() == 2)
     {
         Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie({72 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
-        this->zombiesList.include(z3);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(z3));
     }
-    if (this->player1->getPosition().x >= 100 * TILE_SIZE && this->zombiesList.getQuantity() == 3)
+    if (this->player1->getPosition().x >= 100 * TILE_SIZE && this->enemiesList.getQuantity() == 3)
     {
         Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie({120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
-        this->zombiesList.include(z4);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(z4));
     }
-}
-
-void PhaseMap1::loadZombieListInCollision()
-{
-    collisionManager.setZombieList(&zombiesList);
 }

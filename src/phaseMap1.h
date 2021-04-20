@@ -8,10 +8,6 @@ namespace PhaseMap
 {
 	class PhaseMap1 : public PhaseMapGeneral
 	{
-	private:
-		//inicia a lista de zumbis
-		ListElement<Entidade::Enemy::Zombie> zombiesList;
-
 	public:
 		PhaseMap1(std::string path = "");
 		~PhaseMap1();
@@ -21,7 +17,5 @@ namespace PhaseMap
 
 		void renderPhaseBackGround(sf::RenderWindow& window);
 		void placingEnemies();
-
-		void loadZombieListInCollision();
 	};
 }

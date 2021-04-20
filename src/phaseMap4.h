@@ -11,9 +11,6 @@ namespace PhaseMap
 		sf::Clock clock;
 		sf::Time elapsed;
 
-		Entidade::Enemy::Boss boss;
-		ListElement<Entidade::Enemy::FlyingEnemy> flyingEnemiesList;
-
 	public:
 		PhaseMap4(std::string path = "");
 		~PhaseMap4();
@@ -22,7 +19,8 @@ namespace PhaseMap
 		void render(sf::RenderWindow& window, int& controller) override;
 
 		void placingEnemies();
-		void loadEnemiesListsInCollision();
+
+		void resetClock();
 
 	private:
 		virtual void renderPhaseBackGround(sf::RenderWindow& window);

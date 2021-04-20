@@ -7,6 +7,7 @@ GoblinMage::GoblinMage(sf::Vector2f pos, sf::Vector2f spee, float hP, float atta
     projectiles(),
     clock()
 {
+  this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(33.f, 45.f));
@@ -91,15 +92,17 @@ void GoblinMage::render(sf::RenderWindow& window)
 	window.draw(healthBar);
 	window.draw(sprite);
 
-  projectiles.render(window);
+  this->projectiles.render(window);
 }
 
 json GoblinMage::getSave()
 {
   json j = json::object();
 
-  j["goblinMage"]["positionX"] = position.x;
-  j["goblinMage"]["positionY"] = position.y;
+  j["kind"] = GOBLIN_MAGE;
+  j["positionX"] = this->position.x;
+  j["positionY"] = this->position.y;
+  j["hp"] = this->hp;
 
   return j;
 }
