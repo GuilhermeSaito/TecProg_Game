@@ -3,13 +3,14 @@
 #include "player1.h"
 
 #pragma once
-
+//Classe que lida com a lista de prjéteis da classe template
 class ProjectilesList
 {
 private:
     ListElement<Projectile> projectilesList;
 
 public:
+//Todas as funções são apenas feitas para chamar as iguais porém na classe template
     ProjectilesList();
     ~ProjectilesList();
 

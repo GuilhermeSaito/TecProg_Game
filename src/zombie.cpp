@@ -63,12 +63,12 @@ void Zombie::render(sf::RenderWindow& window)
 	window.draw(sprite);
 }
 
-ListElement<Projectile>* Zombie::getProjectiles()
+ProjectilesList* Zombie::getProjectiles()
 {
   return NULL;
 }
 
-// Ainda precisa colocar a healthBar, e mais algumas coisas, mas por enquanto, soh to colocando as posicoes
+// guarda as informações do zumbi dentro de um objeto json
 json Zombie::getSave()
 {
   json j = json::object();

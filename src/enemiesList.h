@@ -3,7 +3,7 @@
 #include "player1.h"
 
 #pragma once
-
+//classe que lida com as lista de inimigos proveniente da lista template
 class EnemiesList
 {
 private:
@@ -12,7 +12,7 @@ private:
 public:
     EnemiesList();
     ~EnemiesList();
-
+    //todas as funções foram feitas apenas para chamar as iguais da lista template
     void include(Entidade::EnemyEntity* e);
     void kill(Element<Entidade::EnemyEntity>* e);
     void setNull();

@@ -20,7 +20,7 @@ namespace Entidade
 			void update(Entidade::Player::Player1* p) override;
 			void render(sf::RenderWindow &window) override;
 
-			ListElement<Projectile>* getProjectiles();
+			ProjectilesList* getProjectiles();
 
 			json getSave() override;
 		};
