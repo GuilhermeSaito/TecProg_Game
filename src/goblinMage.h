@@ -1,6 +1,6 @@
 #include "enemyEntity.h"
 #include "data.h"
-#include "projectile.h"
+#include "projectilesList.h"
 #include "player1.h"
 
 #define GOBLIN_MAGE 32
@@ -17,13 +17,13 @@ namespace Entidade
             sf::Clock clock;
             sf::Time elapsed;
 
-            ListElement<Projectile> projectiles;
+            ProjectilesList projectiles;
 
         public:
             GoblinMage(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
 			~GoblinMage();
 
-            ListElement<Projectile>* getProjectiles();
+            ProjectilesList* getProjectiles();
             void shootProjectile(sf::Vector2f playerPosition);
 
 			void movimentation(sf::Vector2f playerPosition);

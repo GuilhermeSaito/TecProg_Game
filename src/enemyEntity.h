@@ -2,7 +2,7 @@
 
 #include "entity.h"
 #include "listManager.h"
-#include "projectile.h"
+#include "projectilesList.h"
 #include "player1.h"
 
 namespace Entidade
@@ -34,7 +34,7 @@ namespace Entidade
 		void setAttackDamage(int attack);
 		int getAttackDamage();
 
-		virtual ListElement<Projectile>* getProjectiles() = 0;
+		virtual ProjectilesList* getProjectiles() = 0;
 		virtual void movimentation(sf::Vector2f playerPosition) = 0;
 		virtual void update(Entidade::Player::Player1* p) = 0;
 		virtual void render(sf::RenderWindow &window) = 0;

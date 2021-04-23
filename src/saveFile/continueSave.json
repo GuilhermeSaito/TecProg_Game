@@ -3,15 +3,15 @@
         {
             "players": {
                 "multiplayer": false,
-                "phase": 13,
+                "phase": 12,
                 "player1Name": ""
             }
         },
         {
             "players1": {
                 "hp": 100.0,
-                "player1PositionX": 1664.0,
-                "player1PositionY": 913.0999755859375,
+                "player1PositionX": 1096.0,
+                "player1PositionY": 1153.0999755859375,
                 "score": 0
             }
         },
@@ -20,20 +20,130 @@
                 {
                     "hp": 50.0,
                     "kind": 31,
-                    "positionX": 1045.0,
+                    "positionX": 517.0,
+                    "positionY": 1153.0
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 32,
+                    "positionX": 567.0,
+                    "positionY": 1156.0999755859375
+                }
+            ]
+        },
+        {
+            "players": {
+                "multiplayer": false,
+                "phase": 13,
+                "player1Name": ""
+            }
+        },
+        {
+            "players1": {
+                "hp": 95.0,
+                "player1PositionX": 1336.0,
+                "player1PositionY": 1008.0,
+                "score": 0
+            }
+        },
+        {
+            "enemies": [
+                {
+                    "hp": 50.0,
+                    "kind": 31,
+                    "positionX": 517.0,
+                    "positionY": 1153.0
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 32,
+                    "positionX": 567.0,
+                    "positionY": 1156.0999755859375
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 31,
+                    "positionX": 1117.0,
                     "positionY": 1346.0999755859375
                 },
                 {
                     "hp": 50.0,
                     "kind": 32,
-                    "positionX": 1092.0,
+                    "positionX": 1122.0,
                     "positionY": 1348.0999755859375
                 },
                 {
                     "hp": 50.0,
                     "kind": 33,
-                    "positionX": 1107.0,
-                    "positionY": 844.5730590820313
+                    "positionX": 1128.0,
+                    "positionY": 903.9480590820313
+                }
+            ]
+        },
+        {
+            "players": {
+                "multiplayer": false,
+                "phase": 13,
+                "player1Name": ""
+            }
+        },
+        {
+            "players1": {
+                "hp": 100.0,
+                "player1PositionX": 456.0,
+                "player1PositionY": 1297.0999755859375,
+                "score": 0
+            }
+        },
+        {
+            "enemies": [
+                {
+                    "hp": 50.0,
+                    "kind": 31,
+                    "positionX": 517.0,
+                    "positionY": 1153.0
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 32,
+                    "positionX": 567.0,
+                    "positionY": 1156.0999755859375
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 31,
+                    "positionX": 1117.0,
+                    "positionY": 1346.0999755859375
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 32,
+                    "positionX": 1122.0,
+                    "positionY": 1348.0999755859375
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 33,
+                    "positionX": 1128.0,
+                    "positionY": 903.9480590820313
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 31,
+                    "positionX": 367.0,
+                    "positionY": 1261.5
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 32,
+                    "positionX": 384.0,
+                    "positionY": 1199.5999755859375
+                },
+                {
+                    "hp": 50.0,
+                    "kind": 33,
+                    "positionX": 387.0,
+                    "positionY": 827.9303588867188
                 }
             ]
         }

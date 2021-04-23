@@ -13,8 +13,8 @@ Projectile::Projectile(sf::Vector2f playerPosition, sf::Vector2f enemyPosition, 
 
     //initializing sprite
     this->sprite.setTexture(*(Data::getInstance()->getProjectileTexture()));
-    this->sprite.setScale(sf::Vector2f(1.5, 1.5));
     this->sprite.setTextureRect(sf::IntRect(164, 88, 12, 12));
+    this->sprite.setScale(sf::Vector2f(1.5, 1.5));
     this->sprite.setPosition(this->pos.x, this->pos.y);
     this->rect.setSize(sf::Vector2f(12, 12));
 

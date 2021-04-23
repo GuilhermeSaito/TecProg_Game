@@ -17,7 +17,7 @@ private:
   float angle;
 
 public:
-  Projectile(sf::Vector2f playerPosition, sf::Vector2f enemyPosition, float ls = 5.f);
+  Projectile(sf::Vector2f playerPosition = {0, 0}, sf::Vector2f enemyPosition = {0, 0}, float ls = 5.f);
   ~Projectile();
 
   sf::FloatRect getBoundBox();

@@ -253,7 +253,7 @@ void PhaseManager::showOptions(sf::RenderWindow &window, int &phase)
 
 const int PhaseManager::loadState(json j)
 {
-    int players = 0, players1 = 1, players2 = j["gamePlaySave"].size() - 1;
+    int players = 0, players1 = 1, players2 = j["gamePlaySave"].size() - 1, enemies = 2;
     //------------------- Load do Player1 -------------------
     player1.setPosition({j["gamePlaySave"][players1]["players1"]["player1PositionX"], j["gamePlaySave"][players1]["players1"]["player1PositionY"]});
     player1.setHp(j["gamePlaySave"][players1]["players1"]["hp"]);
@@ -271,6 +271,54 @@ const int PhaseManager::loadState(json j)
     }
     //------------------- Load dos Inimigos -------------------
     //  :D e.e :v U.U UwU
+    for (auto &j : j["gamePlaySave"][enemies]["enemies"])
+    {
+        if (j["kind"] == ZOMBIE)
+        {
+            Entidade::Enemy::Zombie* z = new Entidade::Enemy::Zombie({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
+            if (controller == PHASE1)
+            {
+                phaseMap1.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+            else if (controller == PHASE2)
+            {
+                phaseMap2.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+            else if (controller == PHASE3)
+            {
+                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+        }
+        else if (j["kind"] == GOBLIN_MAGE)
+        {
+            Entidade::Enemy::GoblinMage* z = new Entidade::Enemy::GoblinMage({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
+            if (controller == PHASE2)
+            {
+                phaseMap2.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+            else if (controller == PHASE3)
+            {
+                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+        }
+        else if (j["kind"] == FLYING_ENEMY)
+        {
+            Entidade::Enemy::FlyingEnemy* z = new Entidade::Enemy::FlyingEnemy({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
+            if (controller == PHASE3)
+            {
+                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+            else
+            {
+                phaseMap4.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            }
+        }
+        else
+        {
+            Entidade::Enemy::Boss* z = new Entidade::Enemy::Boss({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 30);
+            phaseMap4.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+        }
+    }
     if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
         return EXIT_GAME;
 }

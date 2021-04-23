@@ -30,7 +30,7 @@ FlyingEnemy::~FlyingEnemy()
     this->projectiles.setNull();
 }
 
-ListElement<Projectile>* FlyingEnemy::getProjectiles()
+ProjectilesList* FlyingEnemy::getProjectiles()
 {
   return &this->projectiles;
 }
