@@ -7399,7 +7399,7 @@
 											"top": 1075,
 											"width": 411.61376953125,
 											"height": 13,
-											"text": "#enemiesList: ProjectilesList",
+											"text": "#enemiesList: EnemiesList",
 											"horizontalAlignment": 0
 										},
 										{
@@ -8931,7 +8931,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 2202,
-									"top": 453,
+									"top": 468,
 									"width": 14.82177734375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -8953,7 +8953,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2195,
-									"top": 456,
+									"top": 471,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -8973,7 +8973,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2236,
-									"top": 449,
+									"top": 464,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -9024,7 +9024,7 @@
 							"tail": {
 								"$ref": "AAAAAAF2+TKYm5zzCZM="
 							},
-							"points": "2512:603;2224:603;2224:434",
+							"points": "2512:603;2224:603;2224:449",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF2+TTvs9+jYNA="
@@ -9208,7 +9208,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 2162,
-									"top": 453,
+									"top": 468,
 									"width": 14.82177734375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -9230,7 +9230,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2155,
-									"top": 456,
+									"top": 471,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -9250,7 +9250,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2196,
-									"top": 449,
+									"top": 464,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -9301,7 +9301,7 @@
 							"tail": {
 								"$ref": "AAAAAAF2+TN2RrXtvVY="
 							},
-							"points": "2400:767;2184:767;2184:434",
+							"points": "2400:767;2184:767;2184:449",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF2+TUpfuJPYdA="
@@ -9988,6 +9988,23 @@
 										},
 										{
 											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF5AG4fIbfW178=",
+											"_parent": {
+												"$ref": "AAAAAAF2sBOnQ4z6EUk="
+											},
+											"model": {
+												"$ref": "AAAAAAF5AG4e37eyDfE="
+											},
+											"font": "Arial;13;0",
+											"left": 1341,
+											"top": 184,
+											"width": 897.05712890625,
+											"height": 13,
+											"text": "+enemiesList: EnemiesList*",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF3CTVuI94hne0=",
 											"_parent": {
 												"$ref": "AAAAAAF2sBOnQ4z6EUk="
@@ -9997,7 +10014,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 184,
+											"top": 199,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-save: Save",
@@ -10014,7 +10031,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 199,
+											"top": 214,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-player1Name: stiring",
@@ -10031,7 +10048,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 214,
+											"top": 229,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-player2Name: string",
@@ -10048,7 +10065,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 229,
+											"top": 244,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-isMultiplayer: bool",
@@ -10065,7 +10082,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 244,
+											"top": 259,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-needToLoadPhase: bool",
@@ -10082,7 +10099,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 259,
+											"top": 274,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-controller: int",
@@ -10093,7 +10110,7 @@
 									"left": 1336,
 									"top": 89,
 									"width": 907.05712890625,
-									"height": 188
+									"height": 203
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -10116,7 +10133,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 282,
+											"top": 297,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "«create»+PhaseManager()",
@@ -10133,7 +10150,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 297,
+											"top": 312,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "«virtual destroy»+PhaseManger()",
@@ -10150,7 +10167,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 312,
+											"top": 327,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "+Start(window: RenderWindow&, jContinueSave: json, player1Name: const string, player2Name: const string, multiplayer: const bool, phaseIs: const int): int",
@@ -10167,7 +10184,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 327,
+											"top": 342,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-loadPhaseMap(multiplayer: const bool): int",
@@ -10184,7 +10201,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 342,
+											"top": 357,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-showPlayerDie(window: RenderWindow&): int",
@@ -10201,7 +10218,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 357,
+											"top": 372,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-normalizeView(window: RenderWindow&): void",
@@ -10218,7 +10235,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 372,
+											"top": 387,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-showOptions(window: RenderWindow&, phase: int&): void",
@@ -10235,7 +10252,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 387,
+											"top": 402,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-loadState(j: json): const int",
@@ -10252,7 +10269,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 402,
+											"top": 417,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-saveState(): void",
@@ -10269,7 +10286,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1341,
-											"top": 417,
+											"top": 432,
 											"width": 897.05712890625,
 											"height": 13,
 											"text": "-ResetALL(): void",
@@ -10278,7 +10295,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 1336,
-									"top": 277,
+									"top": 292,
 									"width": 907.05712890625,
 									"height": 158
 								},
@@ -10323,7 +10340,7 @@
 							"left": 1336,
 							"top": 64,
 							"width": 907.05712890625,
-							"height": 371,
+							"height": 386,
 							"nameCompartment": {
 								"$ref": "AAAAAAF2sBOnQoz1e7k="
 							},
@@ -13036,7 +13053,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1994,
-									"top": 453,
+									"top": 468,
 									"width": 14.82177734375,
 									"height": 13,
 									"alpha": -0.5235987755982988,
@@ -13058,7 +13075,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1987,
-									"top": 456,
+									"top": 471,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -13078,7 +13095,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 2028,
-									"top": 449,
+									"top": 464,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -13127,7 +13144,7 @@
 							"tail": {
 								"$ref": "AAAAAAF2ycyLGq5HVSE="
 							},
-							"points": "4656:920;2016:920;2016:434",
+							"points": "4656:920;2016:920;2016:449",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3PKcBynlga9k="
@@ -13311,7 +13328,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1952,
-									"top": 448,
+									"top": 463,
 									"width": 29.275390625,
 									"height": 13,
 									"alpha": -0.7328148445547511,
@@ -13333,7 +13350,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1955,
-									"top": 456,
+									"top": 471,
 									"height": 13,
 									"alpha": -0.7853981633974483,
 									"distance": 40,
@@ -13353,7 +13370,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 1996,
-									"top": 449,
+									"top": 464,
 									"height": 13,
 									"alpha": 0.5235987755982988,
 									"distance": 25,
@@ -13402,7 +13419,7 @@
 							"tail": {
 								"$ref": "AAAAAAF26H0jJoxBuyQ="
 							},
-							"points": "5168:928;1984:928;1984:434",
+							"points": "5168:928;1984:928;1984:449",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3PKejcI9NzHE="
@@ -30900,7 +30917,7 @@
 											"name": "enemiesList",
 											"visibility": "protected",
 											"type": {
-												"$ref": "AAAAAAF4/GH0AmcL2eo="
+												"$ref": "AAAAAAF4/JrAaAq7ogU="
 											}
 										},
 										{
@@ -32114,6 +32131,15 @@
 											"type": {
 												"$ref": "AAAAAAF26H0jH4w/llo="
 											}
+										},
+										{
+											"_type": "UMLAttribute",
+											"_id": "AAAAAAF5AG4e37eyDfE=",
+											"_parent": {
+												"$ref": "AAAAAAF2sBOnQYzyYXs="
+											},
+											"name": "enemiesList",
+											"type": "EnemiesList*"
 										},
 										{
 											"_type": "UMLAttribute",
