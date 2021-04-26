@@ -17,11 +17,13 @@ namespace PhaseMap
             sf::Sprite tileSprite;
             sf::Vector2f spaceOcuped;
 
+            sf::RenderWindow* window;
+
         public:
-            Tile(int numTile = 0, sf::Vector2f spaceOcup = { 0, 0 });
+            Tile(sf::RenderWindow* window = NULL, int numTile = 0, sf::Vector2f spaceOcup = { 0, 0 });
             ~Tile();
 
-            void draw(sf::RenderWindow& window);
+            void draw();
 
             sf::FloatRect getBoundBox();
 

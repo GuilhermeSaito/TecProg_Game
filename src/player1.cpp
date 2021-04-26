@@ -2,10 +2,10 @@
 
 using namespace Entidade::Player;
 
-Player1::Player1(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(pos, spee, hP, attackDamage),
-																					  contAnimation(0),
-																					  score(0),
-																					  player1View(NULL)
+Player1::Player1(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(window, pos, spee, hP, attackDamage),
+																												contAnimation(0),
+																												score(0),
+																												player1View(NULL)
 {
 	rect.setPosition(pos);
 
@@ -51,14 +51,14 @@ void Player1::movementation()
 	spriteAnimation();
 }
 
-void Player1::draw(sf::RenderWindow &window)
+void Player1::draw()
 {
 	if (player1View != NULL)
 		textScore.setPosition(player1View->getCenter().x + 48 * 8, player1View->getCenter().y - 48 * 7);
-	window.draw(textScore);
-	window.draw(healthBar);
+	window->draw(textScore);
+	window->draw(healthBar);
 
-	window.draw(sprite);
+	window->draw(sprite);
 }
 
 void Player1::setPlayer1View(sf::View *player1View) { this->player1View = player1View; }

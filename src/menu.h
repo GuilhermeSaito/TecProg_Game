@@ -15,11 +15,14 @@
 #define PHASE3 13
 #define PHASE4 14
 
-class SwitchPanel
+class Menu
 {
-public:
-	SwitchPanel() {}
-	virtual ~SwitchPanel() {}
+protected:
+	sf::RenderWindow *window;
 
-	virtual int Start(sf::RenderWindow &window) = 0;
+public:
+	Menu(sf::RenderWindow *window);
+	virtual ~Menu();
+
+	virtual int Start() = 0;
 };

@@ -6,13 +6,14 @@
 #include <stdio.h>
 #include <iostream>
 #include <cstring>
+#include "menu.h"
 
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
 namespace Entidade
 {
-	class Entity
+	class Entity : public Menu
 	{
 	protected:
 		sf::Vector2f position;
@@ -33,7 +34,7 @@ namespace Entidade
 		float attackDamage;
 
 	public:
-		Entity(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
+		Entity(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
 		virtual ~Entity();
 
 		const sf::Vector2f getPosition() const;
@@ -58,5 +59,7 @@ namespace Entidade
 		void setAttackDamage(const float attack);
 
 		virtual json getSave() = 0;
+
+		int Start() override {}
 	};
 }

@@ -3,12 +3,12 @@
 
 #pragma once
 
-template<class KIND>
+template <class KIND>
 class ListElement
 {
 private:
-    Element<KIND>* first;
-    Element<KIND>* last;
+    Element<KIND> *first;
+    Element<KIND> *last;
 
     //this "quantity" atribute has many utilities
     int quantity;
@@ -56,9 +56,9 @@ public:
         this->quantity = 0;
     }
 
-    void include(KIND* z)
+    void include(KIND *z)
     {
-        Element<KIND>* aux = new Element<KIND>();
+        Element<KIND> *aux = new Element<KIND>();
         aux->setInfo(z);
         //caso a lista esteja vazia
         if (this->first == NULL)
@@ -76,9 +76,9 @@ public:
         this->quantity++;
     }
 
-    void update(Entidade::Player::Player1* p)
+    void update(Entidade::Player::Player1 *p)
     {
-        Element<KIND>* aux = this->first;
+        Element<KIND> *aux = this->first;
         while (aux != NULL)
         {
             aux->getInfo()->update(p);
@@ -86,17 +86,17 @@ public:
         }
     }
 
-    void render(sf::RenderWindow& window)
+    void render()
     {
-        Element<KIND>* z = this->first;
-        while( z != NULL)
+        Element<KIND> *z = this->first;
+        while (z != NULL)
         {
-            z->getInfo()->render(window);
+            z->getInfo()->render();
             z = z->getNext();
         }
     }
 
-    void kill(Element<KIND>* z)
+    void kill(Element<KIND> *z)
     {
         // Se for o primeiro da lista a morrer
         if (z == this->first)
@@ -125,15 +125,15 @@ public:
             z->getPrevious()->setNext(z->getNext());
             z->getNext()->setPrevious(z->getPrevious());
         }
-            delete (z);
+        delete (z);
     }
 
-    Element<KIND>* getFirst()
+    Element<KIND> *getFirst()
     {
         return this->first;
     }
 
-    const bool isEmpty() const 
+    const bool isEmpty() const
     {
         return (this->first == NULL);
     }
@@ -146,5 +146,4 @@ public:
     {
         return this->quantity;
     }
-
 };

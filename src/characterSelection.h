@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SwitchPanel.h"
+#include "menu.h"
 #include "data.h"
 
 #include <iostream>
@@ -8,7 +8,7 @@ using std::string;
 
 namespace StartScreen
 {
-	class CharacterSelection : public SwitchPanel
+	class CharacterSelection : public Menu
 	{
 	private:
 		sf::Text menu1;
@@ -31,16 +31,16 @@ namespace StartScreen
 		int contAnimationPlayer2;
 
 	public:
-		CharacterSelection();
+		CharacterSelection(sf::RenderWindow *window);
 		~CharacterSelection();
 
-		int Start(sf::RenderWindow &window) override;
+		int Start() override;
 
 	private:
-		int characterSelection(sf::RenderWindow &window);
-		int nameCharacterSelection(sf::RenderWindow &window); // Esse metodo eh interessante, que eh o input dos nomes dos player, nao sei se essa eh a melhor forma de se fazer, mas funciona hahaha
+		int characterSelection();
+		int nameCharacterSelection(); // Esse metodo eh interessante, que eh o input dos nomes dos player, nao sei se essa eh a melhor forma de se fazer, mas funciona hahaha
 
-		void updateMenuCollor(int controller, sf::RenderWindow &window);
+		void updateMenuCollor(int controller);
 		void player1Animation();
 		void player2Animation();
 
@@ -55,6 +55,6 @@ namespace StartScreen
 		void setIsMultiplayer(const bool multiplayer);
 		const bool getIsMultiplayer() const;
 
-		int notImplementedYet(sf::RenderWindow &window);
+		int notImplementedYet();
 	};
 }

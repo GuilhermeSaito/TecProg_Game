@@ -5,11 +5,12 @@
 
 using StartScreen::CharacterSelection;
 
-CharacterSelection::CharacterSelection() : isMultiplayer(false),
-                                           player1Name(""),
-                                           player2Name(""),
-                                           contAnimationPlayer1(0),
-                                           contAnimationPlayer2(0)
+CharacterSelection::CharacterSelection(sf::RenderWindow *window) : isMultiplayer(false),
+                                                                   player1Name(""),
+                                                                   player2Name(""),
+                                                                   contAnimationPlayer1(0),
+                                                                   contAnimationPlayer2(0),
+                                                                   Menu(window)
 {
     menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
     menu1.setCharacterSize(25);
@@ -30,12 +31,12 @@ CharacterSelection::~CharacterSelection()
 {
 }
 
-int CharacterSelection::Start(sf::RenderWindow &window)
+int CharacterSelection::Start()
 {
-    return characterSelection(window);
+    return characterSelection();
 }
 
-int CharacterSelection::characterSelection(sf::RenderWindow &window)
+int CharacterSelection::characterSelection()
 {
     int controller = 0;
 
@@ -46,13 +47,13 @@ int CharacterSelection::characterSelection(sf::RenderWindow &window)
     menu2.setPosition({100.f, 525.f});
 
     // Soh arrumando a cor dos menus, se necessario
-    updateMenuCollor(0, window);
+    updateMenuCollor(0);
 
     while (1)
     {
-        window.clear();
+        window->clear();
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 return EXIT_GAME;
@@ -71,7 +72,7 @@ int CharacterSelection::characterSelection(sf::RenderWindow &window)
                         isMultiplayer = false;
                     else if (controller == 1)
                         isMultiplayer = true;
-                    return nameCharacterSelection(window);
+                    return nameCharacterSelection();
                 }
             if (controller <= 0)
                 controller = 0;
@@ -81,15 +82,15 @@ int CharacterSelection::characterSelection(sf::RenderWindow &window)
         player1Animation();
         if (controller)
             player2Animation();
-        updateMenuCollor(controller, window);
-        window.draw(menu1);
-        window.draw(menu2);
-        window.display();
+        updateMenuCollor(controller);
+        window->draw(menu1);
+        window->draw(menu2);
+        window->display();
     }
 }
 
 // Esse metodo eh interessante, que eh o input dos nomes dos player, nao sei se essa eh a melhor forma de se fazer, mas funciona hahaha
-int CharacterSelection::nameCharacterSelection(sf::RenderWindow &window)
+int CharacterSelection::nameCharacterSelection()
 {
     int tabPressed = 1;
     int totalChar1 = 0, totalChar2 = 0; // Nao permite extrapolar 14 characteres, essa limitacao estah no if do metodo "player1NameEnter
@@ -119,10 +120,10 @@ int CharacterSelection::nameCharacterSelection(sf::RenderWindow &window)
 
     while (1)
     {
-        window.clear();
+        window->clear();
         sf::Event event;
 
-        while (window.pollEvent(event))
+        while (window->pollEvent(event))
         {
             if (event.type == sf::Event::TextEntered)
             {
@@ -159,29 +160,29 @@ int CharacterSelection::nameCharacterSelection(sf::RenderWindow &window)
 
         if (isMultiplayer)
         {
-            window.draw(menu2);
-            window.draw(menu4);
+            window->draw(menu2);
+            window->draw(menu4);
         }
-        window.draw(menu1);
-        window.draw(menu3);
-        window.display();
+        window->draw(menu1);
+        window->draw(menu3);
+        window->display();
     }
 }
 
-void CharacterSelection::updateMenuCollor(int controller, sf::RenderWindow &window)
+void CharacterSelection::updateMenuCollor(int controller)
 {
     if (controller == 0)
     {
         menu1.setFillColor(sf::Color(255, 0, 0, 255));
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
-        window.draw(player1Sprite);
+        window->draw(player1Sprite);
     }
     else
     {
         menu1.setFillColor(sf::Color(255, 255, 255, 255));
         menu2.setFillColor(sf::Color(255, 0, 0, 255));
-        window.draw(player1Sprite);
-        window.draw(player2Sprite);
+        window->draw(player1Sprite);
+        window->draw(player2Sprite);
     }
 }
 
@@ -255,19 +256,19 @@ const string CharacterSelection::getPlayer2Name() const { return player2Name; }
 void CharacterSelection::setIsMultiplayer(const bool multiplayer) { isMultiplayer = multiplayer; }
 const bool CharacterSelection::getIsMultiplayer() const { return isMultiplayer; }
 
-int CharacterSelection::notImplementedYet(sf::RenderWindow &window)
+int CharacterSelection::notImplementedYet()
 {
-    window.clear();
+    window->clear();
     sf::Sprite notImplementedYet;
     notImplementedYet.setTexture(*(Data::getInstance()->getNotImplementedYet()));
-    notImplementedYet.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2));
-    window.draw(notImplementedYet);
-    window.display();
+    notImplementedYet.setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+    window->draw(notImplementedYet);
+    window->display();
 
     while (true)
     {
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
             switch (event.type)
             {
             case sf::Event::MouseButtonPressed:

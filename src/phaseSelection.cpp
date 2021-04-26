@@ -1,7 +1,8 @@
 #include "phaseSelection.h"
 using StartScreen::PhaseSelection;
 
-PhaseSelection::PhaseSelection() : witchPhaseIs(PHASE1)
+PhaseSelection::PhaseSelection(sf::RenderWindow *window) : witchPhaseIs(PHASE1),
+                                                           Menu(window)
 {
     menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
     menu1.setString("Beginner Phase");
@@ -41,20 +42,20 @@ PhaseSelection::~PhaseSelection()
 {
 }
 
-int PhaseSelection::Start(sf::RenderWindow &window)
+int PhaseSelection::Start()
 {
-    return phaseSelection(window);
+    return phaseSelection();
 }
 
-int PhaseSelection::phaseSelection(sf::RenderWindow &window)
+int PhaseSelection::phaseSelection()
 {
     int controller = 0;
 
     while (1)
     {
-        window.clear();
+        window->clear();
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 return EXIT_GAME;
@@ -84,16 +85,16 @@ int PhaseSelection::phaseSelection(sf::RenderWindow &window)
             if (controller >= 3)
                 controller = 3;
         }
-        updateMenuCollor(controller, window);
-        window.draw(menu1);
-        window.draw(menu2);
-        window.draw(menu3);
-        window.draw(menu4);
-        window.display();
+        updateMenuCollor(controller);
+        window->draw(menu1);
+        window->draw(menu2);
+        window->draw(menu3);
+        window->draw(menu4);
+        window->display();
     }
 }
 
-void PhaseSelection::updateMenuCollor(int controller, sf::RenderWindow &window)
+void PhaseSelection::updateMenuCollor(int controller)
 {
     if (controller == 0)
     {
@@ -101,7 +102,7 @@ void PhaseSelection::updateMenuCollor(int controller, sf::RenderWindow &window)
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
         menu3.setFillColor(sf::Color(255, 255, 255, 255));
         menu4.setFillColor(sf::Color(255, 255, 255, 255));
-        window.draw(beginnerPhaseSprite);
+        window->draw(beginnerPhaseSprite);
     }
     else if (controller == 1)
     {
@@ -109,7 +110,7 @@ void PhaseSelection::updateMenuCollor(int controller, sf::RenderWindow &window)
         menu2.setFillColor(sf::Color(255, 0, 0, 255));
         menu3.setFillColor(sf::Color(255, 255, 255, 255));
         menu4.setFillColor(sf::Color(255, 255, 255, 255));
-        window.draw(blueOceanPhaseSprite);
+        window->draw(blueOceanPhaseSprite);
     }
     else if (controller == 2)
     {
@@ -117,7 +118,7 @@ void PhaseSelection::updateMenuCollor(int controller, sf::RenderWindow &window)
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
         menu3.setFillColor(sf::Color(255, 0, 0, 255));
         menu4.setFillColor(sf::Color(255, 255, 255, 255));
-        window.draw(cavePhaseSprite);
+        window->draw(cavePhaseSprite);
     }
     else
     {
@@ -125,7 +126,7 @@ void PhaseSelection::updateMenuCollor(int controller, sf::RenderWindow &window)
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
         menu3.setFillColor(sf::Color(255, 255, 255, 255));
         menu4.setFillColor(sf::Color(255, 0, 0, 255));
-        window.draw(deathPhaseSprite);
+        window->draw(deathPhaseSprite);
     }
 }
 

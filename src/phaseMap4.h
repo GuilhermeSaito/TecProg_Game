@@ -12,17 +12,17 @@ namespace PhaseMap
 		sf::Time elapsed;
 
 	public:
-		PhaseMap4(std::string path = "");
+		PhaseMap4(sf::RenderWindow *window = NULL, std::string path = "");
 		~PhaseMap4();
 
-		void update(int& controller) override;
-		void render(sf::RenderWindow& window, int& controller) override;
+		void update(int &controller) override;
+		void render(int &controller) override;
 
 		void placingEnemies();
 
 		void resetClock();
 
 	private:
-		virtual void renderPhaseBackGround(sf::RenderWindow& window);
+		virtual void renderPhaseBackGround();
 	};
 }

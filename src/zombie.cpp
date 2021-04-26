@@ -2,7 +2,7 @@
 
 using namespace Entidade::Enemy;
 
-Zombie::Zombie(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(pos, spee, hP, attackDamage)
+Zombie::Zombie(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage)
 {
   this->hasProjectiles = false;
   this->walkSpeed = spee.x;
@@ -20,6 +20,7 @@ Zombie::Zombie(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage
 }
 Zombie::~Zombie()
 {
+  window = NULL;
 }
 
 void Zombie::movimentation(sf::Vector2f playerPosition)
@@ -50,20 +51,20 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
   this->sprite.setPosition(position);
 }
 
-void Zombie::update(Entidade::Player::Player1* p)
+void Zombie::update(Entidade::Player::Player1 *p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
   movimentation(p->getPosition());
 }
 
-void Zombie::render(sf::RenderWindow& window)
+void Zombie::render()
 {
-	window.draw(healthBar);
-	window.draw(sprite);
+  window->draw(healthBar);
+  window->draw(sprite);
 }
 
-ProjectilesList* Zombie::getProjectiles()
+ProjectilesList *Zombie::getProjectiles()
 {
   return NULL;
 }

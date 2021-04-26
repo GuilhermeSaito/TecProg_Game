@@ -2,10 +2,9 @@
 
 using namespace Entidade::Enemy;
 
-GoblinMage::GoblinMage(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
-	  EnemyEntity(pos, spee, hP, attackDamage),
-    projectiles(),
-    clock()
+GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage),
+                                                                                                                      projectiles(),
+                                                                                                                      clock()
 {
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
@@ -23,10 +22,11 @@ GoblinMage::GoblinMage(sf::Vector2f pos, sf::Vector2f spee, float hP, float atta
 }
 GoblinMage::~GoblinMage()
 {
+  window = NULL;
   this->projectiles.setNull();
 }
 
-ProjectilesList* GoblinMage::getProjectiles()
+ProjectilesList *GoblinMage::getProjectiles()
 {
   return &this->projectiles;
 }
@@ -38,8 +38,8 @@ void GoblinMage::shootProjectile(sf::Vector2f playerPosition)
     this->projectiles.kill(projectiles.getFirst());
     this->projectiles.setQuantity(this->projectiles.getQuantity() - 1);
   }
-    
-  this->projectiles.include(new Projectile(playerPosition, this->position, 10.f));
+
+  this->projectiles.include(new Projectile(window, playerPosition, this->position, 10.f));
 }
 
 void GoblinMage::movimentation(sf::Vector2f playerPosition)
@@ -57,7 +57,7 @@ void GoblinMage::movimentation(sf::Vector2f playerPosition)
   else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;
-    this->position.x +=this->speed.x;
+    this->position.x += this->speed.x;
     sprite.setTexture(*(Data::getInstance()->getGoblinMageTexture()));
     sprite.setTextureRect(sf::IntRect(2, 49, 32, 47));
   }
@@ -70,7 +70,7 @@ void GoblinMage::movimentation(sf::Vector2f playerPosition)
   this->sprite.setPosition(position);
 }
 
-void GoblinMage::update(Entidade::Player::Player1* p)
+void GoblinMage::update(Entidade::Player::Player1 *p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
@@ -87,12 +87,12 @@ void GoblinMage::update(Entidade::Player::Player1* p)
     projectiles.update(p);
 }
 
-void GoblinMage::render(sf::RenderWindow& window)
+void GoblinMage::render()
 {
-	window.draw(healthBar);
-	window.draw(sprite);
+  window->draw(healthBar);
+  window->draw(sprite);
 
-  this->projectiles.render(window);
+  this->projectiles.render();
 }
 
 json GoblinMage::getSave()

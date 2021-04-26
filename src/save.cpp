@@ -111,3 +111,9 @@ void Save::setPlayer2Save(json jPlayer2)
 	else
 		std::cout << "Player 2 json is empty!!" << std::endl;
 }
+
+void Save::clearJson()
+{
+	jArray.clear();
+	jArrayEnemies.clear();
+}

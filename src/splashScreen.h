@@ -1,13 +1,12 @@
 #pragma once
 
-#include "SwitchPanel.h"
+#include "menu.h"
 
-class SplashScreen : public SwitchPanel
+class SplashScreen : public Menu
 {
 public:
-	SplashScreen();
+	SplashScreen(sf::RenderWindow *window);
 	~SplashScreen();
 
-	int Start(sf::RenderWindow& window) override;
+	int Start() override;
 };
-

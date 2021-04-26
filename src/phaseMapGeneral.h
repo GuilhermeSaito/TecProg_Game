@@ -6,7 +6,7 @@
 #include "CollisionManager.h"
 
 // Just for the defines
-#include "SwitchPanel.h"
+#include "menu.h"
 
 #define PHASE1 11
 #define PHASE2 12
@@ -19,7 +19,7 @@
 
 namespace PhaseMap
 {
-	class PhaseMapGeneral
+	class PhaseMapGeneral : public Menu
 	{
 	protected:
 		Tiles::PhaseMapManager phaseMapManager;
@@ -37,17 +37,20 @@ namespace PhaseMap
 		std::vector<sf::Sprite *> phaseBackGroundSprite;
 
 	public:
-		PhaseMapGeneral(std::string path = "");
+		PhaseMapGeneral(sf::RenderWindow *window = NULL, std::string path = "");
 		virtual ~PhaseMapGeneral();
 
 		virtual void update(int &controller);
-		virtual void render(sf::RenderWindow &window, int &controller);
+		virtual void render(int &controller);
 		bool loadPhaseMap();
 
 	protected:
-		void setViewInPlayer1(sf::RenderWindow &window, const int controller);
+		void setViewInPlayer1(const int controller);
 		void phaseTransition(int &contoller);
 		bool isPlayerDead();
+
+		// Soh para evitar possiveis problemas de polimorfismo
+		int Start() override {}
 
 	public:
 		void resetEverythingForTransition();
@@ -55,7 +58,7 @@ namespace PhaseMap
 		void setPlayer1(Entidade::Player::Player1 *p1);
 		void setPlayer2(Entidade::Player::Player2 *p2);
 		void loadEnemiesListInCollision();
-		EnemiesList* getEnemiesList();
+		EnemiesList *getEnemiesList();
 
 		void ResetAll();
 	};

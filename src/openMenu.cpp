@@ -2,29 +2,29 @@
 
 using StartScreen::OpenMenu;
 
-OpenMenu::OpenMenu()
+OpenMenu::OpenMenu(sf::RenderWindow *window) : Menu(window)
 {
     backGroundSprite.setTexture(*(Data::getInstance()->getOpenMenuBackGround()));
     backGroundSprite.setScale(sf::Vector2f(1.8, 2.4));
 
-	menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
     menu1.setString("New Game");
-    menu1.setPosition({ 500.f, 200.f });
+    menu1.setPosition({500.f, 200.f});
     menu1.setCharacterSize(25);
 
     menu2.setFont(*(Data::getInstance()->getOpenMenufont()));
     menu2.setString("Continue");
-    menu2.setPosition({ 500.f, 280.f });
+    menu2.setPosition({500.f, 280.f});
     menu2.setCharacterSize(25);
 
     menu3.setFont(*(Data::getInstance()->getOpenMenufont()));
     menu3.setString("Ranking");
-    menu3.setPosition({ 500.f, 360.f });
+    menu3.setPosition({500.f, 360.f});
     menu3.setCharacterSize(25);
 
     menu4.setFont(*(Data::getInstance()->getOpenMenufont()));
     menu4.setString("Exit");
-    menu4.setPosition({ 500.f, 420.f });
+    menu4.setPosition({500.f, 420.f});
     menu4.setCharacterSize(25);
 }
 
@@ -32,7 +32,7 @@ OpenMenu::~OpenMenu()
 {
 }
 
-int OpenMenu::Start(sf::RenderWindow& window)
+int OpenMenu::Start()
 {
     int controller = 0;
 
@@ -40,7 +40,7 @@ int OpenMenu::Start(sf::RenderWindow& window)
     while (1)
     {
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
                 return EXIT_GAME;
@@ -53,7 +53,7 @@ int OpenMenu::Start(sf::RenderWindow& window)
                 case sf::Keyboard::Down:
                     controller++;
                     break;
-                
+
                 // 0 = New Game
                 // 1 = Continue
                 // 2 = Ranking
@@ -63,7 +63,7 @@ int OpenMenu::Start(sf::RenderWindow& window)
                     {
                         // Eh necessario limpar o jSvae, para nao passar lixo para o mainController.
                         if (!jSave.empty())
-                            jSave.erase("players");
+                            jSave.clear();
                         return PHASE_SELECTION;
                     }
                     else if (controller == 1)
@@ -83,13 +83,13 @@ int OpenMenu::Start(sf::RenderWindow& window)
         }
         updateMenuCollor(controller);
 
-        window.clear();
-        window.draw(backGroundSprite);
-        window.draw(menu1);
-        window.draw(menu2);
-        window.draw(menu3);
-        window.draw(menu4);
-        window.display();
+        window->clear();
+        window->draw(backGroundSprite);
+        window->draw(menu1);
+        window->draw(menu2);
+        window->draw(menu3);
+        window->draw(menu4);
+        window->display();
     }
 }
 
@@ -127,19 +127,19 @@ void OpenMenu::updateMenuCollor(int controller)
 
 json OpenMenu::getContinueSave() { return jSave; }
 
-int OpenMenu::notImplementedYet(sf::RenderWindow& window)
+int OpenMenu::notImplementedYet(sf::RenderWindow *window)
 {
-    window.clear();
+    window->clear();
     sf::Sprite notImplementedYet;
     notImplementedYet.setTexture(*(Data::getInstance()->getNotImplementedYet()));
-    notImplementedYet.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2));
-    window.draw(notImplementedYet);
-    window.display();
+    notImplementedYet.setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+    window->draw(notImplementedYet);
+    window->display();
 
     while (true)
     {
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
             switch (event.type)
             {
             case sf::Event::MouseButtonPressed:

@@ -18,7 +18,7 @@ namespace Entidade
 		int attackDamage = 0;
 
 	public:
-		EnemyEntity(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
+		EnemyEntity(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
 		virtual ~EnemyEntity();
 
 		virtual void timerCanHitPlayer();
@@ -34,9 +34,9 @@ namespace Entidade
 		void setAttackDamage(int attack);
 		int getAttackDamage();
 
-		virtual ProjectilesList* getProjectiles() = 0;
+		virtual ProjectilesList *getProjectiles() = 0;
 		virtual void movimentation(sf::Vector2f playerPosition) = 0;
-		virtual void update(Entidade::Player::Player1* p) = 0;
-		virtual void render(sf::RenderWindow &window) = 0;
+		virtual void update(Entidade::Player::Player1 *p) = 0;
+		virtual void render() = 0;
 	};
 }

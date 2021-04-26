@@ -13,12 +13,12 @@ namespace Entidade
 		class Zombie : public EnemyEntity
 		{
 		public:
-			Zombie(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+			Zombie(sf::RenderWindow* window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
 			~Zombie();
 
 			void movimentation(sf::Vector2f playerPosition);
 			void update(Entidade::Player::Player1* p) override;
-			void render(sf::RenderWindow &window) override;
+			void render() override;
 
 			ProjectilesList* getProjectiles();
 

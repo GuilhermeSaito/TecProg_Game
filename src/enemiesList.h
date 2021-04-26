@@ -13,14 +13,14 @@ public:
     EnemiesList();
     ~EnemiesList();
     //todas as funções foram feitas apenas para chamar as iguais da lista template
-    void include(Entidade::EnemyEntity* e);
-    void kill(Element<Entidade::EnemyEntity>* e);
+    void include(Entidade::EnemyEntity *e);
+    void kill(Element<Entidade::EnemyEntity> *e);
     void setNull();
 
-    void update(Entidade::Player::Player1* p);
-    void render(sf::RenderWindow& window);
+    void update(Entidade::Player::Player1 *p);
+    void render();
 
-    Element<Entidade::EnemyEntity>* getFirst();
+    Element<Entidade::EnemyEntity> *getFirst();
     const bool isEmpty() const;
     const int getQuantity() const;
 };

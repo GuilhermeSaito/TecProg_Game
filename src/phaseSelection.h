@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SwitchPanel.h"
+#include "menu.h"
 #include "data.h"
 
 /*
@@ -9,7 +9,7 @@
 */
 namespace StartScreen
 {
-	class PhaseSelection : public SwitchPanel
+	class PhaseSelection : public Menu
 	{
 	private:
 		sf::Text menu1;
@@ -24,17 +24,17 @@ namespace StartScreen
 		sf::Sprite deathPhaseSprite;
 
 		int witchPhaseIs;
-	
+
 	public:
-		PhaseSelection();
+		PhaseSelection(sf::RenderWindow *window);
 		~PhaseSelection();
 
-		int Start(sf::RenderWindow& window) override;
+		int Start() override;
 
 	private:
-		int phaseSelection(sf::RenderWindow& window);
+		int phaseSelection();
 
-		void updateMenuCollor(int controller, sf::RenderWindow& window);
+		void updateMenuCollor(int controller);
 
 	public:
 		void setWitchPhaseIs(const int phaseIs);

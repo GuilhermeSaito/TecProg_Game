@@ -7,15 +7,15 @@ namespace PhaseMap
 	class PhaseMap2 : public PhaseMapGeneral
 	{
 	public:
-		PhaseMap2(std::string path = "");
+		PhaseMap2(sf::RenderWindow *window = NULL, std::string path = "");
 		~PhaseMap2();
 
-		void update(int& controller) override;
-		void render(sf::RenderWindow& window, int& controller) override;
+		void update(int &controller) override;
+		void render(int &controller) override;
 
 		void placingEnemies();
 
 	private:
-		virtual void renderPhaseBackGround(sf::RenderWindow& window);
+		virtual void renderPhaseBackGround();
 	};
 }

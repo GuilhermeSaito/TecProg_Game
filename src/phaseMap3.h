@@ -8,15 +8,15 @@ namespace PhaseMap
 	class PhaseMap3 : public PhaseMapGeneral
 	{
 	public:
-		PhaseMap3(std::string path = "");
+		PhaseMap3(sf::RenderWindow *window = NULL, std::string path = "");
 		~PhaseMap3();
 
-		void update(int& controller) override;
-		void render(sf::RenderWindow& window, int& controller) override;
+		void update(int &controller) override;
+		void render(int &controller) override;
 
 		void placingEnemies();
 
 	private:
-		virtual void renderPhaseBackGround(sf::RenderWindow& window);
+		virtual void renderPhaseBackGround();
 	};
 }

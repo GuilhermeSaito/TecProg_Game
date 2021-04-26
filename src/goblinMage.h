@@ -11,7 +11,7 @@ namespace Entidade
 {
     namespace Enemy
     {
-        class GoblinMage: public EnemyEntity
+        class GoblinMage : public EnemyEntity
         {
         private:
             sf::Clock clock;
@@ -20,15 +20,15 @@ namespace Entidade
             ProjectilesList projectiles;
 
         public:
-            GoblinMage(sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
-			~GoblinMage();
+            GoblinMage(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+            ~GoblinMage();
 
-            ProjectilesList* getProjectiles();
+            ProjectilesList *getProjectiles();
             void shootProjectile(sf::Vector2f playerPosition);
 
-			void movimentation(sf::Vector2f playerPosition);
-			void update(Entidade::Player::Player1* p) override;
-            void render(sf::RenderWindow &window) override;
+            void movimentation(sf::Vector2f playerPosition);
+            void update(Entidade::Player::Player1 *p) override;
+            void render() override;
 
             json getSave() override;
         };

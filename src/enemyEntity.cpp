@@ -2,28 +2,29 @@
 
 using namespace Entidade;
 
-EnemyEntity::EnemyEntity(sf::Vector2f pos, sf::Vector2f spee, float hp, float attack):
-	Entity(pos, spee, hp, attack),
-	canHitPlayer1(true),
-	canHitPlayer2(true),
-	isDead(false),
-	hasProjectiles(false)
+EnemyEntity::EnemyEntity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hp, float attack) : Entity(window, pos, spee, hp, attack),
+																												  canHitPlayer1(true),
+																												  canHitPlayer2(true),
+																												  isDead(false),
+																												  hasProjectiles(false)
 {
 }
 EnemyEntity::~EnemyEntity()
 {
+	window = NULL;
 }
 
 void EnemyEntity::timerCanHitPlayer()
-{}
+{
+}
 const bool EnemyEntity::getCanHitPlayer1() const { return canHitPlayer1; }
 const bool EnemyEntity::getCanHitPlayer2() const { return canHitPlayer2; }
 
 const bool EnemyEntity::getIsDead() const { return isDead; }
 void EnemyEntity::setIsDead(const bool dead) { isDead = dead; }
 
-const bool EnemyEntity::getHasProjectiles() const {return hasProjectiles;}
-void EnemyEntity::setHasProjectiles(const bool y) {hasProjectiles = y;}
+const bool EnemyEntity::getHasProjectiles() const { return hasProjectiles; }
+void EnemyEntity::setHasProjectiles(const bool y) { hasProjectiles = y; }
 
 void EnemyEntity::setAttackDamage(int attack)
 {

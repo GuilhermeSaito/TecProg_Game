@@ -5,75 +5,75 @@
 
 using namespace Entidade::Enemy;
 
-FlyingEnemy::FlyingEnemy(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
-	  EnemyEntity(pos, spee, hP, attackDamage),
-    projectiles(),
-    clock(),
-    originalYposition(pos.y)
+FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage),
+                                                                                                                        projectiles(),
+                                                                                                                        clock(),
+                                                                                                                        originalYposition(pos.y)
 {
-    this->hasProjectiles = true;
-    this->walkSpeed = spee.x;
+  this->hasProjectiles = true;
+  this->walkSpeed = spee.x;
 
-    rect.setSize(sf::Vector2f(38.f, 42.f));
-    rect.setPosition(pos);
+  rect.setSize(sf::Vector2f(38.f, 42.f));
+  rect.setPosition(pos);
 
-    sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
-    sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
-    sprite.setScale({2.f, 2.f});
-    sprite.setPosition(rect.getPosition());
+  sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
+  sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
+  sprite.setScale({2.f, 2.f});
+  sprite.setPosition(rect.getPosition());
 
-    healthBar.setFillColor(sf::Color::Red);
-    healthBar.setPosition(sf::Vector2f(position.x - 10, position.y - 25));
+  healthBar.setFillColor(sf::Color::Red);
+  healthBar.setPosition(sf::Vector2f(position.x - 10, position.y - 25));
 }
 FlyingEnemy::~FlyingEnemy()
 {
-    this->projectiles.setNull();
+  window = NULL;
+  this->projectiles.setNull();
 }
 
-ProjectilesList* FlyingEnemy::getProjectiles()
+ProjectilesList *FlyingEnemy::getProjectiles()
 {
   return &this->projectiles;
 }
 
 void FlyingEnemy::shootProjectile()
-{ 
-    if (!this->projectiles.isEmpty())
-        this->projectiles.setNull();
+{
+  if (!this->projectiles.isEmpty())
+    this->projectiles.setNull();
 
-    this->projectiles.include(new Projectile({this->position.x, this->position.y+50}, this->position, 10.f));
-    this->projectiles.include(new Projectile({this->position.x-50, this->position.y+50}, this->position, 10.f));
-    this->projectiles.include(new Projectile({this->position.x+50, this->position.y+50}, this->position, 10.f));
+  this->projectiles.include(new Projectile(window, {this->position.x, this->position.y + 50}, this->position, 10.f));
+  this->projectiles.include(new Projectile(window, {this->position.x - 50, this->position.y + 50}, this->position, 10.f));
+  this->projectiles.include(new Projectile(window, {this->position.x + 50, this->position.y + 50}, this->position, 10.f));
 }
 
 void FlyingEnemy::movimentation(sf::Vector2f playerPosition)
 {
 
-    if (playerPosition.x < this->position.x)
-    {
-        this->speed.x = this->walkSpeed;
-        this->position.x -= this->speed.x;
-        sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
-        sprite.setScale({2.f, 2.f});
-        sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
-    }
+  if (playerPosition.x < this->position.x)
+  {
+    this->speed.x = this->walkSpeed;
+    this->position.x -= this->speed.x;
+    sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
+    sprite.setScale({2.f, 2.f});
+    sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
+  }
 
-    else if (playerPosition.x > this->position.x)
-    {
-        this->speed.x = this->walkSpeed;
-        this->position.x +=this->speed.x;
-        sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
-        sprite.setScale({-2.f, 2.f});
-    }
+  else if (playerPosition.x > this->position.x)
+  {
+    this->speed.x = this->walkSpeed;
+    this->position.x += this->speed.x;
+    sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
+    sprite.setScale({-2.f, 2.f});
+  }
 
-    this->elapsed = this->clock.getElapsedTime();
-    //the wave equasion is being applied here
-    this->position.y = this->originalYposition + (AMPLITUDE*cos(ANGULARSPEED*(elapsed.asSeconds())));
+  this->elapsed = this->clock.getElapsedTime();
+  //the wave equasion is being applied here
+  this->position.y = this->originalYposition + (AMPLITUDE * cos(ANGULARSPEED * (elapsed.asSeconds())));
 
-    this->rect.setPosition(position);
-    this->sprite.setPosition(position);
+  this->rect.setPosition(position);
+  this->sprite.setPosition(position);
 }
 
-void FlyingEnemy::update(Entidade::Player::Player1* p)
+void FlyingEnemy::update(Entidade::Player::Player1 *p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
@@ -90,12 +90,12 @@ void FlyingEnemy::update(Entidade::Player::Player1* p)
     projectiles.update(p);
 }
 
-void FlyingEnemy::render(sf::RenderWindow& window)
+void FlyingEnemy::render()
 {
-	window.draw(healthBar);
-	window.draw(sprite);
+  window->draw(healthBar);
+  window->draw(sprite);
 
-  projectiles.render(window);
+  projectiles.render();
 }
 
 json FlyingEnemy::getSave()

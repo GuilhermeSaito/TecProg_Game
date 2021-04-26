@@ -2,10 +2,11 @@
 
 using namespace PhaseMap;
 
-PhaseMapGeneral::PhaseMapGeneral(std::string path) : phaseMapManager(path),
-                                                     player1(NULL),
-                                                     player2(NULL),
-                                                     enemiesList()
+PhaseMapGeneral::PhaseMapGeneral(sf::RenderWindow *window, std::string path) : phaseMapManager(window, path),
+                                                                               player1(NULL),
+                                                                               player2(NULL),
+                                                                               enemiesList(),
+                                                                               Menu(window)
 {
     player1View.setSize(sf::Vector2f(1120, 672));
 }
@@ -17,7 +18,7 @@ void PhaseMapGeneral::update(int &controller)
 {
 }
 
-void PhaseMapGeneral::render(sf::RenderWindow &window, int &controller)
+void PhaseMapGeneral::render(int &controller)
 {
 }
 bool PhaseMapGeneral::loadPhaseMap()
@@ -27,7 +28,7 @@ bool PhaseMapGeneral::loadPhaseMap()
     return flag;
 }
 
-void PhaseMapGeneral::setViewInPlayer1(sf::RenderWindow &window, const int controller)
+void PhaseMapGeneral::setViewInPlayer1(const int controller)
 {
     if (player1 != NULL)
         if ((player1->getPosition().x - (12 * TILE_SIZE)) < 0)
@@ -43,7 +44,7 @@ void PhaseMapGeneral::setViewInPlayer1(sf::RenderWindow &window, const int contr
             player1View.setCenter(sf::Vector2f(player1->getPosition().x, 23 * TILE_SIZE));
     // Pegando o View aqui e colocando no player 1 pois eu preciso saber o center do view para colocar o score certinho na tela
     player1->setPlayer1View(&player1View);
-    window.setView(player1View);
+    window->setView(player1View);
 }
 
 void PhaseMapGeneral::phaseTransition(int &contoller)
@@ -101,7 +102,7 @@ void PhaseMapGeneral::loadEnemiesListInCollision()
 {
     collisionManager.setEnemiesList(&enemiesList);
 }
-EnemiesList* PhaseMapGeneral::getEnemiesList()
+EnemiesList *PhaseMapGeneral::getEnemiesList()
 {
     return &enemiesList;
 }

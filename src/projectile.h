@@ -4,7 +4,7 @@
 #include <iostream>
 #include "player1.h"
 
-class Projectile
+class Projectile : public Menu
 {
 private:
   sf::Sprite sprite;
@@ -17,11 +17,13 @@ private:
   float angle;
 
 public:
-  Projectile(sf::Vector2f playerPosition = {0, 0}, sf::Vector2f enemyPosition = {0, 0}, float ls = 5.f);
+  Projectile(sf::RenderWindow *window = NULL, sf::Vector2f playerPosition = {0, 0}, sf::Vector2f enemyPosition = {0, 0}, float ls = 5.f);
   ~Projectile();
 
   sf::FloatRect getBoundBox();
 
-  void update(Entidade::Player::Player1* p);
-  void render(sf::RenderWindow &window);
+  void update(Entidade::Player::Player1 *p);
+  void render();
+
+  int Start() override {}
 };

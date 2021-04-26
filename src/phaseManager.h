@@ -8,9 +8,11 @@
 #include "Player2.h"
 #include "save.h"
 
+// o include do menu.h estah no PhaseMapManager
+
 namespace PhaseMap
 {
-	class PhaseManager
+	class PhaseManager : public Menu
 	{
 	private:
 		PhaseMap1 phaseMap1;
@@ -21,7 +23,7 @@ namespace PhaseMap
 		Entidade::Player::Player1 player1;
 		Entidade::Player::Player2 player2;
 
-		EnemiesList* enemiesList;
+		EnemiesList *enemiesList;
 
 		SaveGame::Save save;
 
@@ -34,23 +36,25 @@ namespace PhaseMap
 		int controller;
 
 	public:
-		PhaseManager();
+		PhaseManager(sf::RenderWindow *window = NULL);
 		~PhaseManager();
 
-		int Start(sf::RenderWindow &window, json jContinueSave, const string player1Name = "", const string player2Name = "", const bool multiplayer = false, const int phaseIs = PHASE1);
+		int Start(json jContinueSave, const string player1Name = "", const string player2Name = "", const bool multiplayer = false, const int phaseIs = PHASE1);
 
 	private:
 		int loadPhaseMap(const bool multiplayer);
-		
-		int showPlayerDie(sf::RenderWindow &window);
-		void normalizeView(sf::RenderWindow &window);
-		void showOptions(sf::RenderWindow &window, int &phase);
+
+		int showPlayerDie();
+		void normalizeView();
+		void showOptions(int &phase);
 
 		const int loadState(json j);
 		void saveState();
 
 		void ResetALL();
 
-		int notImplementedYet(sf::RenderWindow &window);
+		int notImplementedYet();
+
+		int Start() override {}
 	};
 }

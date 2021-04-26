@@ -2,7 +2,7 @@
 
 using namespace PhaseMap;
 
-PhaseMap3::PhaseMap3(std::string path) : PhaseMapGeneral(path)
+PhaseMap3::PhaseMap3(sf::RenderWindow *window, std::string path) : PhaseMapGeneral(window, path)
 {
     // Transforming the image to 1080 x 1440
     for (int i = 0; i < 6; i++)
@@ -49,12 +49,12 @@ void PhaseMap3::update(int &controller)
     phaseTransition(controller);
 }
 
-void PhaseMap3::render(sf::RenderWindow &window, int &controller)
+void PhaseMap3::render(int &controller)
 {
-    setViewInPlayer1(window, controller);
+    setViewInPlayer1(controller);
 
     sf::Event event;
-    if (window.pollEvent(event))
+    if (window->pollEvent(event))
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -66,43 +66,43 @@ void PhaseMap3::render(sf::RenderWindow &window, int &controller)
         return;
     }
 
-    window.clear();
-    renderPhaseBackGround(window);
-    player1->draw(window);
+    window->clear();
+    renderPhaseBackGround();
+    player1->draw();
     if (player2 != NULL)
-        player2->draw(window);
+        player2->draw();
 
     if (!this->enemiesList.isEmpty())
-        this->enemiesList.render(window);
+        this->enemiesList.render();
 
-    phaseMapManager.draw(window);
-    window.display();
+    phaseMapManager.draw();
+    window->display();
 }
 
-void PhaseMap3::renderPhaseBackGround(sf::RenderWindow &window)
+void PhaseMap3::renderPhaseBackGround()
 {
     for (auto *i : phaseBackGroundSprite)
-        window.draw(*i);
+        window->draw(*i);
 }
 
 void PhaseMap3::placingEnemies()
 {
     if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
     {
-        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie({5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*> (z1));
-        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage({7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*> (g1));
-        Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy({7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*> (f1));
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z1));
+        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage(window, {7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(g1));
+        Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy(window, {7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(f1));
     }
     if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->enemiesList.getQuantity() == 3)
     {
-        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie({70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*> (z2));
-        Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage({78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*> (g2));
-        Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy({65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*> (f2));
+        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
+        Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage(window, {78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(g2));
+        Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy(window, {65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(f2));
     }
 }

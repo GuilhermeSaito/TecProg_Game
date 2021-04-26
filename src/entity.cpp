@@ -5,20 +5,22 @@
 
 using namespace Entidade;
 
-Entity::Entity(sf::Vector2f pos, sf::Vector2f spee, float hP, float attack) : position(pos),
-																			  speed(spee),
-																			  hp(hP),
-																			  walkSpeed(8),
-																			  onGround(false),
-																			  jumpSpeed(-20),
-																			  gravityAcceleration((float)1.1),
-																			  isLookingRight(true),
-																			  attackDamage(attack)
+Entity::Entity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attack) : position(pos),
+																										speed(spee),
+																										hp(hP),
+																										walkSpeed(8),
+																										onGround(false),
+																										jumpSpeed(-20),
+																										gravityAcceleration((float)1.1),
+																										isLookingRight(true),
+																										attackDamage(attack),
+																										Menu(window)
 {
 	rect.setSize({48, 48});
 }
 Entity::~Entity()
 {
+	window = NULL;
 }
 
 const sf::Vector2f Entity::getPosition() const { return position; }

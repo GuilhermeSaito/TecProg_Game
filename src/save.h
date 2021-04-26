@@ -26,5 +26,7 @@ namespace SaveGame
 		void setPlayer1Save(json jPlayer1);
 		void setEnemiesSave(json jZombie);
 		void setPlayer2Save(json jPlayer2);
+
+		void clearJson();
 	};
 }

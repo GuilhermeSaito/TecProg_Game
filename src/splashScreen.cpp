@@ -1,7 +1,7 @@
 #include "splashScreen.h"
 #include "data.h"
 
-SplashScreen::SplashScreen()
+SplashScreen::SplashScreen(sf::RenderWindow *window) : Menu(window)
 {
 }
 
@@ -9,20 +9,20 @@ SplashScreen::~SplashScreen()
 {
 }
 
-int SplashScreen::Start(sf::RenderWindow& window)
+int SplashScreen::Start()
 {
 	sf::Sprite sprite;
 	sprite.setTexture(*(Data::getInstance()->getSplashScreenTexture()));
 	sprite.setScale(sf::Vector2f(1.7, 1.98));
 
-	window.clear();
-	window.draw(sprite);
-	window.display();
+	window->clear();
+	window->draw(sprite);
+	window->display();
 
 	while (1)
 	{
 		sf::Event evet;
-		if (window.pollEvent(evet))
+		if (window->pollEvent(evet))
 			switch (evet.type)
 			{
 			case sf::Event::MouseButtonPressed:

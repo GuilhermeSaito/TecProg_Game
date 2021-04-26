@@ -8,15 +8,16 @@ using json = nlohmann::json;
 
 using namespace PhaseMap::Tiles;
 
-PhaseMapManager::PhaseMapManager(std::string p) : 
-    path(p),
-    alturaMax(0),
-    larguraMax(0)
+PhaseMapManager::PhaseMapManager(sf::RenderWindow *window, std::string p) : path(p),
+                                                                            alturaMax(0),
+                                                                            larguraMax(0)
 {
+    this->window = window;
 }
 
 PhaseMapManager::~PhaseMapManager()
 {
+    window = NULL;
     clearMatrix();
 }
 
@@ -25,7 +26,7 @@ bool PhaseMapManager::loadMapTileProprieties()
     std::ifstream in(path);
     if (!in.good())
     {
-        std::cout << "Não foi possivel abrir o " << path << std::endl;
+        std::cout << "Nao foi possivel abrir o " << path << std::endl;
         return false;
     }
     std::cout << path << "\tLoaded" << std::endl;
@@ -40,11 +41,11 @@ bool PhaseMapManager::loadMapTileProprieties()
 
     for (int j = 0; j < alturaMax; j++)
     {
-        std::vector<Tile*> tileLinha;
+        std::vector<Tile *> tileLinha;
         for (int i = 0; i < larguraMax; i++)
         {
             int tilePropriedade = jMap["layers"][0]["data"][j * larguraMax + i];
-            tileLinha.push_back(new Tile(tilePropriedade, sf::Vector2f(i * 48, j * 48)));
+            tileLinha.push_back(new Tile(window, tilePropriedade, sf::Vector2f(i * 48, j * 48)));
         }
         tileMap.push_back(tileLinha);
     }
@@ -53,19 +54,19 @@ bool PhaseMapManager::loadMapTileProprieties()
     return true;
 }
 
-void PhaseMapManager::draw(sf::RenderWindow& window)
+void PhaseMapManager::draw()
 {
-    for (std::vector<Tile*> i : tileMap)
-        for (Tile* j : i)
-            j->draw(window);
+    for (std::vector<Tile *> i : tileMap)
+        for (Tile *j : i)
+            j->draw();
 }
 
-std::vector<std::vector<Tile*>> PhaseMapManager::getMatrixTile()
+std::vector<std::vector<Tile *>> PhaseMapManager::getMatrixTile()
 {
     return tileMap;
 }
 
-Tile* PhaseMapManager::getTile(int posX, int posY)
+Tile *PhaseMapManager::getTile(int posX, int posY)
 {
     return tileMap[posY][posX];
 }
@@ -79,7 +80,7 @@ bool PhaseMapManager::isValidTile(int i, int j)
 
 void PhaseMapManager::clearMatrix()
 {
-    for (std::vector<Tile*> v : tileMap)
-        for (Tile* t : v)
+    for (std::vector<Tile *> v : tileMap)
+        for (Tile *t : v)
             delete t;
 }

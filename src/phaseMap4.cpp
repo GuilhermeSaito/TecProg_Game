@@ -2,9 +2,9 @@
 
 using namespace PhaseMap;
 
-PhaseMap4::PhaseMap4(std::string path) : PhaseMapGeneral(path),
-                                         clock(),
-                                         elapsed()
+PhaseMap4::PhaseMap4(sf::RenderWindow *window, std::string path) : PhaseMapGeneral(window, path),
+                                                                   clock(),
+                                                                   elapsed()
 {
     // Transforming the image to 1080 x 1440
     // Esse aqui vou colocar em dimensoes um pouco diferentes
@@ -49,13 +49,13 @@ void PhaseMap4::update(int &controller)
     phaseTransition(controller);
 }
 
-void PhaseMap4::render(sf::RenderWindow &window, int &controller)
+void PhaseMap4::render(int &controller)
 {
     // Soh nessa fase que eu nao vou atualizar o view se a posicao do player estiver muito alta
-    setViewInPlayer1(window, controller);
+    setViewInPlayer1(controller);
 
     sf::Event event;
-    if (window.pollEvent(event))
+    if (window->pollEvent(event))
         switch (event.type)
         {
         case sf::Event::Closed:
@@ -67,23 +67,23 @@ void PhaseMap4::render(sf::RenderWindow &window, int &controller)
         return;
     }
 
-    window.clear();
-    renderPhaseBackGround(window);
-    player1->draw(window);
+    window->clear();
+    renderPhaseBackGround();
+    player1->draw();
     if (player2 != NULL)
-        player2->draw(window);
+        player2->draw();
 
     if (!this->enemiesList.isEmpty())
-        this->enemiesList.render(window);
+        this->enemiesList.render();
 
-    phaseMapManager.draw(window);
-    window.display();
+    phaseMapManager.draw();
+    window->display();
 }
 
-void PhaseMap4::renderPhaseBackGround(sf::RenderWindow &window)
+void PhaseMap4::renderPhaseBackGround()
 {
     for (auto *i : phaseBackGroundSprite)
-        window.draw(*i);
+        window->draw(*i);
 }
 
 void PhaseMap4::placingEnemies()
@@ -93,20 +93,20 @@ void PhaseMap4::placingEnemies()
     if (elapsed.asSeconds() >= 4 && this->enemiesList.getQuantity() == 0)
     {
         std::cout << elapsed.asSeconds() << std::endl;
-        Entidade::Enemy::Boss *b = new Entidade::Enemy::Boss({50 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 300, 30.f);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(b));
+        Entidade::Enemy::Boss *b = new Entidade::Enemy::Boss(window, {50 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 300, 30.f);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(b));
     }
     if (elapsed.asSeconds() >= 15 && this->enemiesList.getQuantity() == 1)
     {
         std::cout << elapsed.asSeconds() << std::endl;
-        Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy({7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(f1));
+        Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy(window, {7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(f1));
     }
     if (elapsed.asSeconds() >= 25 && this->enemiesList.getQuantity() == 2)
     {
         std::cout << elapsed.asSeconds() << std::endl;
-        Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy({65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity*>(f2));
+        Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy(window, {65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(f2));
     }
 }
 

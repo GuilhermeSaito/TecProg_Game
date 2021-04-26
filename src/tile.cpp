@@ -2,26 +2,26 @@
 
 using namespace PhaseMap::Tiles;
 
-
-Tile::Tile(int numTle, sf::Vector2f spaceOcup) :
-    numProprietieTile{ numTle },
-    spaceOcuped{ spaceOcup }
+Tile::Tile(sf::RenderWindow *window, int numTle, sf::Vector2f spaceOcup) : numProprietieTile{numTle},
+                                                                           spaceOcuped{spaceOcup}
 {
     if (numTle != 0)
     {
         tileSprite.setTexture(*(tileManager.getTileTexture(numTle, rectTile, spaceOcup)));
         tileSprite.setPosition(rectTile.getPosition());
     }
+    this->window = window;
 }
 
 Tile::~Tile()
 {
+    window = NULL;
 }
 
-void Tile::draw(sf::RenderWindow& window)
+void Tile::draw()
 {
     if (numProprietieTile != 0)
-        window.draw(tileSprite);
+        window->draw(tileSprite);
 }
 
 sf::FloatRect Tile::getBoundBox()

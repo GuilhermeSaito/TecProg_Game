@@ -2,8 +2,8 @@
 
 using namespace Entidade::Player;
 
-Player2::Player2(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(pos, spee, hP, attackDamage),
-																					  contAnimation(0)
+Player2::Player2(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(window, pos, spee, hP, attackDamage),
+																												contAnimation(0)
 {
 	rect.setPosition(pos);
 
@@ -44,11 +44,11 @@ void Player2::movementation()
 	spriteAnimation();
 }
 
-void Player2::draw(sf::RenderWindow &window)
+void Player2::draw()
 {
-	window.draw(healthBar);
+	window->draw(healthBar);
 
-	window.draw(sprite);
+	window->draw(sprite);
 }
 
 json Player2::getSave()

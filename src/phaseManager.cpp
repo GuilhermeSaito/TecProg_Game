@@ -2,15 +2,16 @@
 
 using PhaseMap::PhaseManager;
 
-PhaseManager::PhaseManager() : phaseMap1("src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
-                               phaseMap2("src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
-                               phaseMap3("src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
-                               phaseMap4("src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
-                               player1({2 * 48, 27 * 48}, {0, 0}, 100, 30),
-                               player2({3 * 48, 27 * 48}, {0, 0}, 100, 40.5),
-                               needToLoadPhase(true),
-                               controller(EXIT_GAME),
-                               enemiesList(NULL)
+PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
+                                                       phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
+                                                       phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
+                                                       phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
+                                                       player1(window, {2 * 48, 27 * 48}, {0, 0}, 100, 30),
+                                                       player2(window, {3 * 48, 27 * 48}, {0, 0}, 100, 40.5),
+                                                       needToLoadPhase(true),
+                                                       controller(EXIT_GAME),
+                                                       enemiesList(NULL),
+                                                       Menu(window)
 {
 }
 
@@ -18,7 +19,7 @@ PhaseManager::~PhaseManager()
 {
     ResetALL();
 }
-int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
+int PhaseManager::Start(json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
 {
     // Se ele nao estiver vazio, quer dizer que alguem apertou o continuar.
     // Na verdade, posso colocar tudo isso em um metodo, para ficar bonitinho com 1 linha soh aqui, mas estou com preguica no momento...
@@ -57,35 +58,35 @@ int PhaseManager::Start(sf::RenderWindow &window, json jContinueSave, const stri
             this->enemiesList = phaseMap1.getEnemiesList();
             phaseMap1.loadEnemiesListInCollision();
             phaseMap1.update(phase);
-            phaseMap1.render(window, phase);
+            phaseMap1.render(phase);
             break;
         case PHASE2:
             controller = phase;
             this->enemiesList = phaseMap2.getEnemiesList();
             phaseMap2.loadEnemiesListInCollision();
             phaseMap2.update(phase);
-            phaseMap2.render(window, phase);
+            phaseMap2.render(phase);
             break;
         case PHASE3:
             controller = phase;
             this->enemiesList = phaseMap3.getEnemiesList();
             phaseMap3.loadEnemiesListInCollision();
             phaseMap3.update(phase);
-            phaseMap3.render(window, phase);
+            phaseMap3.render(phase);
             break;
         case PHASE4:
             controller = phase;
             this->enemiesList = phaseMap4.getEnemiesList();
             phaseMap4.loadEnemiesListInCollision();
             phaseMap4.update(phase);
-            phaseMap4.render(window, phase);
+            phaseMap4.render(phase);
             break;
 
         case PLAYER_DIE:
-            return showPlayerDie(window);
+            return showPlayerDie();
 
         case OPTIONS:
-            showOptions(window, phase);
+            showOptions(phase);
             if (phase == EXIT_GAME)
                 return EXIT_GAME;
             else if (phase == SAVE)
@@ -133,23 +134,23 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
     return 1;
 }
 
-int PhaseManager::showPlayerDie(sf::RenderWindow &window)
+int PhaseManager::showPlayerDie()
 {
-    normalizeView(window);
+    normalizeView();
 
     ResetALL();
 
-    window.clear();
+    window->clear();
     sf::Sprite playerDie;
     playerDie.setTexture(*(Data::getInstance()->getPlayerDieBackGroundTexture()));
-    playerDie.setPosition(sf::Vector2f(window.getSize().x / 2 - window.getSize().x / 4, window.getSize().y / 2 - window.getSize().y / 4));
-    window.draw(playerDie);
-    window.display();
+    playerDie.setPosition(sf::Vector2f(window->getSize().x / 2 - window->getSize().x / 4, window->getSize().y / 2 - window->getSize().y / 4));
+    window->draw(playerDie);
+    window->display();
 
     while (true)
     {
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
             switch (event.type)
             {
             case sf::Event::MouseButtonPressed:
@@ -161,15 +162,15 @@ int PhaseManager::showPlayerDie(sf::RenderWindow &window)
     }
 }
 
-void PhaseManager::normalizeView(sf::RenderWindow &window)
+void PhaseManager::normalizeView()
 {
-    sf::View normalView(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2), sf::Vector2f(1080, 720));
-    window.setView(normalView);
+    sf::View normalView(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f(1080, 720));
+    window->setView(normalView);
 }
 
-void PhaseManager::showOptions(sf::RenderWindow &window, int &phase)
+void PhaseManager::showOptions(int &phase)
 {
-    normalizeView(window);
+    normalizeView();
 
     sf::Text menu1;
     sf::Text menu2;
@@ -195,7 +196,7 @@ void PhaseManager::showOptions(sf::RenderWindow &window, int &phase)
     while (1)
     {
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
             {
@@ -243,17 +244,17 @@ void PhaseManager::showOptions(sf::RenderWindow &window, int &phase)
             menu3.setFillColor(sf::Color(255, 0, 0, 255));
         }
 
-        window.clear();
-        window.draw(menu1);
-        window.draw(menu2);
-        window.draw(menu3);
-        window.display();
+        window->clear();
+        window->draw(menu1);
+        window->draw(menu2);
+        window->draw(menu3);
+        window->display();
     }
 }
 
 const int PhaseManager::loadState(json j)
 {
-    int players = 0, players1 = 1, players2 = j["gamePlaySave"].size() - 1, enemies = 2;
+    int players = 0, players1 = 1, players2 = 2, enemies = j["gamePlaySave"].size() - 1;
     //------------------- Load do Player1 -------------------
     player1.setPosition({j["gamePlaySave"][players1]["players1"]["player1PositionX"], j["gamePlaySave"][players1]["players1"]["player1PositionY"]});
     player1.setHp(j["gamePlaySave"][players1]["players1"]["hp"]);
@@ -275,48 +276,48 @@ const int PhaseManager::loadState(json j)
     {
         if (j["kind"] == ZOMBIE)
         {
-            Entidade::Enemy::Zombie* z = new Entidade::Enemy::Zombie({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
+            Entidade::Enemy::Zombie *z = new Entidade::Enemy::Zombie(window, {j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
             if (controller == PHASE1)
             {
-                phaseMap1.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap1.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
             else if (controller == PHASE2)
             {
-                phaseMap2.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap2.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
             else if (controller == PHASE3)
             {
-                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
         }
         else if (j["kind"] == GOBLIN_MAGE)
         {
-            Entidade::Enemy::GoblinMage* z = new Entidade::Enemy::GoblinMage({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
+            Entidade::Enemy::GoblinMage *z = new Entidade::Enemy::GoblinMage(window, {j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
             if (controller == PHASE2)
             {
-                phaseMap2.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap2.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
             else if (controller == PHASE3)
             {
-                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
         }
         else if (j["kind"] == FLYING_ENEMY)
         {
-            Entidade::Enemy::FlyingEnemy* z = new Entidade::Enemy::FlyingEnemy({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
+            Entidade::Enemy::FlyingEnemy *z = new Entidade::Enemy::FlyingEnemy(window, {j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 15);
             if (controller == PHASE3)
             {
-                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap3.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
             else
             {
-                phaseMap4.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+                phaseMap4.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
             }
         }
         else
         {
-            Entidade::Enemy::Boss* z = new Entidade::Enemy::Boss({j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 30);
-            phaseMap4.getEnemiesList()->include(static_cast<Entidade::EnemyEntity*> (z));
+            Entidade::Enemy::Boss *z = new Entidade::Enemy::Boss(window, {j["positionX"], j["positionY"]}, {3.f, 3.f}, j["hp"], 30);
+            phaseMap4.getEnemiesList()->include(static_cast<Entidade::EnemyEntity *>(z));
         }
     }
     if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
@@ -325,13 +326,15 @@ const int PhaseManager::loadState(json j)
 
 void PhaseManager::saveState()
 {
+    // Um metodo do save soh para ter certeza absoluta que nao tera "lixo" dentro dos arrays
+    save.clearJson();
     //------------------- Save da "phase" -------------------
     save.setPhasePlayerName(player1Name, player2Name, isMultiplayer, controller);
     //------------------- Save do Player1 -------------------
     save.setPlayer1Save(player1.getSave());
     //------------------- Save dos Inimigos -------------------
-    Element<Entidade::EnemyEntity>* e = this->enemiesList->getFirst();
-    while(e != NULL)
+    Element<Entidade::EnemyEntity> *e = this->enemiesList->getFirst();
+    while (e != NULL)
     {
         save.setEnemiesSave(e->getInfo()->getSave());
         e = e->getNext();
@@ -355,19 +358,19 @@ void PhaseManager::ResetALL()
     needToLoadPhase = false;
 }
 
-int PhaseManager::notImplementedYet(sf::RenderWindow &window)
+int PhaseManager::notImplementedYet()
 {
-    window.clear();
+    window->clear();
     sf::Sprite notImplementedYet;
     notImplementedYet.setTexture(*(Data::getInstance()->getNotImplementedYet()));
-    notImplementedYet.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y / 2));
-    window.draw(notImplementedYet);
-    window.display();
+    notImplementedYet.setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
+    window->draw(notImplementedYet);
+    window->display();
 
     while (true)
     {
         sf::Event event;
-        if (window.pollEvent(event))
+        if (window->pollEvent(event))
             switch (event.type)
             {
             case sf::Event::MouseButtonPressed:

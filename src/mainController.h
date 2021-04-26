@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SwitchPanel.h"
+#include "menu.h"
 #include "splashScreen.h"
 #include "openMenu.h"
 #include "phaseSelection.h"
@@ -19,7 +19,7 @@ class MainController
 {
 private:
 	sf::RenderWindow window;
-	std::vector<SwitchPanel*> switcher;	// Responsavel por armazenar as instancias dos objetos e trocar de telas quando necessario.
+	std::vector<Menu *> switcher; // Responsavel por armazenar as instancias dos objetos e trocar de telas quando necessario.
 
 	SplashScreen splashScreen;
 	StartScreen::OpenMenu openMenu;
@@ -33,4 +33,3 @@ public:
 
 	void Start();
 };
-

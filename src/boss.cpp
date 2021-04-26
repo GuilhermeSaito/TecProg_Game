@@ -2,15 +2,14 @@
 
 using namespace Entidade::Enemy;
 
-Boss::Boss(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
-	  EnemyEntity(pos, spee, hP, attackDamage),
-    projectiles(),
-    clock()
+Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage),
+                                                                                                          projectiles(),
+                                                                                                          clock()
 {
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
-  rect.setSize(sf::Vector2f(2*87.f, 2*96.f));
+  rect.setSize(sf::Vector2f(2 * 87.f, 2 * 96.f));
   rect.setPosition(pos);
 
   sprite.setTexture(*(Data::getInstance()->getBossTexture()));
@@ -23,22 +22,23 @@ Boss::Boss(sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) :
 }
 Boss::~Boss()
 {
+  window = NULL;
   this->projectiles.setNull();
 }
 
-ProjectilesList* Boss::getProjectiles()
+ProjectilesList *Boss::getProjectiles()
 {
   return &this->projectiles;
 }
 
 void Boss::shootProjectile(sf::Vector2f playerPosition)
 {
-    if (!this->projectiles.isEmpty())
-        this->projectiles.setNull();
+  if (!this->projectiles.isEmpty())
+    this->projectiles.setNull();
 
-    this->projectiles.include(new Projectile({playerPosition.x, playerPosition.y}, this->position, 10.f));
-    this->projectiles.include(new Projectile({playerPosition.x, playerPosition.y-50}, this->position, 10.f));
-    this->projectiles.include(new Projectile({playerPosition.x, playerPosition.y+50}, this->position, 10.f));
+  this->projectiles.include(new Projectile(window, {playerPosition.x, playerPosition.y}, this->position, 10.f));
+  this->projectiles.include(new Projectile(window, {playerPosition.x, playerPosition.y - 50}, this->position, 10.f));
+  this->projectiles.include(new Projectile(window, {playerPosition.x, playerPosition.y + 50}, this->position, 10.f));
 }
 
 void Boss::movimentation(sf::Vector2f playerPosition)
@@ -57,7 +57,7 @@ void Boss::movimentation(sf::Vector2f playerPosition)
   else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;
-    this->position.x +=this->speed.x;
+    this->position.x += this->speed.x;
     sprite.setTexture(*(Data::getInstance()->getBossTexture()));
     sprite.setTextureRect(sf::IntRect(4, 96, 87, 96));
     sprite.setScale({2.f, 2.f});
@@ -71,7 +71,7 @@ void Boss::movimentation(sf::Vector2f playerPosition)
   this->sprite.setPosition(position);
 }
 
-void Boss::update(Entidade::Player::Player1* p)
+void Boss::update(Entidade::Player::Player1 *p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
@@ -88,19 +88,19 @@ void Boss::update(Entidade::Player::Player1* p)
     projectiles.update(p);
 }
 
-void Boss::render(sf::RenderWindow& window)
+void Boss::render()
 {
-	window.draw(healthBar);
-	window.draw(sprite);
+  window->draw(healthBar);
+  window->draw(sprite);
 
-  projectiles.render(window);
+  projectiles.render();
 }
 
 json Boss::getSave()
 {
   json j = json::object();
 
-  j["kind"] = BOSS; 
+  j["kind"] = BOSS;
   j["positionX"] = position.x;
   j["positionY"] = position.y;
   j["hp"] = this->hp;

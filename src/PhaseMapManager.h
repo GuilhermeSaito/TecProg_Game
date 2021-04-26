@@ -16,14 +16,16 @@ namespace PhaseMap
 
             std::string path;
 
+            sf::RenderWindow* window;
+
         public:
             // Path to the json map phase
-            PhaseMapManager(std::string p = "");
+            PhaseMapManager(sf::RenderWindow* window = NULL, std::string p = "");
             ~PhaseMapManager();
 
             // false = error
             bool loadMapTileProprieties();
-            void draw(sf::RenderWindow& window);
+            void draw();
 
             std::vector<std::vector<Tile*>> getMatrixTile();
             Tile* getTile(int posX, int posY);
