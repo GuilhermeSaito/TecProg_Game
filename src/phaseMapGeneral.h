@@ -28,7 +28,7 @@ namespace PhaseMap
 		Entidade::Player::Player1 *player1;
 		Entidade::Player::Player2 *player2;
 
-		EnemiesList enemiesList;
+		Lists::EnemiesList enemiesList;
 
 		sf::View player1View;
 
@@ -53,7 +53,7 @@ namespace PhaseMap
 		const bool isGameClear();
 
 		// Soh para evitar possiveis problemas de polimorfismo
-		int Start() override {}
+		int Start() override {return 0;}
 
 	public:
 		void resetEverythingForTransition();
@@ -61,7 +61,7 @@ namespace PhaseMap
 		void setPlayer1(Entidade::Player::Player1 *p1);
 		void setPlayer2(Entidade::Player::Player2 *p2);
 		void loadEnemiesListInCollision();
-		EnemiesList *getEnemiesList();
+		Lists::EnemiesList *getEnemiesList();
 
 		void ResetAll();
 	};

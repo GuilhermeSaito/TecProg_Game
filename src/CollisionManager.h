@@ -17,7 +17,7 @@ private:
 	Entidade::Player::Player1 *player1;
 	Entidade::Player::Player2 *player2;
 	PhaseMap::Tiles::PhaseMapManager *phaseMapManager;
-	EnemiesList *enemiesList;
+	Lists::EnemiesList *enemiesList;
 
 	sf::Clock clockEnemyAttack;
 	sf::Clock clockPlayerAttack;
@@ -43,7 +43,7 @@ public:
 	void setPlayer1(Entidade::Player::Player1 *p1);
 	void setPlayer2(Entidade::Player::Player2 *p2);
 	void setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa);
-	void setEnemiesList(EnemiesList *e);
+	void setEnemiesList(Lists::EnemiesList *e);
 	void clearAllLists();
 
 	void ResetAll();

@@ -26,7 +26,7 @@ GoblinMage::~GoblinMage()
   this->projectiles.setNull();
 }
 
-ProjectilesList *GoblinMage::getProjectiles()
+Lists::ProjectilesList *GoblinMage::getProjectiles()
 {
   return &this->projectiles;
 }

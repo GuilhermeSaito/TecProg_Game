@@ -88,7 +88,7 @@ void CollisionManager::player2CollisionY()
 void CollisionManager::enemiesCollisionX()
 {
 	int i = 0, j = 0;
-	Element<Entidade::EnemyEntity> *z = this->enemiesList->getFirst();
+	Lists::Element<Entidade::EnemyEntity> *z = this->enemiesList->getFirst();
 	while (z != NULL)
 	{
 		for (i = z->getInfo()->getPosition().x / TILE_SIZE; i < ((z->getInfo()->getPosition().x + z->getInfo()->getSize().x) / TILE_SIZE); i++)
@@ -109,7 +109,7 @@ void CollisionManager::enemiesCollisionX()
 void CollisionManager::enemiesCollisionY()
 {
 	int i = 0, j = 0;
-	Element<Entidade::EnemyEntity> *z = this->enemiesList->getFirst();
+	Lists::Element<Entidade::EnemyEntity> *z = this->enemiesList->getFirst();
 	while (z != NULL)
 	{
 		for (j = z->getInfo()->getPosition().y / TILE_SIZE; j < ((z->getInfo()->getPosition().y + z->getInfo()->getSize().y) / TILE_SIZE); j++)
@@ -127,7 +127,7 @@ void CollisionManager::enemiesCollisionY()
 		if (z->getInfo()->getPosition().y >= (28 * TILE_SIZE) + (TILE_SIZE / 3))
 		{
 			//aux guarda a informação de z.next, uma vez que ele será deletado logo após na função kill da classe template Lista
-			Element<Entidade::EnemyEntity> *aux = z->getNext();
+			Lists::Element<Entidade::EnemyEntity> *aux = z->getNext();
 			this->enemiesList->kill(z);
 			z = aux;
 			//continue pois z já recebeu o que seria seu próximo
@@ -140,18 +140,18 @@ void CollisionManager::enemiesCollisionY()
 //Checking wrather any projectile hit the player. If so, this one gets deleted and the player loses health.
 void CollisionManager::enemiesProjectiliesCollision()
 {
-	Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
+	Lists::Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
 	while (g != NULL)
 	{
 		if (g->getInfo()->getHasProjectiles() == true)
 		{
-			Element<Projectile> *p = g->getInfo()->getProjectiles()->getFirst();
+			Lists::Element<Projectile> *p = g->getInfo()->getProjectiles()->getFirst();
 			while (p != NULL)
 			{
 				if (p->getInfo()->getBoundBox().intersects(player1->getBoundBox()))
 				{
 					player1->setHp(player1->getHp() - 5);
-					Element<Projectile> *p2 = p->getNext();
+					Lists::Element<Projectile> *p2 = p->getNext();
 					g->getInfo()->getProjectiles()->kill(p);
 					p = p2;
 					continue;
@@ -168,7 +168,7 @@ void CollisionManager::enemiesProjectiliesCollision()
 void CollisionManager::enemyCollidesPlayer()
 {
 	sf::Time elapsed = clockEnemyAttack.getElapsedTime();
-	Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
+	Lists::Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
 	while (g != NULL)
 	{
 		if ((elapsed.asSeconds() >= 1))
@@ -197,7 +197,7 @@ void CollisionManager::enemyCollidesPlayer()
 void CollisionManager::playerCollidesEnemy()
 {
 	sf::Time elapsed = clockPlayerAttack.getElapsedTime();
-	Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
+	Lists::Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
 	while (g != NULL)
 	{
 		// Somente 1 dos players pode dar dano e.e E o dano do player2 eh maior
@@ -229,7 +229,7 @@ void CollisionManager::playerCollidesEnemy()
 void CollisionManager::setPlayer1(Entidade::Player::Player1 *p1) { player1 = p1; }
 void CollisionManager::setPlayer2(Entidade::Player::Player2 *p2) { player2 = p2; }
 void CollisionManager::setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa) { phaseMapManager = phaseMapMa; }
-void CollisionManager::setEnemiesList(EnemiesList *e) { this->enemiesList = e; }
+void CollisionManager::setEnemiesList(Lists::EnemiesList *e) { this->enemiesList = e; }
 void CollisionManager::clearAllLists()
 {
 	if (this->enemiesList != NULL && !this->enemiesList->isEmpty())

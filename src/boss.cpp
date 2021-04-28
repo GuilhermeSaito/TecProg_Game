@@ -25,7 +25,7 @@ Boss::~Boss()
   this->projectiles.setNull();
 }
 
-ProjectilesList *Boss::getProjectiles()
+Lists::ProjectilesList *Boss::getProjectiles()
 {
   return &this->projectiles;
 }

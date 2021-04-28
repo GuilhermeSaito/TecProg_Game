@@ -3,155 +3,158 @@
 
 #pragma once
 
-template <class KIND>
-class ListElement
+namespace Lists
 {
-private:
-    Element<KIND> *first;
-    Element<KIND> *last;
-
-    //this "quantity" atribute has many utilities
-    int quantity;
-
-public:
-    ListElement()
+    template <class KIND>
+    class ListElement
     {
-        this->first = NULL;
-        this->last = NULL;
+    private:
+        Element<KIND> *first;
+        Element<KIND> *last;
 
-        this->quantity = 0;
-    }
+        //this "quantity" atribute has many utilities
+        int quantity;
 
-    ~ListElement()
-    {
-        Element<KIND> *aux = first;
-        Element<KIND> *aux2 = first;
-        while (aux != NULL)
+    public:
+        ListElement()
         {
-            aux = aux->getNext();
-            delete aux2;
-            aux2 = aux;
+            this->first = NULL;
+            this->last = NULL;
+
+            this->quantity = 0;
         }
 
-        this->first = NULL;
-        this->last = NULL;
-
-        this->quantity = 0;
-    }
-
-    void setNull()
-    {
-        Element<KIND> *z = this->first;
-        if (z->getNext() == NULL)
+        ~ListElement()
         {
-            kill(z);
-        }
-        else
-        {
-            z = z->getNext();
-            while (z != NULL && z->getNext() != NULL)
+            Element<KIND> *aux = first;
+            Element<KIND> *aux2 = first;
+            while (aux != NULL)
             {
-                Element<KIND> *zAux = z->getPrevious();
-                kill(zAux);
-                z = z->getNext();
+                aux = aux->getNext();
+                delete aux2;
+                aux2 = aux;
             }
-            kill(z);
+
+            this->first = NULL;
+            this->last = NULL;
+
+            this->quantity = 0;
         }
 
-        this->first = NULL;
-        this->last = NULL;
-
-        this->quantity = 0;
-    }
-
-    void include(KIND *z)
-    {
-        Element<KIND> *aux = new Element<KIND>();
-        aux->setInfo(z);
-        //caso a lista esteja vazia
-        if (this->first == NULL)
+        void setNull()
         {
-            this->first = aux;
-            this->last = aux;
-        }
-        else
-        {
-            this->last->setNext(aux);
-            aux->setPrevious(this->last);
-            this->last = aux;
-        }
-
-        this->quantity++;
-    }
-
-    void update(Entidade::Player::Player1 *p)
-    {
-        Element<KIND> *aux = this->first;
-        while (aux != NULL)
-        {
-            aux->getInfo()->update(p);
-            aux = aux->getNext();
-        }
-    }
-
-    void render()
-    {
-        Element<KIND> *z = this->first;
-        while (z != NULL)
-        {
-            z->getInfo()->render();
-            z = z->getNext();
-        }
-    }
-
-    void kill(Element<KIND> *z)
-    {
-        // Se for o primeiro da lista a morrer
-        if (z == this->first)
-        {
-            // Se ele for o único elemento sobrando
+            Element<KIND> *z = this->first;
             if (z->getNext() == NULL)
             {
-                this->first = NULL;
-                this->last = NULL;
+                kill(z);
             }
             else
             {
-                z->getNext()->setPrevious(NULL);
-                this->first = z->getNext();
+                z = z->getNext();
+                while (z != NULL && z->getNext() != NULL)
+                {
+                    Element<KIND> *zAux = z->getPrevious();
+                    kill(zAux);
+                    z = z->getNext();
+                }
+                kill(z);
+            }
+
+            this->first = NULL;
+            this->last = NULL;
+
+            this->quantity = 0;
+        }
+
+        void include(KIND *z)
+        {
+            Element<KIND> *aux = new Element<KIND>();
+            aux->setInfo(z);
+            //caso a lista esteja vazia
+            if (this->first == NULL)
+            {
+                this->first = aux;
+                this->last = aux;
+            }
+            else
+            {
+                this->last->setNext(aux);
+                aux->setPrevious(this->last);
+                this->last = aux;
+            }
+
+            this->quantity++;
+        }
+
+        void update(Entidade::Player::Player1 *p)
+        {
+            Element<KIND> *aux = this->first;
+            while (aux != NULL)
+            {
+                aux->getInfo()->update(p);
+                aux = aux->getNext();
             }
         }
-        // Se for o último elemento
-        else if (z == this->last)
+
+        void render()
         {
-            z->getPrevious()->setNext(NULL);
-            this->last = z->getPrevious();
+            Element<KIND> *z = this->first;
+            while (z != NULL)
+            {
+                z->getInfo()->render();
+                z = z->getNext();
+            }
         }
-        //caso esteja no meio da lista
-        else
+
+        void kill(Element<KIND> *z)
         {
-            z->getPrevious()->setNext(z->getNext());
-            z->getNext()->setPrevious(z->getPrevious());
+            // Se for o primeiro da lista a morrer
+            if (z == this->first)
+            {
+                // Se ele for o único elemento sobrando
+                if (z->getNext() == NULL)
+                {
+                    this->first = NULL;
+                    this->last = NULL;
+                }
+                else
+                {
+                    z->getNext()->setPrevious(NULL);
+                    this->first = z->getNext();
+                }
+            }
+            // Se for o último elemento
+            else if (z == this->last)
+            {
+                z->getPrevious()->setNext(NULL);
+                this->last = z->getPrevious();
+            }
+            //caso esteja no meio da lista
+            else
+            {
+                z->getPrevious()->setNext(z->getNext());
+                z->getNext()->setPrevious(z->getPrevious());
+            }
+            delete (z);
         }
-        delete (z);
-    }
 
-    Element<KIND> *getFirst()
-    {
-        return this->first;
-    }
+        Element<KIND> *getFirst()
+        {
+            return this->first;
+        }
 
-    const bool isEmpty() const
-    {
-        return (this->first == NULL);
-    }
+        const bool isEmpty() const
+        {
+            return (this->first == NULL);
+        }
 
-    void setQuantity(int i)
-    {
-        this->quantity = i;
-    }
-    const int getQuantity() const
-    {
-        return this->quantity;
-    }
-};
+        void setQuantity(int i)
+        {
+            this->quantity = i;
+        }
+        const int getQuantity() const
+        {
+            return this->quantity;
+        }
+    };
+}

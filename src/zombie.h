@@ -21,7 +21,8 @@ namespace Entidade
 			void update(Entidade::Player::Player1 *p) override;
 			void render() override;
 
-			ProjectilesList *getProjectiles();
+			//apenas por ser um método padrão dos inimigos, porém Zumbis retornam NULL
+			Lists::ProjectilesList *getProjectiles();
 
 			json getSave() override;
 		};

@@ -64,7 +64,7 @@ void Zombie::render()
   window->draw(sprite);
 }
 
-ProjectilesList *Zombie::getProjectiles()
+Lists::ProjectilesList *Zombie::getProjectiles()
 {
   return NULL;
 }

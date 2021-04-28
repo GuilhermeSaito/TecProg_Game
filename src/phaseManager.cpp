@@ -329,6 +329,8 @@ const int PhaseManager::loadState(json j)
     }
     if (loadPhaseMap(this->isMultiplayer) == EXIT_GAME)
         return EXIT_GAME;
+
+    return 1;
 }
 
 void PhaseManager::saveState()
@@ -340,7 +342,7 @@ void PhaseManager::saveState()
     //------------------- Save do Player1 -------------------
     save.setPlayer1Save(player1.getSave());
     //------------------- Save dos Inimigos -------------------
-    Element<Entidade::EnemyEntity> *e = this->enemiesList->getFirst();
+    Lists::Element<Entidade::EnemyEntity> *e = this->enemiesList->getFirst();
     while (e != NULL)
     {
         save.setEnemiesSave(e->getInfo()->getSave());

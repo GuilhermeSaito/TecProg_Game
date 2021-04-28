@@ -75,8 +75,8 @@ const bool PhaseMapGeneral::isPlayerDead()
 
 void PhaseMapGeneral::enemyKilled()
 {
-    Element<Entidade::EnemyEntity> *g = this->enemiesList.getFirst();
-    Element<Entidade::EnemyEntity> *aux = g;
+    Lists::Element<Entidade::EnemyEntity> *g = this->enemiesList.getFirst();
+    Lists::Element<Entidade::EnemyEntity> *aux = g;
     while (g != NULL)
     {
         g = g->getNext();
@@ -121,7 +121,7 @@ void PhaseMapGeneral::loadEnemiesListInCollision()
 {
     collisionManager.setEnemiesList(&enemiesList);
 }
-EnemiesList *PhaseMapGeneral::getEnemiesList()
+Lists::EnemiesList *PhaseMapGeneral::getEnemiesList()
 {
     return &enemiesList;
 }

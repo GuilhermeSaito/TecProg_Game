@@ -1,5 +1,7 @@
 #include "enemiesList.h"
 
+using namespace Lists;
+
 EnemiesList::EnemiesList()
 {
 }

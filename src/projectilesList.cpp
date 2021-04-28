@@ -1,4 +1,5 @@
 #include "projectilesList.h"
+using namespace Lists;
 
 ProjectilesList::ProjectilesList()
 {

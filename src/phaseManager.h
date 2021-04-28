@@ -23,7 +23,7 @@ namespace PhaseMap
 		Entidade::Player::Player1 player1;
 		Entidade::Player::Player2 player2;
 
-		EnemiesList *enemiesList;
+		Lists::EnemiesList *enemiesList;
 
 		SaveGame::Save save;
 
@@ -55,6 +55,6 @@ namespace PhaseMap
 
 		int notImplementedYet();
 
-		int Start() override {}
+		int Start() override {return 0;}
 	};
 }

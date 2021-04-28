@@ -25,5 +25,5 @@ public:
   void update(Entidade::Player::Player1 *p);
   void render();
 
-  int Start() override {}
+  int Start() override {return 0;}
 };

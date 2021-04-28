@@ -29,7 +29,7 @@ namespace Entidade
 		const bool getHasProjectiles() const;
 		void setHasProjectiles(const bool y);
 
-		virtual ProjectilesList *getProjectiles() = 0;
+		virtual Lists::ProjectilesList *getProjectiles() = 0;
 		virtual void movimentation(sf::Vector2f playerPosition) = 0;
 		virtual void update(Entidade::Player::Player1 *p) = 0;
 		virtual void render() = 0;

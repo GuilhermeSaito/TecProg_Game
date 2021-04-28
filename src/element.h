@@ -6,55 +6,58 @@
 
 using namespace std;
 
-template<class KIND>
-class Element
+namespace Lists
 {
-private:
-    Element<KIND>* previous;
-    Element<KIND>* next;
-
-    KIND* info;
-
-public:
-    Element()
+    template<class KIND>
+    class Element
     {
-        this->previous = NULL;
-        this->next = NULL;
+    private:
+        Element<KIND>* previous;
+        Element<KIND>* next;
 
-        this->info = NULL;
-    }
+        KIND* info;
 
-    ~Element()
-    {
-    }
+    public:
+        Element()
+        {
+            this->previous = NULL;
+            this->next = NULL;
 
-    void setPrevious(Element<KIND>* p)
-    {
-        this->previous = p;
-    }
+            this->info = NULL;
+        }
 
-    Element<KIND>* getPrevious()
-    {
-        return this->previous;
-    }
+        ~Element()
+        {
+        }
 
-    void setNext(Element<KIND>* n)
-    {
-        this->next = n;
-    }
+        void setPrevious(Element<KIND>* p)
+        {
+            this->previous = p;
+        }
 
-    Element<KIND>* getNext()
-    {
-        return this->next;
-    }
+        Element<KIND>* getPrevious()
+        {
+            return this->previous;
+        }
 
-    void setInfo(KIND* i)
-    {
-        this->info = i;
-    }
+        void setNext(Element<KIND>* n)
+        {
+            this->next = n;
+        }
 
-    KIND* getInfo()
-    {
-        return this->info;
-    }
-};
+        Element<KIND>* getNext()
+        {
+            return this->next;
+        }
+
+        void setInfo(KIND* i)
+        {
+            this->info = i;
+        }
+
+        KIND* getInfo()
+        {
+            return this->info;
+        }
+    };
+}

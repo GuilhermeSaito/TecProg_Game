@@ -18,13 +18,13 @@ namespace Entidade
             sf::Clock clock;
             sf::Time elapsed;
 
-            ProjectilesList projectiles;
+            Lists::ProjectilesList projectiles;
 
         public:
             GoblinMage(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
             ~GoblinMage();
 
-            ProjectilesList *getProjectiles();
+            Lists::ProjectilesList *getProjectiles();
             void shootProjectile(sf::Vector2f playerPosition);
 
             void movimentation(sf::Vector2f playerPosition);
