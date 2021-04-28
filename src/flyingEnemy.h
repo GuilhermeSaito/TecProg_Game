@@ -1,11 +1,12 @@
+#pragma once
+
 #include "enemyEntity.h"
 #include "data.h"
 #include "projectile.h"
 #include "player1.h"
 
 #define FLYING_ENEMY 33
-
-#pragma once
+#define FLYING_ENEMY_POINTS 50
 
 namespace Entidade
 {
@@ -22,7 +23,7 @@ namespace Entidade
             ProjectilesList projectiles;
 
         public:
-            FlyingEnemy(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+            FlyingEnemy(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
             ~FlyingEnemy();
 
             ProjectilesList *getProjectiles();

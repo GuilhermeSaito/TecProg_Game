@@ -6,6 +6,7 @@
 #include "phaseSelection.h"
 #include "characterSelection.h"
 #include "phaseManager.h"
+#include "rankingScreen.h"
 
 #include <vector>
 
@@ -26,6 +27,7 @@ private:
 	StartScreen::PhaseSelection phaseSelection;
 	StartScreen::CharacterSelection characterSelection;
 	PhaseMap::PhaseManager phaseManager;
+	RankingScreen rankingScreen;
 
 public:
 	MainController();

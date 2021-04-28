@@ -5,6 +5,7 @@
 #include "player1.h"
 
 #define ZOMBIE 31
+#define ZOMBIE_POINTS 30
 
 namespace Entidade
 {
@@ -13,14 +14,14 @@ namespace Entidade
 		class Zombie : public EnemyEntity
 		{
 		public:
-			Zombie(sf::RenderWindow* window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+			Zombie(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
 			~Zombie();
 
 			void movimentation(sf::Vector2f playerPosition);
-			void update(Entidade::Player::Player1* p) override;
+			void update(Entidade::Player::Player1 *p) override;
 			void render() override;
 
-			ProjectilesList* getProjectiles();
+			ProjectilesList *getProjectiles();
 
 			json getSave() override;
 		};

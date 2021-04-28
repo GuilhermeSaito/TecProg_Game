@@ -16,6 +16,7 @@
 #define PLAYER_DIE 66
 #define OPTIONS 70
 #define SAVE 50
+#define RANK 100
 
 namespace PhaseMap
 {
@@ -47,7 +48,9 @@ namespace PhaseMap
 	protected:
 		void setViewInPlayer1(const int controller);
 		void phaseTransition(int &contoller);
-		bool isPlayerDead();
+		const bool isPlayerDead();
+		void enemyKilled();
+		const bool isGameClear();
 
 		// Soh para evitar possiveis problemas de polimorfismo
 		int Start() override {}

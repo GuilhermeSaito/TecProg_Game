@@ -50,6 +50,8 @@ void PhaseMap2::update(int &controller)
 
     if (!this->enemiesList.isEmpty())
         this->enemiesList.update(this->player1);
+    // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
+    enemyKilled();
 }
 
 void PhaseMap2::render(int &controller)
@@ -94,16 +96,16 @@ void PhaseMap2::placingEnemies()
 {
     if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
     {
-        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15);
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 15, ZOMBIE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z1));
-        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage(window, {7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15);
+        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage(window, {7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 15, GOBLIN_MAGE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(g1));
     }
     if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->enemiesList.getQuantity() == 2)
     {
-        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15, ZOMBIE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
-        Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage(window, {78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15);
+        Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage(window, {78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15, GOBLIN_MAGE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(g2));
     }
 }

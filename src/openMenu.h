@@ -39,6 +39,6 @@ namespace StartScreen
 	public:
 		json getContinueSave();
 
-		int notImplementedYet(sf::RenderWindow *window);
+		int notImplementedYet(sf::RenderWindow *window = NULL);
 	};
 }

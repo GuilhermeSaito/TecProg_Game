@@ -52,6 +52,8 @@ void PhaseMap1::update(int &controller)
     //updates all zombies
     if (!this->enemiesList.isEmpty())
         this->enemiesList.update(this->player1);
+    // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
+    enemyKilled();
 }
 
 void PhaseMap1::render(int &controller)
@@ -99,22 +101,22 @@ void PhaseMap1::placingEnemies()
     // For the zombies
     if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
     {
-        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {5, 5}, 50, 15);
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z1));
     }
     if (this->player1->getPosition().x >= 20 * TILE_SIZE && this->enemiesList.getQuantity() == 1)
     {
-        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {32 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {32 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
     }
     if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->enemiesList.getQuantity() == 2)
     {
-        Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie(window, {72 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+        Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie(window, {72 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z3));
     }
     if (this->player1->getPosition().x >= 100 * TILE_SIZE && this->enemiesList.getQuantity() == 3)
     {
-        Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie(window, {120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15);
+        Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie(window, {120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z4));
     }
 }

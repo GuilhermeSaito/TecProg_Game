@@ -3,7 +3,7 @@
         {
             "players": {
                 "multiplayer": true,
-                "phase": 13,
+                "phase": 11,
                 "player1Name": "",
                 "player2Name": ""
             }
@@ -11,16 +11,9 @@
         {
             "players1": {
                 "hp": 100.0,
-                "player1PositionX": 1232.0,
-                "player1PositionY": 980.2999877929688,
+                "player1PositionX": 96.0,
+                "player1PositionY": 1344.0,
                 "score": 0
-            }
-        },
-        {
-            "players2": {
-                "hp": 100.0,
-                "player2PositionX": 1248.0,
-                "player2PositionY": 1173.5999755859375
             }
         },
         {
@@ -28,20 +21,8 @@
                 {
                     "hp": 50.0,
                     "kind": 31,
-                    "positionX": 865.0,
+                    "positionX": 100.0,
                     "positionY": 1346.0999755859375
-                },
-                {
-                    "hp": 50.0,
-                    "kind": 32,
-                    "positionX": 906.0,
-                    "positionY": 1348.0999755859375
-                },
-                {
-                    "hp": 50.0,
-                    "kind": 33,
-                    "positionX": 927.0,
-                    "positionY": 854.9847412109375
                 }
             ]
         }

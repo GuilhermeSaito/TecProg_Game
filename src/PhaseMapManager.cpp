@@ -82,5 +82,7 @@ void PhaseMapManager::clearMatrix()
 {
     for (std::vector<Tile *> v : tileMap)
         for (Tile *t : v)
+            if (t != NULL)
             delete t;
+    tileMap.clear();
 }

@@ -2,7 +2,7 @@
 
 using namespace Entidade::Enemy;
 
-GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage),
+GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
                                                                                                                       projectiles(),
                                                                                                                       clock()
 {

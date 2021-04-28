@@ -2,7 +2,7 @@
 
 using namespace Entidade::Player;
 
-Player1::Player1(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : Entity(window, pos, spee, hP, attackDamage),
+Player1::Player1(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : Entity(window, pos, spee, hP, attackDamage, points),
 																												contAnimation(0),
 																												score(0),
 																												player1View(NULL)
@@ -21,6 +21,7 @@ Player1::Player1(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, 
 Player1::~Player1()
 {
 	player1View = NULL;
+	window = NULL;
 }
 
 void Player1::movementation()

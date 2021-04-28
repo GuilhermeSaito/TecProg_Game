@@ -2,7 +2,7 @@
 
 using namespace Entidade::Enemy;
 
-Zombie::Zombie(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage)
+Zombie::Zombie(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point)
 {
   this->hasProjectiles = false;
   this->walkSpeed = spee.x;

@@ -24,6 +24,15 @@ public:
 
     ~ListElement()
     {
+        Element<KIND> *aux = first;
+        Element<KIND> *aux2 = first;
+        while (aux != NULL)
+        {
+            aux = aux->getNext();
+            delete aux2;
+            aux2 = aux;
+        }
+
         this->first = NULL;
         this->last = NULL;
 
@@ -37,7 +46,6 @@ public:
         {
             kill(z);
         }
-
         else
         {
             z = z->getNext();

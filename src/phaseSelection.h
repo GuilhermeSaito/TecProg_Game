@@ -26,7 +26,7 @@ namespace StartScreen
 		int witchPhaseIs;
 
 	public:
-		PhaseSelection(sf::RenderWindow *window);
+		PhaseSelection(sf::RenderWindow *window = NULL);
 		~PhaseSelection();
 
 		int Start() override;

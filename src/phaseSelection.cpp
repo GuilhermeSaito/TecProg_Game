@@ -40,6 +40,7 @@ PhaseSelection::PhaseSelection(sf::RenderWindow *window) : witchPhaseIs(PHASE1),
 }
 PhaseSelection::~PhaseSelection()
 {
+    window = NULL;
 }
 
 int PhaseSelection::Start()

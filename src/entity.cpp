@@ -5,16 +5,17 @@
 
 using namespace Entidade;
 
-Entity::Entity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attack) : position(pos),
-																										speed(spee),
-																										hp(hP),
-																										walkSpeed(8),
-																										onGround(false),
-																										jumpSpeed(-20),
-																										gravityAcceleration((float)1.1),
-																										isLookingRight(true),
-																										attackDamage(attack),
-																										Menu(window)
+Entity::Entity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attack, const int point) : position(pos),
+																														 speed(spee),
+																														 hp(hP),
+																														 walkSpeed(8),
+																														 onGround(false),
+																														 jumpSpeed(-20),
+																														 gravityAcceleration((float)1.1),
+																														 isLookingRight(true),
+																														 attackDamage(attack),
+																														 Menu(window),
+																														 points(point)
 {
 	rect.setSize({48, 48});
 }
@@ -81,3 +82,6 @@ void Entity::setIsLookingRight(const bool r) { isLookingRight = r; }
 
 const float Entity::getAttackDamage() const { return attackDamage; }
 void Entity::setAttackDamage(const float attack) { attackDamage = attack; }
+
+const int Entity::getPoints() const { return points; }
+void Entity::setPoints(const int p) { points = p; }

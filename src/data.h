@@ -6,7 +6,7 @@ class Data
 {
 private:
 	Data();
-	static Data* instance;
+	static Data *instance;
 
 	sf::Texture splashScreen;
 	sf::Texture splashScreen2;
@@ -30,6 +30,7 @@ private:
 	sf::Texture flyingEnemyTexture;
 	sf::Texture bossTexture;
 	sf::Texture projectileTexture;
+	sf::Texture rankingScreenTexture;
 
 	sf::Font openMenufont;
 
@@ -37,33 +38,33 @@ private:
 
 public:
 	~Data();
-	static Data* getInstance();
+	static Data *getInstance();
 
-	sf::Texture* getSplashScreenTexture();
-	sf::Texture* getSplashScreenTexture2();
-	sf::Texture* getOpenMenuBackGround();
-	sf::Texture* getBeginnerPhaseBackGround();
-	sf::Texture* getBlueOceanPhaseBackGround();
-	sf::Texture* getCavePhaseBackGround();
-	sf::Texture* getDathPhaseBackGround();
-	sf::Texture* getFireVolcanoPhaseBackGround();
-	sf::Texture* getForestPhaseBackGround();
-	sf::Texture* getSperanzaPhaseBackGround();
-	sf::Texture* getPlayer1Texture();
-	sf::Texture* getPlayer2Texture();
-	sf::Texture* getBrickFloor();
-	sf::Texture* getIceFloor();
-	sf::Texture* getIceFloor2();
-	sf::Texture* getPurpleFloor();
-	sf::Texture* getPlayerDieBackGroundTexture();
-	sf::Texture* getZombieTexture();
-	sf::Texture* getGoblinMageTexture();
-	sf::Texture* getFlyingEnemyTexture();
-	sf::Texture* getBossTexture();
-	sf::Texture* getProjectileTexture();
+	sf::Texture *getSplashScreenTexture();
+	sf::Texture *getSplashScreenTexture2();
+	sf::Texture *getOpenMenuBackGround();
+	sf::Texture *getBeginnerPhaseBackGround();
+	sf::Texture *getBlueOceanPhaseBackGround();
+	sf::Texture *getCavePhaseBackGround();
+	sf::Texture *getDathPhaseBackGround();
+	sf::Texture *getFireVolcanoPhaseBackGround();
+	sf::Texture *getForestPhaseBackGround();
+	sf::Texture *getSperanzaPhaseBackGround();
+	sf::Texture *getPlayer1Texture();
+	sf::Texture *getPlayer2Texture();
+	sf::Texture *getBrickFloor();
+	sf::Texture *getIceFloor();
+	sf::Texture *getIceFloor2();
+	sf::Texture *getPurpleFloor();
+	sf::Texture *getPlayerDieBackGroundTexture();
+	sf::Texture *getZombieTexture();
+	sf::Texture *getGoblinMageTexture();
+	sf::Texture *getFlyingEnemyTexture();
+	sf::Texture *getBossTexture();
+	sf::Texture *getProjectileTexture();
+	sf::Texture *getRankingScreenTexture();
 
-	sf::Font* getOpenMenufont();
+	sf::Font *getOpenMenufont();
 
-	sf::Texture* getNotImplementedYet();
+	sf::Texture *getNotImplementedYet();
 };
-

@@ -1,11 +1,12 @@
+#pragma once
+
 #include "enemyEntity.h"
 #include "data.h"
 #include "projectilesList.h"
 #include "player1.h"
 
 #define GOBLIN_MAGE 32
-
-#pragma once
+#define GOBLIN_MAGE_POINTS 40
 
 namespace Entidade
 {
@@ -20,7 +21,7 @@ namespace Entidade
             ProjectilesList projectiles;
 
         public:
-            GoblinMage(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+            GoblinMage(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
             ~GoblinMage();
 
             ProjectilesList *getProjectiles();

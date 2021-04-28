@@ -1,11 +1,12 @@
+#pragma once
+
 #include "enemyEntity.h"
 #include "data.h"
 #include "projectile.h"
 #include "player1.h"
 
 #define BOSS 34
-
-#pragma once
+#define BOSS_POINTS 70
 
 namespace Entidade
 {
@@ -20,7 +21,7 @@ namespace Entidade
             ProjectilesList projectiles;
 
         public:
-            Boss(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0);
+            Boss(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
             ~Boss();
 
             ProjectilesList *getProjectiles();

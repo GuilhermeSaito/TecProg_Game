@@ -5,7 +5,7 @@
 
 using namespace Entidade::Enemy;
 
-FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage) : EnemyEntity(window, pos, spee, hP, attackDamage),
+FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
                                                                                                                         projectiles(),
                                                                                                                         clock(),
                                                                                                                         originalYposition(pos.y)

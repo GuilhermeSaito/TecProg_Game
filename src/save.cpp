@@ -80,6 +80,104 @@ json Save::continueRestore()
 	return j;
 }
 
+void Save::rankingSave(const string player1Name, const string player2Name, const int score, const bool isMultiplayer)
+{
+	ofstream out("src/saveFile/rankingSave.json", ios::out | ios::trunc);
+	out.exceptions(ios::badbit);
+
+	json jSave = json::object();
+	jSave["state"]["player1Name"] = player1Name;
+	jSave["state"]["multiplayer"] = isMultiplayer;
+	if (isMultiplayer)
+		jSave["state"]["player2Name"] = player2Name;
+	jSave["state"]["score"] = score;
+
+	ifstream in("src/saveFile/rankingSave.json");
+
+	json j = json::object();
+	// Verifica se o arquivo nao estah vazio
+	in.seekg(0, std::ios::end);
+	if (in.tellg())
+	{
+		std::cout << "Deveria ter entrado aqui!\n";
+		try
+		{
+			in >> j;
+		}
+		catch (json::exception &e)
+		{
+			std::cerr << "[!] Erro na leitura do arquivo src/saveFile/rankingSave.json." << std::endl;
+			std::cerr << e.what() << std::endl;
+			in.close();
+			out.close();
+			exit(EXIT_FAILURE);
+		}
+		j["ranking"].push_back(jSave);
+		std::cout << "Deveria ter dado certo!\n";
+	}
+	else
+	{
+		json jRankingArray = json::array();
+		jRankingArray.push_back(jSave);
+		j["ranking"] = jRankingArray;
+	}
+	in.seekg(0, std::ios::beg);
+
+	in.close();
+
+	try
+	{
+		out << setw(4) << j;
+	}
+	catch (json::exception &e)
+	{
+		std::cerr << "[!] Erro na escrita do arquivo src/saveFile/rankingSave.json." << std::endl;
+		std::cerr << e.what() << std::endl;
+		out.close();
+		exit(EXIT_FAILURE);
+	}
+
+	std::cout << "Salvo!\n";
+
+	out.close();
+}
+
+json Save::rankingRecover()
+{
+	ifstream in("src/saveFile/rankingSave.json");
+	// Testa se o arquivo existe
+	if (!in.good())
+	{
+		throw "[!] src/saveFile/rankingSave.json file doesn't exist.";
+		exit(EXIT_FAILURE);
+	}
+	// Testa se o arquivo ta vazio
+	in.seekg(0, std::ios::end);
+	if (!in.tellg())
+	{
+		throw "[!] src/saveFile/rankingSave.json file is empty.";
+		exit(EXIT_FAILURE);
+	}
+	in.seekg(0, std::ios::beg);
+
+	json j;
+
+	try
+	{
+		in >> j;
+	}
+	catch (json::exception &e)
+	{
+		std::cerr << "[!] Erro na leitura do arquivo src/saveFile/rankingSave.json." << std::endl;
+		std::cerr << e.what() << std::endl;
+		in.close();
+		exit(EXIT_FAILURE);
+	}
+	in.close();
+
+	return j;
+}
+
 void Save::setPhasePlayerName(const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
 {
 	json j = json::object();

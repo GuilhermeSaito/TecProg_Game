@@ -22,6 +22,9 @@ namespace SaveGame
 		void continueSave(); // Classe chamada depois de setar todos os saves
 		json continueRestore();
 
+		void rankingSave(const string player1Name, const string player2Name, const int score, const bool isMultiplayer);
+		json rankingRecover();
+
 		void setPhasePlayerName(const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs);
 		void setPlayer1Save(json jPlayer1);
 		void setEnemiesSave(json jZombie);

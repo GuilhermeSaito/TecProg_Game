@@ -30,6 +30,7 @@ OpenMenu::OpenMenu(sf::RenderWindow *window) : Menu(window)
 
 OpenMenu::~OpenMenu()
 {
+    window = NULL;
 }
 
 int OpenMenu::Start()
@@ -72,7 +73,7 @@ int OpenMenu::Start()
                         return PHASE_MANAGER;
                     }
                     else if (controller == 2)
-                        return notImplementedYet(window);
+                        return RANKING_SCREEN;
                     else
                         return EXIT_GAME;
                 }

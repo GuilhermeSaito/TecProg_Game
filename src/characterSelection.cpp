@@ -29,6 +29,7 @@ CharacterSelection::CharacterSelection(sf::RenderWindow *window) : isMultiplayer
 
 CharacterSelection::~CharacterSelection()
 {
+    window = NULL;
 }
 
 int CharacterSelection::Start()

@@ -14,10 +14,13 @@
 class CollisionManager
 {
 private:
-	Entidade::Player::Player1* player1;
-	Entidade::Player::Player2* player2;
-	PhaseMap::Tiles::PhaseMapManager* phaseMapManager;
-	EnemiesList* enemiesList;
+	Entidade::Player::Player1 *player1;
+	Entidade::Player::Player2 *player2;
+	PhaseMap::Tiles::PhaseMapManager *phaseMapManager;
+	EnemiesList *enemiesList;
+
+	sf::Clock clockEnemyAttack;
+	sf::Clock clockPlayerAttack;
 
 public:
 	CollisionManager();
@@ -33,14 +36,15 @@ private:
 	void enemiesCollisionX();
 	void enemiesCollisionY();
 	void enemiesProjectiliesCollision();
+	void enemyCollidesPlayer();
+	void playerCollidesEnemy();
 
 public:
-	void setPlayer1(Entidade::Player::Player1* p1);
-	void setPlayer2(Entidade::Player::Player2* p2);
-	void setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager* phaseMapMa);
-	void setEnemiesList(EnemiesList* e);
+	void setPlayer1(Entidade::Player::Player1 *p1);
+	void setPlayer2(Entidade::Player::Player2 *p2);
+	void setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa);
+	void setEnemiesList(EnemiesList *e);
 	void clearAllLists();
 
 	void ResetAll();
 };
-

@@ -48,6 +48,8 @@ Data::Data()
 		EXIT_FAILURE;
 	if (!projectileTexture.loadFromFile("src/data/enemy/projectileTexture.png"))
 		EXIT_FAILURE;
+	if (!rankingScreenTexture.loadFromFile("src/data/gameClear/gameClear.jpeg"))
+		EXIT_FAILURE;
 
 	if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
 		EXIT_FAILURE;
@@ -155,6 +157,10 @@ sf::Texture *Data::getBossTexture()
 sf::Texture *Data::getProjectileTexture()
 {
 	return &projectileTexture;
+}
+sf::Texture *Data::getRankingScreenTexture()
+{
+	return &rankingScreenTexture;
 }
 
 sf::Font *Data::getOpenMenufont()

@@ -12,6 +12,7 @@ PhaseMapGeneral::PhaseMapGeneral(sf::RenderWindow *window, std::string path) : p
 }
 PhaseMapGeneral::~PhaseMapGeneral()
 {
+    window = NULL;
 }
 
 void PhaseMapGeneral::update(int &controller)
@@ -49,30 +50,48 @@ void PhaseMapGeneral::setViewInPlayer1(const int controller)
 
 void PhaseMapGeneral::phaseTransition(int &contoller)
 {
-    if (contoller != PHASE4)
-    {
-        if (player2 != NULL)
-            if (player2->getPosition().x >= 131 * TILE_SIZE)
-            {
-                resetEverythingForTransition();
-                contoller++;
-            }
-        if (player1->getPosition().x >= 131 * TILE_SIZE)
+    if (player2 != NULL)
+        if (player2->getPosition().x >= 131 * TILE_SIZE)
         {
             resetEverythingForTransition();
             contoller++;
         }
+    if (player1->getPosition().x >= 131 * TILE_SIZE)
+    {
+        resetEverythingForTransition();
+        contoller++;
     }
 }
 
-bool PhaseMapGeneral::isPlayerDead()
+const bool PhaseMapGeneral::isPlayerDead()
 {
-    if (player1->getPosition().y >= (28 * TILE_SIZE) + (TILE_SIZE / 3))
+    if ((player1->getPosition().y >= (28 * TILE_SIZE) + (TILE_SIZE / 3)) || (player1->getHp() < 0))
         return true;
     if (player2 != NULL)
-        if (player2->getPosition().y >= (28 * TILE_SIZE) + (TILE_SIZE / 3))
+        if ((player2->getPosition().y >= (28 * TILE_SIZE) + (TILE_SIZE / 3)) || player2->getHp() < 0)
             return true;
     return false;
+}
+
+void PhaseMapGeneral::enemyKilled()
+{
+    Element<Entidade::EnemyEntity> *g = this->enemiesList.getFirst();
+    Element<Entidade::EnemyEntity> *aux = g;
+    while (g != NULL)
+    {
+        g = g->getNext();
+        if (aux->getInfo()->getHp() <= 0)
+        {
+            player1->updateScore(aux->getInfo()->getPoints());
+            enemiesList.kill(aux);
+        }
+        aux = g;
+    }
+}
+
+const bool PhaseMapGeneral::isGameClear()
+{
+    return enemiesList.isEmpty();
 }
 
 void PhaseMapGeneral::resetEverythingForTransition()

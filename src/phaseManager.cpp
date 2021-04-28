@@ -6,7 +6,7 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/da
                                                        phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
                                                        phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
                                                        phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
-                                                       player1(window, {2 * 48, 27 * 48}, {0, 0}, 100, 30),
+                                                       player1(window, {2 * 48, 27 * 48}, {0, 0}, 400, 30.0),
                                                        player2(window, {3 * 48, 27 * 48}, {0, 0}, 100, 40.5),
                                                        needToLoadPhase(true),
                                                        controller(EXIT_GAME),
@@ -17,6 +17,7 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/da
 
 PhaseManager::~PhaseManager()
 {
+    window = NULL;
     ResetALL();
 }
 int PhaseManager::Start(json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
@@ -97,6 +98,12 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             }
             phase = controller;
             break;
+
+        case RANK:
+            save.rankingSave(player1Name, player2Name, player1.getScore(), isMultiplayer);
+            normalizeView();
+            ResetALL();
+            return RANKING_SCREEN;
 
         default:
             return EXIT_GAME;
@@ -354,6 +361,10 @@ void PhaseManager::ResetALL()
     phaseMap2.ResetAll();
     phaseMap3.ResetAll();
     phaseMap4.ResetAll();
+
+    player1.setHp(400);
+    player1.setPoints(0);
+    player2.setHp(100);
 
     needToLoadPhase = false;
 }

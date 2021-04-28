@@ -22,6 +22,9 @@ PhaseMap4::~PhaseMap4()
     for (auto *i : phaseBackGroundSprite)
         delete i;
     phaseBackGroundSprite.clear();
+
+    if (!this->enemiesList.isEmpty())
+        this->enemiesList.setNull();
 }
 
 void PhaseMap4::update(int &controller)
@@ -46,7 +49,14 @@ void PhaseMap4::update(int &controller)
     if (!this->enemiesList.isEmpty())
         this->enemiesList.update(this->player1);
 
-    phaseTransition(controller);
+    //-------------------------------- Esse metodo precisa ser melhorado, ele nao volta ao normal na 4 fase se terminar------------------------
+    if (isGameClear() && elapsed.asSeconds() >= 8)
+    {
+        controller = RANK;
+        return;
+    }
+    // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
+    enemyKilled();
 }
 
 void PhaseMap4::render(int &controller)
@@ -93,21 +103,22 @@ void PhaseMap4::placingEnemies()
     if (elapsed.asSeconds() >= 4 && this->enemiesList.getQuantity() == 0)
     {
         std::cout << elapsed.asSeconds() << std::endl;
-        Entidade::Enemy::Boss *b = new Entidade::Enemy::Boss(window, {50 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 300, 30.f);
+        Entidade::Enemy::Boss *b = new Entidade::Enemy::Boss(window, {50 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 300, 30.f, BOSS_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(b));
+        resetClock();
     }
-    if (elapsed.asSeconds() >= 15 && this->enemiesList.getQuantity() == 1)
+    /*if (elapsed.asSeconds() >= 15 && this->enemiesList.getQuantity() == 1)
     {
         std::cout << elapsed.asSeconds() << std::endl;
-        Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy(window, {7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
+        Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy(window, {7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15, FLYING_ENEMY_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(f1));
     }
     if (elapsed.asSeconds() >= 25 && this->enemiesList.getQuantity() == 2)
     {
         std::cout << elapsed.asSeconds() << std::endl;
-        Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy(window, {65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15);
+        Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy(window, {65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15, FLYING_ENEMY_POINTS);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(f2));
-    }
+    }*/
 }
 
 void PhaseMap4::resetClock()

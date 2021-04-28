@@ -31,7 +31,7 @@ namespace StartScreen
 		int contAnimationPlayer2;
 
 	public:
-		CharacterSelection(sf::RenderWindow *window);
+		CharacterSelection(sf::RenderWindow *window = NULL);
 		~CharacterSelection();
 
 		int Start() override;

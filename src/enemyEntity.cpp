@@ -2,11 +2,11 @@
 
 using namespace Entidade;
 
-EnemyEntity::EnemyEntity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hp, float attack) : Entity(window, pos, spee, hp, attack),
-																												  canHitPlayer1(true),
-																												  canHitPlayer2(true),
-																												  isDead(false),
-																												  hasProjectiles(false)
+EnemyEntity::EnemyEntity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hp, float attack, const int point) : Entity(window, pos, spee, hp, attack, point),
+																																   canHitPlayer1(true),
+																																   canHitPlayer2(true),
+																																   isDead(false),
+																																   hasProjectiles(false)
 {
 }
 EnemyEntity::~EnemyEntity()
@@ -25,12 +25,3 @@ void EnemyEntity::setIsDead(const bool dead) { isDead = dead; }
 
 const bool EnemyEntity::getHasProjectiles() const { return hasProjectiles; }
 void EnemyEntity::setHasProjectiles(const bool y) { hasProjectiles = y; }
-
-void EnemyEntity::setAttackDamage(int attack)
-{
-	this->attackDamage = attack;
-}
-int EnemyEntity::getAttackDamage()
-{
-	return this->attackDamage;
-}

@@ -33,8 +33,10 @@ namespace Entidade
 
 		float attackDamage;
 
+		int points;
+
 	public:
-		Entity(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0);
+		Entity(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attack = 0, const int point = 0);
 		virtual ~Entity();
 
 		const sf::Vector2f getPosition() const;
@@ -55,8 +57,11 @@ namespace Entidade
 		void jump();
 		void setIsLookingRight(const bool r);
 
-		const float getAttackDamage() const;
+		virtual const float getAttackDamage() const;
 		void setAttackDamage(const float attack);
+
+		const int getPoints() const;
+		void setPoints(const int p);
 
 		virtual json getSave() = 0;
 

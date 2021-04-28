@@ -1,10 +1,9 @@
 #include "CollisionManager.h"
 
-CollisionManager::CollisionManager() : 
-	player1(NULL),
-	player2(NULL),
-	phaseMapManager(NULL),
-	enemiesList(NULL)
+CollisionManager::CollisionManager() : player1(NULL),
+									   player2(NULL),
+									   phaseMapManager(NULL),
+									   enemiesList(NULL)
 {
 }
 CollisionManager::~CollisionManager()
@@ -27,6 +26,8 @@ void CollisionManager::startVerifyCollision()
 		enemiesCollisionX();
 		enemiesCollisionY();
 		enemiesProjectiliesCollision();
+		enemyCollidesPlayer();
+		playerCollidesEnemy();
 	}
 }
 
@@ -37,7 +38,7 @@ void CollisionManager::player1CollisionX()
 	{
 		if (!phaseMapManager->isValidTile(i, player1->getPosition().y / TILE_SIZE))
 			continue;
-		PhaseMap::Tiles::Tile* tempTile = phaseMapManager->getTile(i, player1->getPosition().y / 48);
+		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(i, player1->getPosition().y / 48);
 		if (player1->getBoundBox().intersects(tempTile->getBoundBox()))
 			player1->collisionInX(tempTile);
 	}
@@ -49,7 +50,7 @@ void CollisionManager::player1CollisionY()
 	{
 		if (!phaseMapManager->isValidTile(player1->getPosition().x / TILE_SIZE, j))
 			continue;
-		PhaseMap::Tiles::Tile* tempTile = phaseMapManager->getTile(player1->getPosition().x / TILE_SIZE, j);
+		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(player1->getPosition().x / TILE_SIZE, j);
 		if (player1->getBoundBox().intersects(tempTile->getBoundBox()))
 			player1->collisionInY(tempTile);
 		else
@@ -64,7 +65,7 @@ void CollisionManager::player2CollisionX()
 	{
 		if (!phaseMapManager->isValidTile(i, player2->getPosition().y / TILE_SIZE))
 			continue;
-		PhaseMap::Tiles::Tile* tempTile = phaseMapManager->getTile(i, player2->getPosition().y / 48);
+		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(i, player2->getPosition().y / 48);
 		if (player2->getBoundBox().intersects(tempTile->getBoundBox()))
 			player2->collisionInX(tempTile);
 	}
@@ -76,7 +77,7 @@ void CollisionManager::player2CollisionY()
 	{
 		if (!phaseMapManager->isValidTile(player2->getPosition().x / TILE_SIZE, j))
 			continue;
-		PhaseMap::Tiles::Tile* tempTile = phaseMapManager->getTile(player2->getPosition().x / TILE_SIZE, j);
+		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(player2->getPosition().x / TILE_SIZE, j);
 		if (player2->getBoundBox().intersects(tempTile->getBoundBox()))
 			player2->collisionInY(tempTile);
 		else
@@ -87,14 +88,14 @@ void CollisionManager::player2CollisionY()
 void CollisionManager::enemiesCollisionX()
 {
 	int i = 0, j = 0;
-	Element<Entidade::EnemyEntity>* z = this->enemiesList->getFirst();
+	Element<Entidade::EnemyEntity> *z = this->enemiesList->getFirst();
 	while (z != NULL)
-	{	
+	{
 		for (i = z->getInfo()->getPosition().x / TILE_SIZE; i < ((z->getInfo()->getPosition().x + z->getInfo()->getSize().x) / TILE_SIZE); i++)
 		{
 			if (!phaseMapManager->isValidTile(i, z->getInfo()->getPosition().y / TILE_SIZE))
 				continue;
-			PhaseMap::Tiles::Tile* tempTile = phaseMapManager->getTile(i, z->getInfo()->getPosition().y / 48);
+			PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(i, z->getInfo()->getPosition().y / 48);
 			if (z->getInfo()->getBoundBox().intersects(tempTile->getBoundBox()))
 			{
 				z->getInfo()->collisionInX(tempTile);
@@ -108,14 +109,14 @@ void CollisionManager::enemiesCollisionX()
 void CollisionManager::enemiesCollisionY()
 {
 	int i = 0, j = 0;
-	Element<Entidade::EnemyEntity>* z = this->enemiesList->getFirst();
+	Element<Entidade::EnemyEntity> *z = this->enemiesList->getFirst();
 	while (z != NULL)
 	{
 		for (j = z->getInfo()->getPosition().y / TILE_SIZE; j < ((z->getInfo()->getPosition().y + z->getInfo()->getSize().y) / TILE_SIZE); j++)
 		{
 			if (!phaseMapManager->isValidTile(z->getInfo()->getPosition().x / TILE_SIZE, j))
 				continue;
-			PhaseMap::Tiles::Tile* tempTile = phaseMapManager->getTile(z->getInfo()->getPosition().x / TILE_SIZE, j);
+			PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(z->getInfo()->getPosition().x / TILE_SIZE, j);
 			if (z->getInfo()->getBoundBox().intersects(tempTile->getBoundBox()))
 				z->getInfo()->collisionInY(tempTile);
 			else
@@ -124,9 +125,9 @@ void CollisionManager::enemiesCollisionY()
 
 		//checa se o objeto passou dos limites em Y do mapa, ou seja, caiu em um buraco
 		if (z->getInfo()->getPosition().y >= (28 * TILE_SIZE) + (TILE_SIZE / 3))
-		{	
+		{
 			//aux guarda a informação de z.next, uma vez que ele será deletado logo após na função kill da classe template Lista
-			Element<Entidade::EnemyEntity>* aux = z->getNext();
+			Element<Entidade::EnemyEntity> *aux = z->getNext();
 			this->enemiesList->kill(z);
 			z = aux;
 			//continue pois z já recebeu o que seria seu próximo
@@ -139,18 +140,18 @@ void CollisionManager::enemiesCollisionY()
 //Checking wrather any projectile hit the player. If so, this one gets deleted and the player loses health.
 void CollisionManager::enemiesProjectiliesCollision()
 {
-	Element<Entidade::EnemyEntity>* g = this->enemiesList->getFirst();
+	Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
 	while (g != NULL)
 	{
 		if (g->getInfo()->getHasProjectiles() == true)
 		{
-			Element<Projectile>* p = g->getInfo()->getProjectiles()->getFirst();
-			while(p != NULL)
+			Element<Projectile> *p = g->getInfo()->getProjectiles()->getFirst();
+			while (p != NULL)
 			{
 				if (p->getInfo()->getBoundBox().intersects(player1->getBoundBox()))
 				{
 					player1->setHp(player1->getHp() - 5);
-					Element<Projectile>* p2 = p->getNext();
+					Element<Projectile> *p2 = p->getNext();
 					g->getInfo()->getProjectiles()->kill(p);
 					p = p2;
 					continue;
@@ -164,10 +165,71 @@ void CollisionManager::enemiesProjectiliesCollision()
 	}
 }
 
-void CollisionManager::setPlayer1(Entidade::Player::Player1* p1) { player1 = p1; }
-void CollisionManager::setPlayer2(Entidade::Player::Player2* p2) { player2 = p2; }
-void CollisionManager::setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager* phaseMapMa) { phaseMapManager = phaseMapMa; }
-void CollisionManager::setEnemiesList(EnemiesList* e) { this->enemiesList = e; }
+void CollisionManager::enemyCollidesPlayer()
+{
+	sf::Time elapsed = clockEnemyAttack.getElapsedTime();
+	Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
+	while (g != NULL)
+	{
+		if ((elapsed.asSeconds() >= 1))
+		{
+			// O clockEnemyAttack soh pode resetar se atingir algum dos players
+			if (g->getInfo()->getBoundBox().intersects(player1->getBoundBox()))
+			{
+				player1->setHp(player1->getHp() - g->getInfo()->getAttackDamage());
+				clockEnemyAttack.restart();
+			}
+			else if (player2 != NULL)
+				if (g->getInfo()->getBoundBox().intersects(player2->getBoundBox()))
+				{
+
+					player2->setHp(player2->getHp() - g->getInfo()->getAttackDamage());
+					clockEnemyAttack.restart();
+				}
+		}
+		g = g->getNext();
+	}
+	// Nao sei se tem problema em o clock estourar, mas vou previnir
+	if (elapsed.asSeconds() >= 100)
+		clockEnemyAttack.restart();
+}
+
+void CollisionManager::playerCollidesEnemy()
+{
+	sf::Time elapsed = clockPlayerAttack.getElapsedTime();
+	Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
+	while (g != NULL)
+	{
+		// Somente 1 dos players pode dar dano e.e E o dano do player2 eh maior
+		if ((elapsed.asSeconds() >= 1))
+		{
+			if (!player1->getOnGround())
+			{
+				if (player1->getBoundBox().intersects(g->getInfo()->getBoundBox()))
+				{
+					g->getInfo()->setHp(g->getInfo()->getHp() - player1->getAttackDamage());
+					clockPlayerAttack.restart();
+				}
+			}
+			else if (player2 != NULL)
+				if (!player2->getOnGround())
+					if (player2->getBoundBox().intersects(g->getInfo()->getBoundBox()))
+					{
+						g->getInfo()->setHp(g->getInfo()->getHp() - player2->getAttackDamage());
+						clockPlayerAttack.restart();
+					}
+		}
+		g = g->getNext();
+	}
+	// Nao sei se tem problema em o clock estourar, mas vou previnir
+	if (elapsed.asSeconds() >= 100)
+		clockPlayerAttack.restart();
+}
+
+void CollisionManager::setPlayer1(Entidade::Player::Player1 *p1) { player1 = p1; }
+void CollisionManager::setPlayer2(Entidade::Player::Player2 *p2) { player2 = p2; }
+void CollisionManager::setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa) { phaseMapManager = phaseMapMa; }
+void CollisionManager::setEnemiesList(EnemiesList *e) { this->enemiesList = e; }
 void CollisionManager::clearAllLists()
 {
 	if (this->enemiesList != NULL && !this->enemiesList->isEmpty())

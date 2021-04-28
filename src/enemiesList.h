@@ -1,8 +1,9 @@
+#pragma once
+
 #include "enemyEntity.h"
 #include "listManager.h"
 #include "player1.h"
 
-#pragma once
 //classe que lida com as lista de inimigos proveniente da lista template
 class EnemiesList
 {

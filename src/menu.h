@@ -8,7 +8,8 @@
 #define OPEN_MENU 1
 #define PHASE_SELECTION 2
 #define CHARACTER_SELECTION 3
-#define PHASE_MANAGER 4
+#define RANKING_SCREEN 4
+#define PHASE_MANAGER 5
 
 #define PHASE1 11
 #define PHASE2 12
