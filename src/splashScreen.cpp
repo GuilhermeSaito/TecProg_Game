@@ -1,5 +1,7 @@
 #include "splashScreen.h"
 
+using namespace Screen;
+
 SplashScreen::SplashScreen(sf::RenderWindow *window) : Menu(window)
 {
 	if (!splashScreen.loadFromFile("src/data/erase.png"))

@@ -2,8 +2,7 @@
 
 using namespace Entidade::Enemy;
 
-Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point), projectiles(),
-                                                                                                                           clock()
+Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : ShooterEntity(window, pos, spee, hP, attackDamage, point)
 {
   if (!bossTexture.loadFromFile("src/data/enemy/bossTexture.png"))
     EXIT_FAILURE;
@@ -25,12 +24,6 @@ Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float 
 Boss::~Boss()
 {
   window = NULL;
-  this->projectiles.setNull();
-}
-
-Lists::ProjectilesList *Boss::getProjectiles()
-{
-  return &this->projectiles;
 }
 
 void Boss::shootProjectile(sf::Vector2f playerPosition)

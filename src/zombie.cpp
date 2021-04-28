@@ -46,10 +46,6 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
     sprite.setTextureRect(sf::IntRect(2, 50, 32, 47));
   }
 
-  else
-  {
-  }
-
   this->rect.setPosition(position);
   this->sprite.setPosition(position);
 }

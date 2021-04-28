@@ -20,8 +20,5 @@ void EnemyEntity::timerCanHitPlayer()
 const bool EnemyEntity::getCanHitPlayer1() const { return canHitPlayer1; }
 const bool EnemyEntity::getCanHitPlayer2() const { return canHitPlayer2; }
 
-const bool EnemyEntity::getIsDead() const { return isDead; }
-void EnemyEntity::setIsDead(const bool dead) { isDead = dead; }
-
 const bool EnemyEntity::getHasProjectiles() const { return hasProjectiles; }
 void EnemyEntity::setHasProjectiles(const bool y) { hasProjectiles = y; }

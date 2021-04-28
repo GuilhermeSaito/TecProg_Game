@@ -1,5 +1,7 @@
 #include "rankingScreen.h"
 
+using namespace Screen;
+
 RankingScreen::RankingScreen(sf::RenderWindow *window) : Menu(window)
 {
     if (!rankingScreenTexture.loadFromFile("src/data/gameClear/gameClear.jpeg"))

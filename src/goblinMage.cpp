@@ -2,9 +2,7 @@
 
 using namespace Entidade::Enemy;
 
-GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
-                                                                                                                                       projectiles(),
-                                                                                                                                       clock()
+GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : ShooterEntity(window, pos, spee, hP, attackDamage, point)
 {
   if (!goblinMageTexture.loadFromFile("src/data/enemy/goblinMageTexture.png"))
     EXIT_FAILURE;
@@ -27,11 +25,6 @@ GoblinMage::~GoblinMage()
 {
   window = NULL;
   this->projectiles.setNull();
-}
-
-Lists::ProjectilesList *GoblinMage::getProjectiles()
-{
-  return &this->projectiles;
 }
 
 void GoblinMage::shootProjectile(sf::Vector2f playerPosition)

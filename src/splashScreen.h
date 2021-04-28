@@ -2,14 +2,17 @@
 
 #include "menu.h"
 
-class SplashScreen : public Menu
+namespace Screen
 {
-private:
-	sf::Texture splashScreen;
+	class SplashScreen : public Menu
+	{
+	private:
+		sf::Texture splashScreen;
 
-public:
-	SplashScreen(sf::RenderWindow *window = NULL);
-	~SplashScreen();
+	public:
+		SplashScreen(sf::RenderWindow *window = NULL);
+		~SplashScreen();
 
-	int Start() override;
-};
+		int Start() override;
+	};
+}

@@ -7,7 +7,7 @@ Tile::Tile(sf::RenderWindow *window, int numTle, sf::Vector2f spaceOcup) : numPr
 {
     if (numTle != 0)
     {
-        tileSprite.setTexture(*(tileManager.getTileTexture(numTle, rectTile, spaceOcup)));
+        tileSprite.setTexture(*(TileManager::getInstance()->getTileTexture(numTle, rectTile, spaceOcup)));
         tileSprite.setPosition(rectTile.getPosition());
     }
     this->window = window;

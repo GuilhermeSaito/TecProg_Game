@@ -2,6 +2,8 @@
 
 using namespace PhaseMap::Tiles;
 
+TileManager *TileManager::instance = NULL;
+
 TileManager::TileManager()
 {
     if (!brickFloor.loadFromFile("src/data/phaseMap/tilesUsed/BrickFloor.jpg"))
@@ -16,6 +18,14 @@ TileManager::TileManager()
 
 TileManager::~TileManager()
 {
+    instance = NULL;
+}
+
+TileManager *TileManager::getInstance()
+{
+    if (instance == NULL)
+        instance = new TileManager();
+    return instance;
 }
 
 sf::Texture *TileManager::getTileTexture(int tileType, sf::RectangleShape &rect, sf::Vector2f &spaceOcuped)

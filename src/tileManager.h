@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+// Vou fazer essa classe como Singleton, porque como estah, cada tile teria 1 tileManager.
+// Ou seja, cada tile tem todos esses carregados, ai em vez de fazer isso, vou fazer cada tile acessar 1 tileManager
 namespace PhaseMap
 {
 	namespace Tiles
@@ -9,6 +11,9 @@ namespace PhaseMap
 		class TileManager
 		{
 		private:
+			TileManager();
+			static TileManager *instance;
+
 			enum TileType
 			{
 				BrickFloor = 1,
@@ -24,8 +29,8 @@ namespace PhaseMap
 			sf::Texture purpleFloor;
 
 		public:
-			TileManager();
 			~TileManager();
+			static TileManager *getInstance();
 
 			sf::Texture *getTileTexture(int tileType, sf::RectangleShape &rect, sf::Vector2f &spaceOcuped);
 		};

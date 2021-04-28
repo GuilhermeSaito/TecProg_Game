@@ -5,9 +5,7 @@
 
 using namespace Entidade::Enemy;
 
-FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
-                                                                                                                                         projectiles(),
-                                                                                                                                         clock(),
+FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : ShooterEntity(window, pos, spee, hP, attackDamage, point),
                                                                                                                                          originalYposition(pos.y)
 {
   if (!flyingEnemyTexture.loadFromFile("src/data/enemy/reaperFlyTexture.png"))
@@ -33,12 +31,7 @@ FlyingEnemy::~FlyingEnemy()
   this->projectiles.setNull();
 }
 
-Lists::ProjectilesList *FlyingEnemy::getProjectiles()
-{
-  return &this->projectiles;
-}
-
-void FlyingEnemy::shootProjectile()
+void FlyingEnemy::shootProjectile(sf::Vector2f playerPosition)
 {
   if (!this->projectiles.isEmpty())
     this->projectiles.setNull();
@@ -85,7 +78,7 @@ void FlyingEnemy::update(Entidade::Player::Player1 *p)
   this->elapsed = this->clock.getElapsedTime();
   if (this->elapsed.asSeconds() >= 4.0)
   {
-    shootProjectile();
+    shootProjectile(p->getPosition());
     clock.restart();
   }
 

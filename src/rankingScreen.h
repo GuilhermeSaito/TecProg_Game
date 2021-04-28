@@ -3,16 +3,19 @@
 #include "menu.h"
 #include "save.h"
 
-class RankingScreen : public Menu
+namespace Screen
 {
-private:
-    SaveGame::Save save;
-    sf::Texture rankingScreenTexture;
-    sf::Font openMenufont;
+    class RankingScreen : public Menu
+    {
+    private:
+        SaveGame::Save save;
+        sf::Texture rankingScreenTexture;
+        sf::Font openMenufont;
 
-public:
-    RankingScreen(sf::RenderWindow *window = NULL);
-    ~RankingScreen();
+    public:
+        RankingScreen(sf::RenderWindow *window = NULL);
+        ~RankingScreen();
 
-    int Start() override;
-};
+        int Start() override;
+    };
+}

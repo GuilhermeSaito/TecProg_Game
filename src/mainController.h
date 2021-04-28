@@ -23,11 +23,11 @@ private:
 	sf::RenderWindow window;
 	std::vector<Menu *> switcher; // Responsavel por armazenar as instancias dos objetos e trocar de telas quando necessario.
 
-	SplashScreen splashScreen;
+	Screen::SplashScreen splashScreen;
 	StartScreen::OpenMenu openMenu;
 	StartScreen::PhaseSelection phaseSelection;
 	StartScreen::CharacterSelection characterSelection;
-	RankingScreen rankingScreen;
+	Screen::RankingScreen rankingScreen;
 	Screen::PlayerDieScreen playerDieScreen;
 	PhaseMap::PhaseManager phaseManager;
 

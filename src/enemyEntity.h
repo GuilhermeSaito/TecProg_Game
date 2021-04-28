@@ -23,9 +23,6 @@ namespace Entidade
 		const bool getCanHitPlayer1() const;
 		const bool getCanHitPlayer2() const;
 
-		const bool getIsDead() const;
-		void setIsDead(const bool dead);
-
 		const bool getHasProjectiles() const;
 		void setHasProjectiles(const bool y);
 
@@ -33,5 +30,7 @@ namespace Entidade
 		virtual void movimentation(sf::Vector2f playerPosition) = 0;
 		virtual void update(Entidade::Player::Player1 *p) = 0;
 		virtual void render() = 0;
+
+		virtual json getSave() = 0;
 	};
 }
