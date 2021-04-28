@@ -2,7 +2,9 @@
 
 using namespace Entidade::Enemy;
 
-Zombie::Zombie(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point)
+Zombie::Zombie(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point, const int rQt) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
+                                                                                                                                              initialHp(hP),
+                                                                                                                                              resurrectionQuantity(rQt)
 {
   if (!zombieTexture.loadFromFile("src/data/enemy/zombieTexture.png"))
     EXIT_FAILURE;
@@ -52,6 +54,15 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
 
 void Zombie::update(Entidade::Player::Player1 *p)
 {
+  if (getHp() <= 0)
+  {
+    if (resurrectionQuantity > 0)
+    {
+      resurrectionQuantity--;
+      setHp(initialHp);
+    }
+  }
+
   healthBar.setSize(sf::Vector2f(hp, 5.f));
   healthBar.setPosition(sprite.getPosition().x - 10, sprite.getPosition().y - 20);
   movimentation(p->getPosition());
