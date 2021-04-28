@@ -1,9 +1,12 @@
 #include "projectile.h"
-#include "data.h"
+
 #include <cmath>
 
 Projectile::Projectile(sf::RenderWindow *window, sf::Vector2f playerPosition, sf::Vector2f enemyPosition, float ls) : Menu(window)
 {
+  if (!projectileTexture.loadFromFile("src/data/enemy/projectileTexture.png"))
+    EXIT_FAILURE;
+
   //the proejectile's linear speed. It's components on the Y and X axis will vary, given the player's position
   this->linearSpeed = ls;
 
@@ -12,7 +15,7 @@ Projectile::Projectile(sf::RenderWindow *window, sf::Vector2f playerPosition, sf
   this->pos.y = enemyPosition.y + 16;
 
   //initializing sprite
-  this->sprite.setTexture(*(Data::getInstance()->getProjectileTexture()));
+  this->sprite.setTexture(projectileTexture);
   this->sprite.setTextureRect(sf::IntRect(164, 88, 12, 12));
   this->sprite.setScale(sf::Vector2f(1.5, 1.5));
   this->sprite.setPosition(this->pos.x, this->pos.y);

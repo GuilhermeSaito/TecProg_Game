@@ -3,18 +3,23 @@
 using namespace Entidade::Player;
 
 Player1::Player1(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : Entity(window, pos, spee, hP, attackDamage, points),
-																												contAnimation(0),
-																												score(0),
-																												player1View(NULL)
+																																 contAnimation(0),
+																																 score(0),
+																																 player1View(NULL)
 {
+	if (!player1Image.loadFromFile("src/data/players/Player1Image.png"))
+		EXIT_FAILURE;
+	if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
+		EXIT_FAILURE;
+
 	rect.setPosition(pos);
 
-	sprite.setTexture(*(Data::getInstance()->getPlayer1Texture()));
+	sprite.setTexture(player1Image);
 	sprite.setPosition(rect.getPosition());
 
 	healthBar.setFillColor(sf::Color::Blue);
 
-	textScore.setFont(*(Data::getInstance()->getOpenMenufont()));
+	textScore.setFont(openMenufont);
 	textScore.setCharacterSize(30);
 	textScore.setString("Score: " + std::to_string(score));
 }

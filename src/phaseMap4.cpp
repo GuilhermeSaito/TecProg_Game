@@ -6,12 +6,14 @@ PhaseMap4::PhaseMap4(sf::RenderWindow *window, std::string path) : PhaseMapGener
                                                                    clock(),
                                                                    elapsed()
 {
+    if (!deathPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/deathPhaseBackGround.png"))
+        EXIT_FAILURE;
     // Transforming the image to 1080 x 1440
     // Esse aqui vou colocar em dimensoes um pouco diferentes
     for (int i = 0; i < 6; i++)
     {
         sf::Sprite *sprite = new sf::Sprite;
-        sprite->setTexture(*(Data::getInstance()->getDathPhaseBackGround()));
+        sprite->setTexture(deathPhaseBackGround);
         sprite->setScale(sf::Vector2f(1, 1));
         sprite->setPosition(sf::Vector2f(1280 * i, 48 * 16));
         phaseBackGroundSprite.push_back(sprite);
@@ -25,6 +27,8 @@ PhaseMap4::~PhaseMap4()
 
     if (!this->enemiesList.isEmpty())
         this->enemiesList.setNull();
+
+    window = NULL;
 }
 
 void PhaseMap4::update(int &controller)

@@ -18,6 +18,9 @@ namespace Entidade
 			// Esse ponteiro vai apontar para o view que estah no phaseMapGeneral, serve para colocar certinho o score na tela
 			sf::View *player1View;
 
+			sf::Texture player1Image;
+			sf::Font openMenufont;
+
 		public:
 			Player1(sf::RenderWindow *window = NULL, sf::Vector2f pos = {2 * 48, 27 * 48}, sf::Vector2f spee = {0, 0}, float hP = 100, float attackDamage = 30, const int point = 0);
 			~Player1();

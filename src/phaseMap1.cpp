@@ -4,11 +4,13 @@ using namespace PhaseMap;
 
 PhaseMap1::PhaseMap1(sf::RenderWindow *window, std::string path) : PhaseMapGeneral(window, path)
 {
+    if (!beginnerPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/beginnerPhaseBackGround.jpeg"))
+        EXIT_FAILURE;
     // Transforming the image to 1080 x 1440
     for (int i = 0; i < 6; i++)
     {
         sf::Sprite *sprite = new sf::Sprite;
-        sprite->setTexture(*(Data::getInstance()->getBeginnerPhaseBackGround()));
+        sprite->setTexture(beginnerPhaseBackGround);
         sprite->setScale(sf::Vector2f(0.5625, 1.5));
         sprite->setPosition(sf::Vector2f(1080 * i, 48 * 4));
         phaseBackGroundSprite.push_back(sprite);
@@ -27,6 +29,8 @@ PhaseMap1::~PhaseMap1()
     }
 
     collisionManager.clearAllLists();
+
+    window = NULL;
 }
 
 void PhaseMap1::update(int &controller)

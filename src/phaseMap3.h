@@ -7,6 +7,9 @@ namespace PhaseMap
 {
 	class PhaseMap3 : public PhaseMapGeneral
 	{
+	private:
+		sf::Texture cavePhaseBackGround;
+
 	public:
 		PhaseMap3(sf::RenderWindow *window = NULL, std::string path = "");
 		~PhaseMap3();

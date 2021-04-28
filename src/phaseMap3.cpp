@@ -4,11 +4,13 @@ using namespace PhaseMap;
 
 PhaseMap3::PhaseMap3(sf::RenderWindow *window, std::string path) : PhaseMapGeneral(window, path)
 {
+    if (!cavePhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/cavePhaseBackGround.png"))
+        EXIT_FAILURE;
     // Transforming the image to 1080 x 1440
     for (int i = 0; i < 6; i++)
     {
         sf::Sprite *sprite = new sf::Sprite;
-        sprite->setTexture(*(Data::getInstance()->getCavePhaseBackGround()));
+        sprite->setTexture(cavePhaseBackGround);
         sprite->setScale(sf::Vector2f(0.308571429, 0.731335703));
         sprite->setPosition(sf::Vector2f(1080 * i, 48 * 4));
         phaseBackGroundSprite.push_back(sprite);
@@ -22,6 +24,8 @@ PhaseMap3::~PhaseMap3()
 
     if (!this->enemiesList.isEmpty())
         this->enemiesList.setNull();
+
+    window = NULL;
 }
 
 void PhaseMap3::update(int &controller)

@@ -1,18 +1,20 @@
 #include "splashScreen.h"
-#include "data.h"
 
 SplashScreen::SplashScreen(sf::RenderWindow *window) : Menu(window)
 {
+	if (!splashScreen.loadFromFile("src/data/erase.png"))
+		EXIT_FAILURE;
 }
 
 SplashScreen::~SplashScreen()
 {
+	window = NULL;
 }
 
 int SplashScreen::Start()
 {
 	sf::Sprite sprite;
-	sprite.setTexture(*(Data::getInstance()->getSplashScreenTexture()));
+	sprite.setTexture(splashScreen);
 	sprite.setScale(sf::Vector2f(1.7, 1.98));
 
 	window->clear();

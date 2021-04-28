@@ -1,7 +1,7 @@
 #pragma once
 
 #include "menu.h"
-#include "data.h"
+
 #include "save.h"
 
 /*
@@ -27,6 +27,9 @@ namespace StartScreen
 		SaveGame::Save save;
 		json jSave;
 
+		sf::Texture openMenuBackGround;
+		sf::Font openMenufont;
+
 	public:
 		OpenMenu(sf::RenderWindow *window);
 		~OpenMenu();
@@ -38,7 +41,5 @@ namespace StartScreen
 
 	public:
 		json getContinueSave();
-
-		int notImplementedYet(sf::RenderWindow *window = NULL);
 	};
 }

@@ -2,6 +2,10 @@
 
 RankingScreen::RankingScreen(sf::RenderWindow *window) : Menu(window)
 {
+    if (!rankingScreenTexture.loadFromFile("src/data/gameClear/gameClear.jpeg"))
+        EXIT_FAILURE;
+    if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
+        EXIT_FAILURE;
 }
 
 RankingScreen::~RankingScreen()
@@ -24,7 +28,7 @@ int RankingScreen::Start()
         std::vector<sf::Text *> l;
 
         sf::Text *player1Name = new sf::Text;
-        player1Name->setFont(*(Data::getInstance()->getOpenMenufont()));
+        player1Name->setFont(openMenufont);
         player1Name->setCharacterSize(22);
         player1Name->setFillColor(sf::Color::White);
         temp = i["state"]["player1Name"];
@@ -35,7 +39,7 @@ int RankingScreen::Start()
         {
 
             sf::Text *player2Name = new sf::Text;
-            player2Name->setFont(*(Data::getInstance()->getOpenMenufont()));
+            player2Name->setFont(openMenufont);
             player2Name->setCharacterSize(22);
             player2Name->setFillColor(sf::Color::White);
             temp = i["state"]["player2Name"];
@@ -44,7 +48,7 @@ int RankingScreen::Start()
             l.push_back(player2Name);
         }
         sf::Text *score = new sf::Text;
-        score->setFont(*(Data::getInstance()->getOpenMenufont()));
+        score->setFont(openMenufont);
         score->setCharacterSize(22);
         score->setFillColor(sf::Color::White);
         temp = std::to_string(i["state"]["score"].get<int>());
@@ -58,7 +62,7 @@ int RankingScreen::Start()
     }
 
     sf::Sprite sprite;
-    sprite.setTexture(*(Data::getInstance()->getRankingScreenTexture()));
+    sprite.setTexture(rankingScreenTexture);
     sprite.setScale(sf::Vector2f(1.7, 1.5));
     sprite.setPosition({-80, 0});
 

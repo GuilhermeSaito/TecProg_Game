@@ -4,13 +4,16 @@ using namespace Entidade::Enemy;
 
 Zombie::Zombie(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point)
 {
+  if (!zombieTexture.loadFromFile("src/data/enemy/zombieTexture.png"))
+    EXIT_FAILURE;
+
   this->hasProjectiles = false;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(32.f, 47.f));
   rect.setPosition(pos);
 
-  sprite.setTexture(*(Data::getInstance()->getZombieTexture()));
+  sprite.setTexture(zombieTexture);
   sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
   sprite.setPosition(rect.getPosition());
 
@@ -31,7 +34,7 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getZombieTexture()));
+    sprite.setTexture(zombieTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
   }
 
@@ -39,7 +42,7 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getZombieTexture()));
+    sprite.setTexture(zombieTexture);
     sprite.setTextureRect(sf::IntRect(2, 50, 32, 47));
   }
 

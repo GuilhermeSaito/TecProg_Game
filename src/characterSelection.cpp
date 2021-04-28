@@ -12,18 +12,25 @@ CharacterSelection::CharacterSelection(sf::RenderWindow *window) : isMultiplayer
                                                                    contAnimationPlayer2(0),
                                                                    Menu(window)
 {
-    menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
+    if (!player1Image.loadFromFile("src/data/players/Player1Image.png"))
+        EXIT_FAILURE;
+    if (!player2Image.loadFromFile("src/data/players/player2Image.png"))
+        EXIT_FAILURE;
+    if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
+        EXIT_FAILURE;
+
+    menu1.setFont(openMenufont);
     menu1.setCharacterSize(25);
-    menu2.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu2.setFont(openMenufont);
     menu2.setCharacterSize(25);
-    menu3.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu3.setFont(openMenufont);
     menu3.setCharacterSize(25);
-    menu4.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu4.setFont(openMenufont);
     menu4.setCharacterSize(25);
 
-    player1Sprite.setTexture(*(Data::getInstance()->getPlayer1Texture()));
+    player1Sprite.setTexture(player1Image);
     player1Sprite.setPosition({550.f, 360.f});
-    player2Sprite.setTexture(*(Data::getInstance()->getPlayer2Texture()));
+    player2Sprite.setTexture(player2Image);
     player2Sprite.setPosition({815.f, 360.f});
 }
 
@@ -256,27 +263,3 @@ void CharacterSelection::setPlayer2Name(const string name2) { player2Name = name
 const string CharacterSelection::getPlayer2Name() const { return player2Name; }
 void CharacterSelection::setIsMultiplayer(const bool multiplayer) { isMultiplayer = multiplayer; }
 const bool CharacterSelection::getIsMultiplayer() const { return isMultiplayer; }
-
-int CharacterSelection::notImplementedYet()
-{
-    window->clear();
-    sf::Sprite notImplementedYet;
-    notImplementedYet.setTexture(*(Data::getInstance()->getNotImplementedYet()));
-    notImplementedYet.setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
-    window->draw(notImplementedYet);
-    window->display();
-
-    while (true)
-    {
-        sf::Event event;
-        if (window->pollEvent(event))
-            switch (event.type)
-            {
-            case sf::Event::MouseButtonPressed:
-            case sf::Event::KeyPressed:
-                return OPEN_MENU;
-            case sf::Event::Closed:
-                return -1;
-            }
-    }
-}

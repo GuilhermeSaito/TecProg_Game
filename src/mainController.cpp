@@ -4,8 +4,9 @@ MainController::MainController() : splashScreen(&window),
 								   openMenu(&window),
 								   phaseSelection(&window),
 								   characterSelection(&window),
-								   phaseManager(&window),
-								   rankingScreen(&window)
+								   rankingScreen(&window),
+								   playerDieScreen(&window),
+								   phaseManager(&window)
 {
 	window.create(sf::VideoMode(1080, 720), "Arudina's Game");
 	window.setFramerateLimit(60);
@@ -28,6 +29,7 @@ void MainController::Start()
 	switcher.push_back(static_cast<Menu *>(&phaseSelection));
 	switcher.push_back(static_cast<Menu *>(&characterSelection));
 	switcher.push_back(static_cast<Menu *>(&rankingScreen));
+	switcher.push_back(static_cast<Menu *>(&playerDieScreen));
 
 	// Soh eh permitido entrar no phaseManager depois de passar do splashScreen, openMenu, phaseSelection e characterSelection, por isso que todos esses elementos passados para o phaseManager ja estao prontos
 	while (controller >= 0)

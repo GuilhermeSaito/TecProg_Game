@@ -13,6 +13,8 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/da
                                                        enemiesList(NULL),
                                                        Menu(window)
 {
+    if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
+        EXIT_FAILURE;
 }
 
 PhaseManager::~PhaseManager()
@@ -84,7 +86,9 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             break;
 
         case PLAYER_DIE:
-            return showPlayerDie();
+            normalizeView();
+            ResetALL();
+            return PLAYER_DIE_SCREEN;
 
         case OPTIONS:
             showOptions(phase);
@@ -141,34 +145,6 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
     return 1;
 }
 
-int PhaseManager::showPlayerDie()
-{
-    normalizeView();
-
-    ResetALL();
-
-    window->clear();
-    sf::Sprite playerDie;
-    playerDie.setTexture(*(Data::getInstance()->getPlayerDieBackGroundTexture()));
-    playerDie.setPosition(sf::Vector2f(window->getSize().x / 2 - window->getSize().x / 4, window->getSize().y / 2 - window->getSize().y / 4));
-    window->draw(playerDie);
-    window->display();
-
-    while (true)
-    {
-        sf::Event event;
-        if (window->pollEvent(event))
-            switch (event.type)
-            {
-            case sf::Event::MouseButtonPressed:
-            case sf::Event::KeyPressed:
-                return OPEN_MENU;
-            case sf::Event::Closed:
-                return EXIT_GAME;
-            }
-    }
-}
-
 void PhaseManager::normalizeView()
 {
     sf::View normalView(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f(1080, 720));
@@ -183,17 +159,17 @@ void PhaseManager::showOptions(int &phase)
     sf::Text menu2;
     sf::Text menu3;
 
-    menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu1.setFont(openMenufont);
     menu1.setString("Continue");
     menu1.setPosition({500.f, 200.f});
     menu1.setCharacterSize(25);
 
-    menu2.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu2.setFont(openMenufont);
     menu2.setString("Save");
     menu2.setPosition({500.f, 280.f});
     menu2.setCharacterSize(25);
 
-    menu3.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu3.setFont(openMenufont);
     menu3.setString("Exit");
     menu3.setPosition({500.f, 360.f});
     menu3.setCharacterSize(25);
@@ -369,28 +345,4 @@ void PhaseManager::ResetALL()
     player2.setHp(100);
 
     needToLoadPhase = false;
-}
-
-int PhaseManager::notImplementedYet()
-{
-    window->clear();
-    sf::Sprite notImplementedYet;
-    notImplementedYet.setTexture(*(Data::getInstance()->getNotImplementedYet()));
-    notImplementedYet.setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
-    window->draw(notImplementedYet);
-    window->display();
-
-    while (true)
-    {
-        sf::Event event;
-        if (window->pollEvent(event))
-            switch (event.type)
-            {
-            case sf::Event::MouseButtonPressed:
-            case sf::Event::KeyPressed:
-                return OPEN_MENU;
-            case sf::Event::Closed:
-                return -1;
-            }
-    }
 }

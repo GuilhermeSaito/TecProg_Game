@@ -13,6 +13,8 @@ namespace Entidade
 			sf::Time elapsed;
 			int contAnimation;
 
+			sf::Texture player2Image;
+
 		public:
 			Player2(sf::RenderWindow *window = NULL, sf::Vector2f pos = {2 * 48, 27 * 48}, sf::Vector2f spee = {0, 0}, float hP = 100, float attackDamage = 40.5, const int point = 0);
 			~Player2();

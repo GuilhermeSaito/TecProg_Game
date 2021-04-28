@@ -2,16 +2,19 @@
 
 using namespace Entidade::Enemy;
 
-Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),                                                                                                          projectiles(),
-                                                                                                          clock()
+Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point), projectiles(),
+                                                                                                                           clock()
 {
+  if (!bossTexture.loadFromFile("src/data/enemy/bossTexture.png"))
+    EXIT_FAILURE;
+
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(2 * 87.f, 2 * 96.f));
   rect.setPosition(pos);
 
-  sprite.setTexture(*(Data::getInstance()->getBossTexture()));
+  sprite.setTexture(bossTexture);
   sprite.setTextureRect(sf::IntRect(0, 0, 87, 96));
   sprite.setScale({2.f, 2.f});
   sprite.setPosition(rect.getPosition());
@@ -48,7 +51,7 @@ void Boss::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getBossTexture()));
+    sprite.setTexture(bossTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 87, 96));
     sprite.setScale({2.f, 2.f});
   }
@@ -57,7 +60,7 @@ void Boss::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getBossTexture()));
+    sprite.setTexture(bossTexture);
     sprite.setTextureRect(sf::IntRect(4, 96, 87, 96));
     sprite.setScale({2.f, 2.f});
   }

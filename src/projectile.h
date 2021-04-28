@@ -16,6 +16,8 @@ private:
   sf::Vector2f pos;
   float angle;
 
+  sf::Texture projectileTexture;
+
 public:
   Projectile(sf::RenderWindow *window = NULL, sf::Vector2f playerPosition = {0, 0}, sf::Vector2f enemyPosition = {0, 0}, float ls = 5.f);
   ~Projectile();
@@ -25,5 +27,5 @@ public:
   void update(Entidade::Player::Player1 *p);
   void render();
 
-  int Start() override {return 0;}
+  int Start() override { return 0; }
 };

@@ -8,6 +8,7 @@ namespace PhaseMap
 	class PhaseMap4 : public PhaseMapGeneral
 	{
 	private:
+		sf::Texture deathPhaseBackGround;
 		sf::Clock clock;
 		sf::Time elapsed;
 

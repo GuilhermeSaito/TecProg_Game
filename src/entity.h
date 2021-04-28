@@ -1,6 +1,5 @@
 #pragma once
 
-#include "data.h"
 #include "tile.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -65,6 +64,6 @@ namespace Entidade
 
 		virtual json getSave() = 0;
 
-		int Start() override {return 0;}
+		int Start() override { return 0; }
 	};
 }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "data.h"
+#include <SFML/Graphics.hpp>
 
 namespace PhaseMap
 {
@@ -18,11 +18,16 @@ namespace PhaseMap
 				Spike = 5
 			};
 
+			sf::Texture brickFloor;
+			sf::Texture iceFloor;
+			sf::Texture iceFloor2;
+			sf::Texture purpleFloor;
+
 		public:
 			TileManager();
 			~TileManager();
 
-			sf::Texture* getTileTexture(int tileType, sf::RectangleShape& rect, sf::Vector2f& spaceOcuped);
+			sf::Texture *getTileTexture(int tileType, sf::RectangleShape &rect, sf::Vector2f &spaceOcuped);
 		};
 	}
 }

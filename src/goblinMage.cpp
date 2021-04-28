@@ -3,16 +3,19 @@
 using namespace Entidade::Enemy;
 
 GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
-                                                                                                                      projectiles(),
-                                                                                                                      clock()
+                                                                                                                                       projectiles(),
+                                                                                                                                       clock()
 {
+  if (!goblinMageTexture.loadFromFile("src/data/enemy/goblinMageTexture.png"))
+    EXIT_FAILURE;
+
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(33.f, 45.f));
   rect.setPosition(pos);
 
-  sprite.setTexture(*(Data::getInstance()->getGoblinMageTexture()));
+  sprite.setTexture(goblinMageTexture);
   sprite.setTextureRect(sf::IntRect(0, 0, 33, 45));
   sprite.setPosition(rect.getPosition());
 
@@ -50,7 +53,7 @@ void GoblinMage::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getGoblinMageTexture()));
+    sprite.setTexture(goblinMageTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
   }
 
@@ -58,7 +61,7 @@ void GoblinMage::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getGoblinMageTexture()));
+    sprite.setTexture(goblinMageTexture);
     sprite.setTextureRect(sf::IntRect(2, 49, 32, 47));
   }
 

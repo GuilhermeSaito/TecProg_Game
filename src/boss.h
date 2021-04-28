@@ -1,7 +1,7 @@
 #pragma once
 
 #include "enemyEntity.h"
-#include "data.h"
+
 #include "projectile.h"
 #include "player1.h"
 
@@ -19,6 +19,8 @@ namespace Entidade
             sf::Time elapsed;
 
             Lists::ProjectilesList projectiles;
+
+            sf::Texture bossTexture;
 
         public:
             Boss(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);

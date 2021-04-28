@@ -5,8 +5,9 @@
 #include "openMenu.h"
 #include "phaseSelection.h"
 #include "characterSelection.h"
-#include "phaseManager.h"
 #include "rankingScreen.h"
+#include "playerDieScreen.h"
+#include "phaseManager.h"
 
 #include <vector>
 
@@ -26,8 +27,9 @@ private:
 	StartScreen::OpenMenu openMenu;
 	StartScreen::PhaseSelection phaseSelection;
 	StartScreen::CharacterSelection characterSelection;
-	PhaseMap::PhaseManager phaseManager;
 	RankingScreen rankingScreen;
+	Screen::PlayerDieScreen playerDieScreen;
+	PhaseMap::PhaseManager phaseManager;
 
 public:
 	MainController();

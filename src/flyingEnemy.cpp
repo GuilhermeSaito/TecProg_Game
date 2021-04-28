@@ -6,17 +6,20 @@
 using namespace Entidade::Enemy;
 
 FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : EnemyEntity(window, pos, spee, hP, attackDamage, point),
-                                                                                                                        projectiles(),
-                                                                                                                        clock(),
-                                                                                                                        originalYposition(pos.y)
+                                                                                                                                         projectiles(),
+                                                                                                                                         clock(),
+                                                                                                                                         originalYposition(pos.y)
 {
+  if (!flyingEnemyTexture.loadFromFile("src/data/enemy/reaperFlyTexture.png"))
+    EXIT_FAILURE;
+
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
   rect.setSize(sf::Vector2f(38.f, 42.f));
   rect.setPosition(pos);
 
-  sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
+  sprite.setTexture(flyingEnemyTexture);
   sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
   sprite.setScale({2.f, 2.f});
   sprite.setPosition(rect.getPosition());
@@ -52,7 +55,7 @@ void FlyingEnemy::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
+    sprite.setTexture(flyingEnemyTexture);
     sprite.setScale({2.f, 2.f});
     sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
   }
@@ -61,7 +64,7 @@ void FlyingEnemy::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
-    sprite.setTexture(*(Data::getInstance()->getFlyingEnemyTexture()));
+    sprite.setTexture(flyingEnemyTexture);
     sprite.setScale({-2.f, 2.f});
   }
 

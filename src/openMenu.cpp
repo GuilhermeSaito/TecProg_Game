@@ -4,25 +4,30 @@ using StartScreen::OpenMenu;
 
 OpenMenu::OpenMenu(sf::RenderWindow *window) : Menu(window)
 {
-    backGroundSprite.setTexture(*(Data::getInstance()->getOpenMenuBackGround()));
+    if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
+        EXIT_FAILURE;
+    if (!openMenuBackGround.loadFromFile("src/data/imageOpenMenu.png"))
+        EXIT_FAILURE;
+
+    backGroundSprite.setTexture(openMenuBackGround);
     backGroundSprite.setScale(sf::Vector2f(1.8, 2.4));
 
-    menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu1.setFont(openMenufont);
     menu1.setString("New Game");
     menu1.setPosition({500.f, 200.f});
     menu1.setCharacterSize(25);
 
-    menu2.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu2.setFont(openMenufont);
     menu2.setString("Continue");
     menu2.setPosition({500.f, 280.f});
     menu2.setCharacterSize(25);
 
-    menu3.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu3.setFont(openMenufont);
     menu3.setString("Ranking");
     menu3.setPosition({500.f, 360.f});
     menu3.setCharacterSize(25);
 
-    menu4.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu4.setFont(openMenufont);
     menu4.setString("Exit");
     menu4.setPosition({500.f, 420.f});
     menu4.setCharacterSize(25);
@@ -127,27 +132,3 @@ void OpenMenu::updateMenuCollor(int controller)
 }
 
 json OpenMenu::getContinueSave() { return jSave; }
-
-int OpenMenu::notImplementedYet(sf::RenderWindow *window)
-{
-    window->clear();
-    sf::Sprite notImplementedYet;
-    notImplementedYet.setTexture(*(Data::getInstance()->getNotImplementedYet()));
-    notImplementedYet.setPosition(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2));
-    window->draw(notImplementedYet);
-    window->display();
-
-    while (true)
-    {
-        sf::Event event;
-        if (window->pollEvent(event))
-            switch (event.type)
-            {
-            case sf::Event::MouseButtonPressed:
-            case sf::Event::KeyPressed:
-                return 0;
-            case sf::Event::Closed:
-                return -1;
-            }
-    }
-}

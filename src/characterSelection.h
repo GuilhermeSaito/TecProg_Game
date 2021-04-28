@@ -1,7 +1,6 @@
 #pragma once
 
 #include "menu.h"
-#include "data.h"
 
 #include <iostream>
 using std::string;
@@ -30,6 +29,10 @@ namespace StartScreen
 		int contAnimationPlayer1;
 		int contAnimationPlayer2;
 
+		sf::Texture player1Image;
+		sf::Texture player2Image;
+		sf::Font openMenufont;
+
 	public:
 		CharacterSelection(sf::RenderWindow *window = NULL);
 		~CharacterSelection();
@@ -54,7 +57,5 @@ namespace StartScreen
 		const string getPlayer2Name() const;
 		void setIsMultiplayer(const bool multiplayer);
 		const bool getIsMultiplayer() const;
-
-		int notImplementedYet();
 	};
 }

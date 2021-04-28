@@ -6,6 +6,9 @@ namespace PhaseMap
 {
 	class PhaseMap2 : public PhaseMapGeneral
 	{
+	private:
+		sf::Texture blueOceanPhaseBackGround;
+
 	public:
 		PhaseMap2(sf::RenderWindow *window = NULL, std::string path = "");
 		~PhaseMap2();

@@ -35,6 +35,8 @@ namespace PhaseMap
 
 		int controller;
 
+		sf::Font openMenufont;
+
 	public:
 		PhaseManager(sf::RenderWindow *window = NULL);
 		~PhaseManager();
@@ -44,7 +46,6 @@ namespace PhaseMap
 	private:
 		int loadPhaseMap(const bool multiplayer);
 
-		int showPlayerDie();
 		void normalizeView();
 		void showOptions(int &phase);
 
@@ -53,8 +54,6 @@ namespace PhaseMap
 
 		void ResetALL();
 
-		int notImplementedYet();
-
-		int Start() override {return 0;}
+		int Start() override { return 0; }
 	};
 }

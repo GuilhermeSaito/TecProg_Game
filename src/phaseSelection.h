@@ -1,7 +1,6 @@
 #pragma once
 
 #include "menu.h"
-#include "data.h"
 
 /*
 	Classe para selecionar a phase que o jogador deseja jogar, soh podera ser escolhida no inicio, depois para passar de fase
@@ -24,6 +23,12 @@ namespace StartScreen
 		sf::Sprite deathPhaseSprite;
 
 		int witchPhaseIs;
+
+		sf::Texture beginnerPhaseBackGround;
+		sf::Texture blueOceanPhaseBackGround;
+		sf::Texture cavePhaseBackGround;
+		sf::Texture deathPhaseBackGround;
+		sf::Font openMenufont;
 
 	public:
 		PhaseSelection(sf::RenderWindow *window = NULL);

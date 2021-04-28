@@ -4,37 +4,48 @@ using StartScreen::PhaseSelection;
 PhaseSelection::PhaseSelection(sf::RenderWindow *window) : witchPhaseIs(PHASE1),
                                                            Menu(window)
 {
-    menu1.setFont(*(Data::getInstance()->getOpenMenufont()));
+    if (!beginnerPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/beginnerPhaseBackGround.jpeg"))
+        EXIT_FAILURE;
+    if (!blueOceanPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/blueOceanPhaseBackGround.png"))
+        EXIT_FAILURE;
+    if (!cavePhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/cavePhaseBackGround.png"))
+        EXIT_FAILURE;
+    if (!deathPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/deathPhaseBackGround.png"))
+        EXIT_FAILURE;
+    if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
+        EXIT_FAILURE;
+
+    menu1.setFont(openMenufont);
     menu1.setString("Beginner Phase");
     menu1.setPosition({100.f, 150.f});
     menu1.setCharacterSize(25);
 
-    menu2.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu2.setFont(openMenufont);
     menu2.setString("Blue Ocean Phase");
     menu2.setPosition({100.f, 300.f});
     menu2.setCharacterSize(25);
 
-    menu3.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu3.setFont(openMenufont);
     menu3.setString("Cave Phase");
     menu3.setPosition({100.f, 450.f});
     menu3.setCharacterSize(25);
 
-    menu4.setFont(*(Data::getInstance()->getOpenMenufont()));
+    menu4.setFont(openMenufont);
     menu4.setString("Death Phase");
     menu4.setPosition({100.f, 600.f});
     menu4.setCharacterSize(25);
 
-    beginnerPhaseSprite.setTexture(*(Data::getInstance()->getBeginnerPhaseBackGround()));
+    beginnerPhaseSprite.setTexture(beginnerPhaseBackGround);
     // Width 550, Height 690
     beginnerPhaseSprite.setPosition({500.f, 20.f});
     beginnerPhaseSprite.setScale(sf::Vector2f(0.2865, 0.8323));
-    blueOceanPhaseSprite.setTexture(*(Data::getInstance()->getBlueOceanPhaseBackGround()));
+    blueOceanPhaseSprite.setTexture(blueOceanPhaseBackGround);
     blueOceanPhaseSprite.setPosition({500.f, 20.f});
     blueOceanPhaseSprite.setScale(sf::Vector2f(0.1571, 0.3504));
-    cavePhaseSprite.setTexture(*(Data::getInstance()->getCavePhaseBackGround()));
+    cavePhaseSprite.setTexture(cavePhaseBackGround);
     cavePhaseSprite.setPosition({500.f, 20.f});
     cavePhaseSprite.setScale(sf::Vector2f(0.1572, 0.3504));
-    deathPhaseSprite.setTexture(*(Data::getInstance()->getDathPhaseBackGround()));
+    deathPhaseSprite.setTexture(deathPhaseBackGround);
     deathPhaseSprite.setPosition({500.f, 20.f});
     deathPhaseSprite.setScale(sf::Vector2f(0.4297, 0.9584));
 }

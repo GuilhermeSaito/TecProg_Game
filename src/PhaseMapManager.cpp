@@ -1,5 +1,4 @@
 #include "PhaseMapManager.h"
-#include "data.h"
 
 #include <fstream>
 
@@ -8,11 +7,11 @@ using json = nlohmann::json;
 
 using namespace PhaseMap::Tiles;
 
-PhaseMapManager::PhaseMapManager(sf::RenderWindow *window, std::string p) : path(p),
+PhaseMapManager::PhaseMapManager(sf::RenderWindow *window, std::string p) : Menu(window),
+                                                                            path(p),
                                                                             alturaMax(0),
                                                                             larguraMax(0)
 {
-    this->window = window;
 }
 
 PhaseMapManager::~PhaseMapManager()
@@ -83,6 +82,6 @@ void PhaseMapManager::clearMatrix()
     for (std::vector<Tile *> v : tileMap)
         for (Tile *t : v)
             if (t != NULL)
-            delete t;
+                delete t;
     tileMap.clear();
 }
