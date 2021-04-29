@@ -2,8 +2,7 @@
 
 using namespace Entidade::Player;
 
-Player2::Player2(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : Entity(window, pos, spee, hP, attackDamage, point),
-																																 contAnimation(0)
+Player2::Player2(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : Player1(window, pos, spee, hP, attackDamage, point)
 {
 	if (!player2Image.loadFromFile("src/data/players/player2Image.png"))
 		EXIT_FAILURE;
@@ -66,24 +65,4 @@ json Player2::getSave()
 	}
 
 	return j;
-}
-
-void Player2::spriteAnimation()
-{
-	if (isLookingRight)
-		sprite.setTextureRect(sf::IntRect(47 * contAnimation, 48, 47, 48));
-	else
-		sprite.setTextureRect(sf::IntRect(47 * contAnimation, 0, 47, 48));
-}
-
-void Player2::updateContAnimation()
-{
-	sf::Time elapsed = clock.getElapsedTime();
-	if (elapsed.asSeconds() >= 0.3)
-	{
-		contAnimation++;
-		clock.restart();
-	}
-	if (contAnimation > 2)
-		contAnimation = 0;
 }

@@ -36,6 +36,7 @@ PhaseMap1::~PhaseMap1()
 void PhaseMap1::update(int &controller)
 {
     placingEnemies();
+    placingObstacles();
 
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
@@ -56,6 +57,8 @@ void PhaseMap1::update(int &controller)
     //updates all zombies
     if (!this->enemiesList.isEmpty())
         this->enemiesList.update(this->player1);
+    if (!this->obstacleList.isEmpty())
+        this->obstacleList.update(this->player1);
     // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
     enemyKilled();
 }
@@ -88,6 +91,8 @@ void PhaseMap1::render(int &controller)
     //rendering all zombies
     if (!this->enemiesList.isEmpty())
         enemiesList.render();
+    if (!this->obstacleList.isEmpty())
+        obstacleList.render();
 
     phaseMapManager.draw();
     window->display();
@@ -122,5 +127,18 @@ void PhaseMap1::placingEnemies()
     {
         Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie(window, {120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z4));
+    }
+}
+void PhaseMap1::placingObstacles()
+{
+    if (this->obstacleList.getQuantity() == 0)
+    {
+        // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
+        Entidade::Obstacle::SpikeTrap *s1 = new Entidade::Obstacle::SpikeTrap(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
+        s1->setWitchTypeOfTrap(SPIKE_TRAP);
+        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s1));
+        Entidade::Obstacle::FallStone *f1 = new Entidade::Obstacle::FallStone(window, {7 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
+        f1->setWitchTypeOfTrap(FALL_STONE);
+        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f1));
     }
 }

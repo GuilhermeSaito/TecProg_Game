@@ -6,6 +6,7 @@ PhaseMapGeneral::PhaseMapGeneral(sf::RenderWindow *window, std::string path) : p
                                                                                player1(NULL),
                                                                                player2(NULL),
                                                                                enemiesList(),
+                                                                               obstacleList(),
                                                                                Menu(window)
 {
     player1View.setSize(sf::Vector2f(1120, 672));
@@ -94,6 +95,13 @@ const bool PhaseMapGeneral::isGameClear()
     return enemiesList.isEmpty();
 }
 
+void PhaseMapGeneral::placingEnemies()
+{
+}
+void PhaseMapGeneral::placingObstacles()
+{
+}
+
 void PhaseMapGeneral::resetEverythingForTransition()
 {
     player1->setPosition({2 * TILE_SIZE, 27 * TILE_SIZE});
@@ -102,6 +110,8 @@ void PhaseMapGeneral::resetEverythingForTransition()
 
     if (!enemiesList.isEmpty())
         enemiesList.setNull();
+    if (!obstacleList.isEmpty())
+        obstacleList.setNull();
 
     collisionManager.clearAllLists();
 }
@@ -117,13 +127,19 @@ void PhaseMapGeneral::setPlayer2(Entidade::Player::Player2 *p2)
     collisionManager.setPlayer2(p2);
 }
 
-void PhaseMapGeneral::loadEnemiesListInCollision()
+void PhaseMapGeneral::loadListsInCollision()
 {
     collisionManager.setEnemiesList(&enemiesList);
+    collisionManager.setObstacleList(&obstacleList);
 }
+
 Lists::EnemiesList *PhaseMapGeneral::getEnemiesList()
 {
     return &enemiesList;
+}
+Lists::ObstacleList *PhaseMapGeneral::getObstacleList()
+{
+    return &obstacleList;
 }
 
 void PhaseMapGeneral::ResetAll()

@@ -113,3 +113,7 @@ void PhaseMap2::placingEnemies()
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g2));
     }
 }
+void PhaseMap2::placingObstacles()
+{
+    // Ainda vou colocar aqui, no update e no render
+}

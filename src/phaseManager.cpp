@@ -59,28 +59,28 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
         case PHASE1:
             controller = phase;
             this->enemiesList = phaseMap1.getEnemiesList();
-            phaseMap1.loadEnemiesListInCollision();
+            phaseMap1.loadListsInCollision();
             phaseMap1.update(phase);
             phaseMap1.render(phase);
             break;
         case PHASE2:
             controller = phase;
             this->enemiesList = phaseMap2.getEnemiesList();
-            phaseMap2.loadEnemiesListInCollision();
+            phaseMap2.loadListsInCollision();
             phaseMap2.update(phase);
             phaseMap2.render(phase);
             break;
         case PHASE3:
             controller = phase;
             this->enemiesList = phaseMap3.getEnemiesList();
-            phaseMap3.loadEnemiesListInCollision();
+            phaseMap3.loadListsInCollision();
             phaseMap3.update(phase);
             phaseMap3.render(phase);
             break;
         case PHASE4:
             controller = phase;
             this->enemiesList = phaseMap4.getEnemiesList();
-            phaseMap4.loadEnemiesListInCollision();
+            phaseMap4.loadListsInCollision();
             phaseMap4.update(phase);
             phaseMap4.render(phase);
             break;

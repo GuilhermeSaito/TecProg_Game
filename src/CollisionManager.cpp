@@ -3,7 +3,8 @@
 CollisionManager::CollisionManager() : player1(NULL),
 									   player2(NULL),
 									   phaseMapManager(NULL),
-									   enemiesList(NULL)
+									   enemiesList(NULL),
+									   obstacleList(NULL)
 {
 }
 CollisionManager::~CollisionManager()
@@ -28,6 +29,11 @@ void CollisionManager::startVerifyCollision()
 		enemiesProjectiliesCollision();
 		enemyCollidesPlayer();
 		playerCollidesEnemy();
+	}
+	if (obstacleList != NULL)
+	{
+		obstacleCollidesPlayers();
+		obstacleCollisionY();
 	}
 }
 
@@ -55,6 +61,8 @@ void CollisionManager::player1CollisionY()
 			player1->collisionInY(tempTile);
 		else
 			player1->setOnGround(false);
+		// O MOTIVO DO PORQUE O PERSONAGEM FICA INDO PARA CIMA E PARA BAIXO, E POR CAUSA DESSE ELSE.
+		// MAS, SE NAO TIVER ELE, O PLAYER PODE DAR UMA DE MOISES E IR FLUTUANDO NO AR
 	}
 }
 
@@ -226,16 +234,77 @@ void CollisionManager::playerCollidesEnemy()
 		clockPlayerAttack.restart();
 }
 
+void CollisionManager::obstacleCollidesPlayers()
+{
+	sf::Time elapsed1 = spikeTrapAttack1.getElapsedTime();
+	sf::Time elapsed2 = spikeTrapAttack2.getElapsedTime();
+	Lists::Element<Entidade::EnemyEntity> *g = this->obstacleList->getFirst();
+	while (g != NULL)
+	{
+		if (g->getInfo()->getWitchTypeOfTrahp() == SPIKE_TRAP)
+		{
+			if ((g->getInfo()->getBoundBox().intersects(player1->getBoundBox())) && (elapsed1.asSeconds() >= 0.3))
+			{
+				player1->setHp(player1->getHp() - g->getInfo()->getAttackDamage());
+				spikeTrapAttack1.restart();
+			}
+			if (player2 != NULL)
+				if ((g->getInfo()->getBoundBox().intersects(player2->getBoundBox())) && (elapsed2.asSeconds() >= 0.3))
+				{
+					player2->setHp(player2->getHp() - g->getInfo()->getAttackDamage());
+					spikeTrapAttack2.restart();
+				}
+		}
+		else
+		{
+			if ((g->getInfo()->getBoundBox().intersects(player1->getBoundBox())) && (!g->getInfo()->getOnGround()))
+				player1->setHp(player1->getHp() - g->getInfo()->getAttackDamage());
+			if (player2 != NULL)
+				if ((g->getInfo()->getBoundBox().intersects(player2->getBoundBox())) && (!g->getInfo()->getOnGround()))
+					player2->setHp(player2->getHp() - g->getInfo()->getAttackDamage());
+		}
+		g = g->getNext();
+	}
+	if (elapsed1.asSeconds() >= 100)
+		clockPlayerAttack.restart();
+	if (elapsed2.asSeconds() >= 100)
+		clockPlayerAttack.restart();
+}
+void CollisionManager::obstacleCollisionY()
+{
+	int i = 0, j = 0;
+	Lists::Element<Entidade::EnemyEntity> *g = this->obstacleList->getFirst();
+	while (g != NULL)
+	{
+		if (g->getInfo()->getWitchTypeOfTrahp() == FALL_STONE)
+			for (j = g->getInfo()->getPosition().y / TILE_SIZE; j < ((g->getInfo()->getPosition().y + g->getInfo()->getSize().y) / TILE_SIZE); j++)
+			{
+				if (!phaseMapManager->isValidTile(g->getInfo()->getPosition().x / TILE_SIZE, j))
+					continue;
+				PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(g->getInfo()->getPosition().x / TILE_SIZE, j);
+				if (g->getInfo()->getBoundBox().intersects(tempTile->getBoundBox()))
+					g->getInfo()->collisionInY(tempTile);
+			}
+		g = g->getNext();
+	}
+}
+
 void CollisionManager::setPlayer1(Entidade::Player::Player1 *p1) { player1 = p1; }
 void CollisionManager::setPlayer2(Entidade::Player::Player2 *p2) { player2 = p2; }
 void CollisionManager::setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa) { phaseMapManager = phaseMapMa; }
 void CollisionManager::setEnemiesList(Lists::EnemiesList *e) { this->enemiesList = e; }
+void CollisionManager::setObstacleList(Lists::ObstacleList *o) { this->obstacleList = o; }
+
 void CollisionManager::clearAllLists()
 {
 	if (this->enemiesList != NULL && !this->enemiesList->isEmpty())
 		this->enemiesList->setNull();
 
+	if (this->obstacleList != NULL && !this->obstacleList->isEmpty())
+		this->obstacleList->setNull();
+
 	this->enemiesList = NULL;
+	this->obstacleList = NULL;
 }
 
 void CollisionManager::ResetAll()
@@ -243,4 +312,5 @@ void CollisionManager::ResetAll()
 	player1 = NULL;
 	player2 = NULL;
 	enemiesList = NULL;
+	obstacleList = NULL;
 }

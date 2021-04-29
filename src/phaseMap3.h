@@ -17,9 +17,10 @@ namespace PhaseMap
 		void update(int &controller) override;
 		void render(int &controller) override;
 
-		void placingEnemies();
-
 	private:
-		virtual void renderPhaseBackGround();
+		void placingEnemies() override;
+		void placingObstacles() override;
+
+		void renderPhaseBackGround();
 	};
 }

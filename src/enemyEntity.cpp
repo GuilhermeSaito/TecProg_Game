@@ -6,7 +6,8 @@ EnemyEntity::EnemyEntity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2
 																																   canHitPlayer1(true),
 																																   canHitPlayer2(true),
 																																   isDead(false),
-																																   hasProjectiles(false)
+																																   hasProjectiles(false),
+																																   witchTypeOfTrap(0)
 {
 }
 EnemyEntity::~EnemyEntity()
@@ -22,3 +23,6 @@ const bool EnemyEntity::getCanHitPlayer2() const { return canHitPlayer2; }
 
 const bool EnemyEntity::getHasProjectiles() const { return hasProjectiles; }
 void EnemyEntity::setHasProjectiles(const bool y) { hasProjectiles = y; }
+
+void EnemyEntity::setWitchTypeOfTrap(const int w) { witchTypeOfTrap = w; }
+const int EnemyEntity::getWitchTypeOfTrahp() const { return witchTypeOfTrap; }
