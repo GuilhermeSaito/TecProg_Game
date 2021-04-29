@@ -1,5 +1,8 @@
 #include "boss.h"
 
+// Usando o abs
+#include <math.h>
+
 using namespace Entidade::Enemy;
 
 Boss::Boss(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : ShooterEntity(window, pos, spee, hP, attackDamage, point)
@@ -81,6 +84,11 @@ void Boss::update(Entidade::Player::Player1 *p)
 
   if (!this->projectiles.isEmpty())
     projectiles.update(p);
+
+  sf::Time elapsedJump = clockJump.getElapsedTime();
+  if (p != NULL)
+    if (elapsedJump.asSeconds() >= 3 && (abs(p->getPosition().x - getPosition().x) <= (48 * 2)))
+      jumpToAttack(p);
 }
 
 void Boss::render()
@@ -101,4 +109,16 @@ json Boss::getSave()
   j["hp"] = this->hp;
 
   return j;
+}
+
+void Boss::jumpToAttack(Entidade::Player::Player1 *p1)
+{
+  jump();
+  if (!onGround)
+  {
+    // Ja testei na chamada da funcao se o p1 eh diferente de null
+    if (getBoundBox().intersects(p1->getBoundBox()))
+      p1->setHp(p1->getHp() / 2);
+  }
+  clock.restart();
 }

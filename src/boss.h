@@ -13,6 +13,7 @@ namespace Entidade
         {
         private:
             sf::Texture bossTexture;
+            sf::Clock clockJump;
 
         public:
             Boss(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
@@ -25,6 +26,10 @@ namespace Entidade
             void render() override;
 
             json getSave() override;
+
+        private:
+            // Isso aqui vai ter um bug, pq no map tem um negocio que o boss pula por normal, enfim :v
+            void jumpToAttack(Entidade::Player::Player1 *p1);
         };
     }
 }

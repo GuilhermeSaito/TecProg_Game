@@ -16083,13 +16083,30 @@
 											"height": 13,
 											"text": "-bossTexture: Texture",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF5HE58xKyAgiU=",
+											"_parent": {
+												"$ref": "AAAAAAF42HqmKsCWsSs="
+											},
+											"model": {
+												"$ref": "AAAAAAF5HE58Maw4Vfk="
+											},
+											"font": "Arial;13;0",
+											"left": 1973,
+											"top": 2245,
+											"width": 684.6708984375,
+											"height": 13,
+											"text": "-clockJump: Clock",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1968,
 									"top": 2225,
 									"width": 694.6708984375,
-									"height": 23
+									"height": 38
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -16112,7 +16129,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2253,
+											"top": 2268,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "«create»+Boss(window: RenderWindow*, pos: Vector2f, Vector2f, spee: Vector2f, hP: float, float attack, point: const int)",
@@ -16129,7 +16146,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2268,
+											"top": 2283,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "«destroy»+Boss()",
@@ -16146,7 +16163,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2283,
+											"top": 2298,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "+shootProjectile(playerPosition: Vector2f): void",
@@ -16163,7 +16180,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2298,
+											"top": 2313,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "+movimentation(posx: int): void",
@@ -16180,7 +16197,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2313,
+											"top": 2328,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "+update(posx: int): void",
@@ -16197,7 +16214,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2328,
+											"top": 2343,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "+render(): void",
@@ -16214,18 +16231,35 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1973,
-											"top": 2343,
+											"top": 2358,
 											"width": 684.6708984375,
 											"height": 13,
 											"text": "+getSave(): json override",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAF5HE/GkLWaBaQ=",
+											"_parent": {
+												"$ref": "AAAAAAF42HqmKsCXp44="
+											},
+											"model": {
+												"$ref": "AAAAAAF5HE/GI7VSpwk="
+											},
+											"font": "Arial;13;0",
+											"left": 1973,
+											"top": 2373,
+											"width": 684.6708984375,
+											"height": 13,
+											"text": "-jumpToAttack(p1: Player1): void",
 											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1968,
-									"top": 2248,
+									"top": 2263,
 									"width": 694.6708984375,
-									"height": 113
+									"height": 128
 								},
 								{
 									"_type": "UMLReceptionCompartmentView",
@@ -33969,6 +34003,16 @@
 											"name": "bossTexture",
 											"visibility": "private",
 											"type": "Texture"
+										},
+										{
+											"_type": "UMLAttribute",
+											"_id": "AAAAAAF5HE58Maw4Vfk=",
+											"_parent": {
+												"$ref": "AAAAAAF42HqmKMCOl8Q="
+											},
+											"name": "clockJump",
+											"visibility": "private",
+											"type": "Clock"
 										}
 									],
 									"operations": [
@@ -34174,6 +34218,37 @@
 													},
 													"type": "json override",
 													"direction": "return"
+												}
+											]
+										},
+										{
+											"_type": "UMLOperation",
+											"_id": "AAAAAAF5HE/GI7VSpwk=",
+											"_parent": {
+												"$ref": "AAAAAAF42HqmKMCOl8Q="
+											},
+											"name": "jumpToAttack",
+											"visibility": "private",
+											"parameters": [
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF5HE/qgbfexu4=",
+													"_parent": {
+														"$ref": "AAAAAAF5HE/GI7VSpwk="
+													},
+													"type": "void",
+													"direction": "return"
+												},
+												{
+													"_type": "UMLParameter",
+													"_id": "AAAAAAF5HFErlr1tWJQ=",
+													"_parent": {
+														"$ref": "AAAAAAF5HE/GI7VSpwk="
+													},
+													"name": "p1",
+													"type": {
+														"$ref": "AAAAAAF2ycyLGa5FAi0="
+													}
 												}
 											]
 										}
@@ -37227,7 +37302,8 @@
 											"_parent": {
 												"$ref": "AAAAAAF5G8vqlNV03ZU="
 											},
-											"name": "Vector2f"
+											"name": "Vector2f",
+											"type": ""
 										},
 										{
 											"_type": "UMLParameter",
@@ -37253,7 +37329,8 @@
 											"_parent": {
 												"$ref": "AAAAAAF5G8vqlNV03ZU="
 											},
-											"name": "float attack"
+											"name": "float attack",
+											"type": ""
 										},
 										{
 											"_type": "UMLParameter",
