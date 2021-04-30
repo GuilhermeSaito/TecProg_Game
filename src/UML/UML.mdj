@@ -9088,7 +9088,7 @@
 											"top": 985,
 											"width": 743,
 											"height": 13,
-											"text": "+isFileEmpty(ifstream&): const bool",
+											"text": "-isFileEmpty(ifstream&): const bool",
 											"horizontalAlignment": 0
 										}
 									],
@@ -33202,6 +33202,7 @@
 										"$ref": "AAAAAAF3CMFA652zsN4="
 									},
 									"name": "isFileEmpty",
+									"visibility": "private",
 									"parameters": [
 										{
 											"_type": "UMLParameter",
