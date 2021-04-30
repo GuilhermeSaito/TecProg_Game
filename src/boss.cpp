@@ -85,10 +85,10 @@ void Boss::update(Entidade::Player::Player1 *p)
   if (!this->projectiles.isEmpty())
     projectiles.update(p);
 
-  sf::Time elapsedJump = clockJump.getElapsedTime();
+  /*sf::Time elapsedJump = clockJump.getElapsedTime();
   if (p != NULL)
     if (elapsedJump.asSeconds() >= 3 && (abs(p->getPosition().x - getPosition().x) <= (48 * 2)))
-      jumpToAttack(p);
+      jumpToAttack(p);*/
 }
 
 void Boss::render()

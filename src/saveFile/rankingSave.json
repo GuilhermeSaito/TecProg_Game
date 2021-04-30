@@ -3,8 +3,44 @@
         {
             "state": {
                 "multiplayer": false,
-                "player1Name": "",
-                "score": 300
+                "player1Name": "gwejrty",
+                "score": 210
+            }
+        },
+        {
+            "state": {
+                "multiplayer": true,
+                "player1Name": "Arudina ",
+                "player2Name": "Alpheratz",
+                "score": 160
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "dwq",
+                "score": 110
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "Arudina",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "Alert",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "Luryph",
+                "score": 40
             }
         }
     ]

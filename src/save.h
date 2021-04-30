@@ -31,5 +31,8 @@ namespace SaveGame
 		void setPlayer2Save(json jPlayer2);
 
 		void clearJson();
+
+	private:
+		const bool isFileEmpty(std::ifstream &in);
 	};
 }

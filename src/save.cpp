@@ -82,8 +82,7 @@ json Save::continueRestore()
 
 void Save::rankingSave(const string player1Name, const string player2Name, const int score, const bool isMultiplayer)
 {
-	ofstream out("src/saveFile/rankingSave.json", ios::out | ios::trunc);
-	out.exceptions(ios::badbit);
+	ifstream in("src/saveFile/rankingSave.json");
 
 	json jSave = json::object();
 	jSave["state"]["player1Name"] = player1Name;
@@ -92,14 +91,10 @@ void Save::rankingSave(const string player1Name, const string player2Name, const
 		jSave["state"]["player2Name"] = player2Name;
 	jSave["state"]["score"] = score;
 
-	ifstream in("src/saveFile/rankingSave.json");
-
 	json j = json::object();
-	// Verifica se o arquivo nao estah vazio
-	in.seekg(0, std::ios::end);
-	if (in.tellg())
+	// Verifica se o arquivo existe e nao estah vazio
+	if ((in) && (!isFileEmpty(in)))
 	{
-		std::cout << "Deveria ter entrado aqui!\n";
 		try
 		{
 			in >> j;
@@ -109,11 +104,19 @@ void Save::rankingSave(const string player1Name, const string player2Name, const
 			std::cerr << "[!] Erro na leitura do arquivo src/saveFile/rankingSave.json." << std::endl;
 			std::cerr << e.what() << std::endl;
 			in.close();
-			out.close();
 			exit(EXIT_FAILURE);
 		}
-		j["ranking"].push_back(jSave);
-		std::cout << "Deveria ter dado certo!\n";
+		int flag = 0;
+		// Colocando em ordem decrescente em questao dos pontos
+		for (auto it = j["ranking"].begin(); it != j["ranking"].end(); it++)
+			if ((*it)["state"]["score"] < score)
+			{
+				flag = 1;
+				j["ranking"].insert(it, jSave);
+				break;
+			}
+		if (!flag)
+			j["ranking"].push_back(jSave);
 	}
 	else
 	{
@@ -121,9 +124,10 @@ void Save::rankingSave(const string player1Name, const string player2Name, const
 		jRankingArray.push_back(jSave);
 		j["ranking"] = jRankingArray;
 	}
-	in.seekg(0, std::ios::beg);
-
 	in.close();
+
+	ofstream out("src/saveFile/rankingSave.json", ios::out | ios::trunc);
+	out.exceptions(ios::badbit);
 
 	try
 	{
@@ -136,9 +140,6 @@ void Save::rankingSave(const string player1Name, const string player2Name, const
 		out.close();
 		exit(EXIT_FAILURE);
 	}
-
-	std::cout << "Salvo!\n";
-
 	out.close();
 }
 
@@ -214,4 +215,9 @@ void Save::clearJson()
 {
 	jArray.clear();
 	jArrayEnemies.clear();
+}
+
+const bool Save::isFileEmpty(std::ifstream &in)
+{
+	return in.peek() == std::ifstream::traits_type::eof();
 }
