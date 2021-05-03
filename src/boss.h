@@ -11,7 +11,7 @@ namespace Entidade
     {
         class Boss : public ShooterEntity
         {
-        private:
+        protected:
             sf::Texture bossTexture;
             sf::Clock clockJump;
 

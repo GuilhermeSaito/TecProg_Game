@@ -36,6 +36,7 @@ void FallStone::render()
 
 json FallStone::getSave()
 {
+    return NULL;
 }
 
 void FallStone::movimentation(sf::Vector2f playerPosition)
