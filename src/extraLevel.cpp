@@ -37,7 +37,7 @@ void ExtraLevel::update(int &controller)
 {
     placingEnemies();
 
-    for (auto& tb : threadedBosses) tb->setPaused(false); 
+    for (auto* tb : threadedBosses) tb->setPaused(false); 
 
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
@@ -66,13 +66,15 @@ void ExtraLevel::update(int &controller)
     // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
     enemyKilled();
 
-    for (auto& tb : threadedBosses) tb->setPaused(true); 
+    for (auto* tb : threadedBosses) tb->setPaused(true); 
 }
 
 void ExtraLevel::render(int &controller)
 {
     // Soh nessa fase que eu nao vou atualizar o view se a posicao do player estiver muito alta
     setViewInPlayer1(controller);
+
+    for (auto* tb : threadedBosses) tb->setPaused(false); 
 
     sf::Event event;
     if (window->pollEvent(event))
@@ -96,7 +98,7 @@ void ExtraLevel::render(int &controller)
     if (!this->enemiesList.isEmpty())
         this->enemiesList.render();
 
-    for (auto& tb : threadedBosses) tb->render(); 
+    for (auto* tb : threadedBosses) tb->render(); 
 
     phaseMapManager.draw();
     window->display();
@@ -110,20 +112,17 @@ void ExtraLevel::renderPhaseBackGround()
 
 void ExtraLevel::placingEnemies()
 {
-    if (threadedBosses.size() == 0)
+    this->elapsed = clock.getElapsedTime();
+    if (threadedBosses.size() == 0 && elapsed.asSeconds() > 15)
     {
         Thread::ThreadedBoss* tb = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
         tb->setPaused(true);
-        tb->start();
+        //tb->start();
         this->threadedBosses.push_back(tb);
-    }
-
-    if (threadedBosses.size() == 1)
-    {
-        Thread::ThreadedBoss* tb = new Thread::ThreadedBoss(window, {600.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
+        Thread::ThreadedBoss* tb2 = new Thread::ThreadedBoss(window, {600.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
         tb->setPaused(true);
-        tb->start();
-        this->threadedBosses.push_back(tb);
+        //tb->start();
+        this->threadedBosses.push_back(tb2);
     }
 }
 void ExtraLevel::placingObstacles()

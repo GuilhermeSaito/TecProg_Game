@@ -3,8 +3,8 @@
 using PhaseMap::PhaseManager;
 
 PhaseManager::PhaseManager(sf::RenderWindow *window) : 
-                                                    player1(window, {2*48, 27*48}, {0, 0}, 100, 30.0),
-                                                    player2(window, {2*48, 27*48}, {0, 0}, 100, 100.0),
+                                                    player1(window, {2*48, 20*48}, {0, 0}, 100, 30.0),
+                                                    player2(window, {2*48, 20*48}, {0, 0}, 100, 100.0),
                                                     phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
                                                     phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
                                                     phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
@@ -89,6 +89,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap4.render(phase);
             break;
         case EXTRALEVEL:
+            std::cout << "entrou " << std::endl;
             controller = phase;
             this->enemiesList = extraLevel.getEnemiesList();
             extraLevel.loadListsInCollision();
