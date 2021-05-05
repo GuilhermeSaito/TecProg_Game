@@ -39,7 +39,7 @@ CharacterSelection::~CharacterSelection()
     window = NULL;
 }
 
-int CharacterSelection::Start()
+const int CharacterSelection::Start()
 {
     return characterSelection();
 }

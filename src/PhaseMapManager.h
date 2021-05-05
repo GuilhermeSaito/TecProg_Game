@@ -33,7 +33,7 @@ namespace PhaseMap
         private:
             void clearMatrix();
 
-            int Start() override { return 1; }
+            const int Start() override { return 1; }
         };
     }
 }

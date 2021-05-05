@@ -4,6 +4,7 @@
 #include "phaseMap2.h"
 #include "phaseMap3.h"
 #include "phaseMap4.h"
+#include "extraLevel.h"
 #include "player1.h"
 #include "Player2.h"
 #include "save.h"
@@ -11,7 +12,7 @@
 // o include do menu.h estah no PhaseMapManager
 
 namespace PhaseMap
-{
+{ 
 	class PhaseManager : public Menu
 	{
 	private:
@@ -19,6 +20,7 @@ namespace PhaseMap
 		PhaseMap2 phaseMap2;
 		PhaseMap3 phaseMap3;
 		PhaseMap4 phaseMap4;
+		ExtraLevel extraLevel;
 
 		Entidade::Player::Player1 player1;
 		Entidade::Player::Player2 player2;
@@ -54,6 +56,6 @@ namespace PhaseMap
 
 		void ResetALL();
 
-		int Start() override { return 0; }
+		const int Start() override { return 0; }
 	};
 }

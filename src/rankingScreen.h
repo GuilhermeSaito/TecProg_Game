@@ -16,6 +16,6 @@ namespace Screen
         RankingScreen(sf::RenderWindow *window = NULL);
         ~RankingScreen();
 
-        int Start() override;
+        const int Start() override;
     };
 }

@@ -37,7 +37,7 @@ namespace StartScreen
 		CharacterSelection(sf::RenderWindow *window = NULL);
 		~CharacterSelection();
 
-		int Start() override;
+		const int Start() override;
 
 	private:
 		int characterSelection();

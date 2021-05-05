@@ -16,6 +16,7 @@
 #define PHASE2 12
 #define PHASE3 13
 #define PHASE4 14
+#define EXTRALEVEL 15
 
 class Menu
 {
@@ -26,5 +27,7 @@ public:
 	Menu(sf::RenderWindow *window);
 	virtual ~Menu();
 
-	virtual int Start() = 0;
+	void setWindow(sf::RenderWindow* w);
+
+	virtual const int Start() = 0;
 };

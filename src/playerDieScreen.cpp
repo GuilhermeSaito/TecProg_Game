@@ -12,7 +12,7 @@ PlayerDieScreen::~PlayerDieScreen()
     window = NULL;
 }
 
-int PlayerDieScreen::Start()
+const int PlayerDieScreen::Start()
 {
     window->clear();
     sf::Sprite playerDie;

@@ -13,6 +13,6 @@ namespace Screen
 		SplashScreen(sf::RenderWindow *window = NULL);
 		~SplashScreen();
 
-		int Start() override;
+		const int Start() override;
 	};
 }

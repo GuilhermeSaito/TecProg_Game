@@ -125,7 +125,7 @@ void PhaseMap1::placingEnemies()
     }
     if (this->player1->getPosition().x >= 100 * TILE_SIZE && this->enemiesList.getQuantity() == 3)
     {
-        Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie(window, {120 * TILE_SIZE, 10 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY);
+        Entidade::Enemy::Zombie *z4 = new Entidade::Enemy::Zombie(window, {120 * TILE_SIZE, 18 * TILE_SIZE}, {5, 5}, 50, 15, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z4));
     }
 }

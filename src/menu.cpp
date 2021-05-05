@@ -8,3 +8,8 @@ Menu::~Menu()
 {
     window = NULL;
 }
+
+void Menu::setWindow(sf::RenderWindow* w)
+{
+    this->window = w;
+}

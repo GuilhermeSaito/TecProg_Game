@@ -23,6 +23,7 @@ Player1::Player1(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, 
 	textScore.setCharacterSize(30);
 	textScore.setString("Score: " + std::to_string(score));
 }
+
 Player1::~Player1()
 {
 	player1View = NULL;

@@ -17,23 +17,28 @@ PhaseSelection::PhaseSelection(sf::RenderWindow *window) : witchPhaseIs(PHASE1),
 
     menu1.setFont(openMenufont);
     menu1.setString("Beginner Phase");
-    menu1.setPosition({100.f, 150.f});
+    menu1.setPosition({100.f, 125.f});
     menu1.setCharacterSize(25);
 
     menu2.setFont(openMenufont);
     menu2.setString("Blue Ocean Phase");
-    menu2.setPosition({100.f, 300.f});
+    menu2.setPosition({100.f, 250.f});
     menu2.setCharacterSize(25);
 
     menu3.setFont(openMenufont);
     menu3.setString("Cave Phase");
-    menu3.setPosition({100.f, 450.f});
+    menu3.setPosition({100.f, 375.f});
     menu3.setCharacterSize(25);
 
     menu4.setFont(openMenufont);
     menu4.setString("Death Phase");
-    menu4.setPosition({100.f, 600.f});
+    menu4.setPosition({100.f, 500.f});
     menu4.setCharacterSize(25);
+
+    menu5.setFont(openMenufont);
+    menu5.setString("Threaded Level");
+    menu5.setPosition({100.f, 625.f});
+    menu5.setCharacterSize(25);
 
     beginnerPhaseSprite.setTexture(beginnerPhaseBackGround);
     // Width 550, Height 690
@@ -54,7 +59,7 @@ PhaseSelection::~PhaseSelection()
     window = NULL;
 }
 
-int PhaseSelection::Start()
+const int PhaseSelection::Start()
 {
     return phaseSelection();
 }
@@ -88,20 +93,23 @@ int PhaseSelection::phaseSelection()
                         witchPhaseIs = PHASE2;
                     else if (controller == 2)
                         witchPhaseIs = PHASE3;
-                    else
+                    else if (controller == 3)
                         witchPhaseIs = PHASE4;
+                    else
+                        witchPhaseIs = EXTRALEVEL;
                     return CHARACTER_SELECTION;
                 }
             if (controller <= 0)
+                controller = 5;
+            if (controller >= 5)
                 controller = 0;
-            if (controller >= 3)
-                controller = 3;
         }
         updateMenuCollor(controller);
         window->draw(menu1);
         window->draw(menu2);
         window->draw(menu3);
         window->draw(menu4);
+        window->draw(menu5);
         window->display();
     }
 }
@@ -114,6 +122,7 @@ void PhaseSelection::updateMenuCollor(int controller)
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
         menu3.setFillColor(sf::Color(255, 255, 255, 255));
         menu4.setFillColor(sf::Color(255, 255, 255, 255));
+        menu5.setFillColor(sf::Color(255, 255, 255, 255));
         window->draw(beginnerPhaseSprite);
     }
     else if (controller == 1)
@@ -122,6 +131,7 @@ void PhaseSelection::updateMenuCollor(int controller)
         menu2.setFillColor(sf::Color(255, 0, 0, 255));
         menu3.setFillColor(sf::Color(255, 255, 255, 255));
         menu4.setFillColor(sf::Color(255, 255, 255, 255));
+        menu5.setFillColor(sf::Color(255, 255, 255, 255));
         window->draw(blueOceanPhaseSprite);
     }
     else if (controller == 2)
@@ -130,14 +140,25 @@ void PhaseSelection::updateMenuCollor(int controller)
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
         menu3.setFillColor(sf::Color(255, 0, 0, 255));
         menu4.setFillColor(sf::Color(255, 255, 255, 255));
+        menu5.setFillColor(sf::Color(255, 255, 255, 255));
         window->draw(cavePhaseSprite);
     }
-    else
+    else if (controller == 3)
     {
         menu1.setFillColor(sf::Color(255, 255, 255, 255));
         menu2.setFillColor(sf::Color(255, 255, 255, 255));
         menu3.setFillColor(sf::Color(255, 255, 255, 255));
         menu4.setFillColor(sf::Color(255, 0, 0, 255));
+        menu5.setFillColor(sf::Color(255, 255, 255, 255));
+        window->draw(deathPhaseSprite);
+    }
+    else 
+    {
+        menu1.setFillColor(sf::Color(255, 255, 255, 255));
+        menu2.setFillColor(sf::Color(255, 255, 255, 255));
+        menu3.setFillColor(sf::Color(255, 255, 255, 255));
+        menu4.setFillColor(sf::Color(255, 255, 255, 255));
+        menu5.setFillColor(sf::Color(255, 0, 0, 255));
         window->draw(deathPhaseSprite);
     }
 }

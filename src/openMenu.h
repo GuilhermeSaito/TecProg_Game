@@ -34,7 +34,7 @@ namespace StartScreen
 		OpenMenu(sf::RenderWindow *window);
 		~OpenMenu();
 
-		int Start() override;
+		const int Start() override;
 
 	private:
 		void updateMenuCollor(int controller);

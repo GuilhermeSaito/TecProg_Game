@@ -64,6 +64,6 @@ namespace Entidade
 
 		virtual json getSave() = 0;
 
-		int Start() override { return 0; }
+		const int Start() override { return 0; }
 	};
 }

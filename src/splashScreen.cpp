@@ -4,7 +4,7 @@ using namespace Screen;
 
 SplashScreen::SplashScreen(sf::RenderWindow *window) : Menu(window)
 {
-	if (!splashScreen.loadFromFile("src/data/erase.png"))
+	if (!splashScreen.loadFromFile("src/data/backGroundForPhaseAfterPlayerDie/backGround1.jpg"))
 		EXIT_FAILURE;
 }
 
@@ -13,11 +13,11 @@ SplashScreen::~SplashScreen()
 	window = NULL;
 }
 
-int SplashScreen::Start()
+const int SplashScreen::Start()
 {
 	sf::Sprite sprite;
 	sprite.setTexture(splashScreen);
-	sprite.setScale(sf::Vector2f(1.7, 1.98));
+	sprite.setScale(sf::Vector2f(0.5, 0.8));
 
 	window->clear();
 	window->draw(sprite);

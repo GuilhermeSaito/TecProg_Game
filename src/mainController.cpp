@@ -8,7 +8,7 @@ MainController::MainController() : splashScreen(&window),
 								   playerDieScreen(&window),
 								   phaseManager(&window)
 {
-	window.create(sf::VideoMode(1080, 720), "Arudina's Game");
+	window.create(sf::VideoMode(1080, 720), "The Pointless Hero");
 	window.setFramerateLimit(60);
 
 	window.setMouseCursorVisible(false);

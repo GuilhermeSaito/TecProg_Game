@@ -2,10 +2,16 @@
 
 using namespace Entidade::Player;
 
-Player2::Player2(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point) : Player1(window, pos, spee, hP, attackDamage, point)
+Player2::Player2(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f spee, float hP, float attackDamage, const int point)
 {
 	if (!player2Image.loadFromFile("src/data/players/player2Image.png"))
 		EXIT_FAILURE;
+
+	this->window = window;
+	this->position = pos;
+	this->speed = spee;
+	this->attackDamage = attackDamage;
+	this->points = point;
 
 	rect.setPosition(pos);
 

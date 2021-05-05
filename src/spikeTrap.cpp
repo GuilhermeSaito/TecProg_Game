@@ -29,6 +29,7 @@ void SpikeTrap::render()
 
 json SpikeTrap::getSave()
 {
+    return NULL;
 }
 
 void SpikeTrap::movimentation(sf::Vector2f playerPosition)

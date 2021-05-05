@@ -41,7 +41,8 @@ void Boss::shootProjectile(sf::Vector2f playerPosition)
 
 void Boss::movimentation(sf::Vector2f playerPosition)
 {
-  gravity();
+  if (!onGround)
+    gravity();
 
   if (playerPosition.x < this->position.x)
   {

@@ -38,7 +38,7 @@ OpenMenu::~OpenMenu()
     window = NULL;
 }
 
-int OpenMenu::Start()
+const int OpenMenu::Start()
 {
     int controller = 0;
 

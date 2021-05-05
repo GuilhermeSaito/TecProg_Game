@@ -13,6 +13,6 @@ namespace Screen
         PlayerDieScreen(sf::RenderWindow *window = NULL);
         ~PlayerDieScreen();
 
-        int Start() override;
+        const int Start() override;
     };
 }

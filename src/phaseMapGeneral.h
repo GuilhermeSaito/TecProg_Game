@@ -12,6 +12,7 @@
 #define PHASE2 12
 #define PHASE3 13
 #define PHASE4 14
+#define EXTRALEVEL 15
 
 #define PLAYER_DIE 66
 #define OPTIONS 70
@@ -57,7 +58,7 @@ namespace PhaseMap
 		virtual void placingObstacles();
 
 		// Soh para evitar possiveis problemas de polimorfismo
-		int Start() override { return 0; }
+		const int Start() override { return 0; }
 
 	public:
 		void resetEverythingForTransition();

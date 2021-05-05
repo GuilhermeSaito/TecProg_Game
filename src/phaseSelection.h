@@ -15,6 +15,7 @@ namespace StartScreen
 		sf::Text menu2;
 		sf::Text menu3;
 		sf::Text menu4;
+		sf::Text menu5;
 
 		// Just to show the player how is the phase
 		sf::Sprite beginnerPhaseSprite;
@@ -34,7 +35,7 @@ namespace StartScreen
 		PhaseSelection(sf::RenderWindow *window = NULL);
 		~PhaseSelection();
 
-		int Start() override;
+		const int Start() override;
 
 	private:
 		int phaseSelection();

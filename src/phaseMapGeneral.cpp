@@ -3,8 +3,6 @@
 using namespace PhaseMap;
 
 PhaseMapGeneral::PhaseMapGeneral(sf::RenderWindow *window, std::string path) : phaseMapManager(window, path),
-                                                                               player1(NULL),
-                                                                               player2(NULL),
                                                                                enemiesList(),
                                                                                obstacleList(),
                                                                                Menu(window)

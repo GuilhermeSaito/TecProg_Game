@@ -2,28 +2,31 @@
 
 using PhaseMap::PhaseManager;
 
-PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
-                                                       phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
-                                                       phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
-                                                       phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
-                                                       player1(window, {2 * 48, 27 * 48}, {0, 0}, 1000, 30.0),
-                                                       player2(window, {3 * 48, 27 * 48}, {0, 0}, 100, 40.5),
-                                                       needToLoadPhase(true),
-                                                       controller(EXIT_GAME),
-                                                       enemiesList(NULL),
-                                                       Menu(window)
+PhaseManager::PhaseManager(sf::RenderWindow *window) : 
+                                                    player1(window, {2*48, 27*48}, {0, 0}, 100, 30.0),
+                                                    player2(window, {2*48, 27*48}, {0, 0}, 100, 100.0),
+                                                    phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
+                                                    phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
+                                                    phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
+                                                    phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
+                                                    extraLevel(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
+                                                    needToLoadPhase(true),
+                                                    controller(EXIT_GAME),
+                                                    enemiesList(NULL),
+                                                    Menu(window)
 {
     if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
         EXIT_FAILURE;
 }
 
-PhaseManager::~PhaseManager()
+PhaseManager::~PhaseManager() 
 {
     window = NULL;
     ResetALL();
 }
 int PhaseManager::Start(json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
 {
+        std::cout<<"antes de entrar" << std::endl;
     // Se ele nao estiver vazio, quer dizer que alguem apertou o continuar.
     // Na verdade, posso colocar tudo isso em um metodo, para ficar bonitinho com 1 linha soh aqui, mas estou com preguica no momento...
     if (!jContinueSave.empty())
@@ -45,6 +48,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
         phaseMap2.resetEverythingForTransition();
         phaseMap3.resetEverythingForTransition();
         phaseMap4.resetEverythingForTransition();
+        extraLevel.resetEverythingForTransition();
     }
 
     // O controller eh para saber em qual fase estah, pois se aperta ESC e vai para save
@@ -84,6 +88,12 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap4.update(phase);
             phaseMap4.render(phase);
             break;
+        case EXTRALEVEL:
+            controller = phase;
+            this->enemiesList = extraLevel.getEnemiesList();
+            extraLevel.loadListsInCollision();
+            extraLevel.update(phase);
+            extraLevel.render(phase);
 
         case PLAYER_DIE:
             normalizeView();
@@ -128,18 +138,22 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
             return EXIT_GAME;
         if (!phaseMap4.loadPhaseMap())
             return EXIT_GAME;
+        if (!extraLevel.loadPhaseMap())
+            return EXIT_GAME;
     }
 
     phaseMap1.setPlayer1(&player1);
     phaseMap2.setPlayer1(&player1);
     phaseMap3.setPlayer1(&player1);
     phaseMap4.setPlayer1(&player1);
+    extraLevel.setPlayer1(&player1);
     if (multiplayer)
     {
         phaseMap1.setPlayer2(&player2);
         phaseMap2.setPlayer2(&player2);
         phaseMap3.setPlayer2(&player2);
         phaseMap4.setPlayer2(&player2);
+        extraLevel.setPlayer2(&player2);
     }
 
     return 1;

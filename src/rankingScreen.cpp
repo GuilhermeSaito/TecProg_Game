@@ -15,7 +15,7 @@ RankingScreen::~RankingScreen()
     window = NULL;
 }
 
-int RankingScreen::Start()
+const int RankingScreen::Start()
 {
     std::vector<std::vector<sf::Text *>> namesScoreDisplay;
     std::string temp;
