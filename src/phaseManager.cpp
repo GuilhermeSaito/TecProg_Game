@@ -8,7 +8,7 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) :
                                                     phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
                                                     phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
                                                     extraLevel(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
-                                                    player1(window, {2*48, 20*48}, {0, 0}, 100, 30.0),
+                                                    player1(window, {2*48, 20*48}, {0, 0}, 100, 50.0),
                                                     player2(window, {2*48, 20*48}, {0, 0}, 100, 100.0),
                                                     needToLoadPhase(true),
                                                     controller(EXIT_GAME),

@@ -2,29 +2,34 @@
     "gamePlaySave": [
         {
             "players": {
-                "multiplayer": true,
+                "multiplayer": false,
                 "phase": 11,
-                "player1Name": "",
-                "player2Name": ""
+                "player1Name": ""
             }
         },
         {
             "players1": {
-                "hp": 355.0,
-                "player1PositionX": 1320.0,
-                "player1PositionY": 740.0999755859375,
+                "hp": 70.0,
+                "player1PositionX": 1696.0,
+                "player1PositionY": 816.0,
                 "score": 0
             }
         },
         {
-            "players2": {
-                "hp": 70.0,
-                "player2PositionX": 1576.0,
-                "player2PositionY": 648.0
-            }
-        },
-        {
-            "enemies": []
+            "enemies": [
+                {
+                    "hp": 20.0,
+                    "kind": 31,
+                    "positionX": 1691.0,
+                    "positionY": 1057.0
+                },
+                {
+                    "hp": 20.0,
+                    "kind": 31,
+                    "positionX": 1691.0,
+                    "positionY": 1057.0
+                }
+            ]
         }
     ]
 }

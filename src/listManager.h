@@ -135,7 +135,7 @@ namespace Lists
                 z->getPrevious()->setNext(z->getNext());
                 z->getNext()->setPrevious(z->getPrevious());
             }
-            free(z->getInfo());
+            //free(z->getInfo());
             delete (z);
         }
 

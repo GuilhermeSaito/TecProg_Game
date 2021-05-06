@@ -45,6 +45,7 @@ void Entity::collisionInX(PhaseMap::Tiles::Tile *tile)
 		position.x = tile->getBoundBox().left + tile->getBoundBox().width;
 	speed.x = 0;
 }
+
 void Entity::collisionInY(PhaseMap::Tiles::Tile *tile)
 {
 	// Falling

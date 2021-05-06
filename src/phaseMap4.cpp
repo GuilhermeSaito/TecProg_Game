@@ -106,20 +106,17 @@ void PhaseMap4::placingEnemies()
 
     if (elapsed.asSeconds() >= 4 && this->enemiesList.getQuantity() == 0)
     {
-        std::cout << elapsed.asSeconds() << std::endl;
         Entidade::Enemy::Boss *b = new Entidade::Enemy::Boss(window, {50 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 300, 30.f, BOSS_POINTS);
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(b));
         resetClock();
     }
     if (elapsed.asSeconds() >= 15 && this->enemiesList.getQuantity() == 1)
     {
-        std::cout << elapsed.asSeconds() << std::endl;
         Entidade::Enemy::FlyingEnemy *f1 = new Entidade::Enemy::FlyingEnemy(window, {7 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15, FLYING_ENEMY_POINTS);
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(f1));
     }
     if (elapsed.asSeconds() >= 25 && this->enemiesList.getQuantity() == 2)
     {
-        std::cout << elapsed.asSeconds() << std::endl;
         Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy(window, {65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15, FLYING_ENEMY_POINTS);
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(f2));
     }

@@ -179,22 +179,43 @@ void CollisionManager::enemyCollidesPlayer()
 	Lists::Element<Entidade::EnemyEntity> *g = this->enemiesList->getFirst();
 	while (g != NULL)
 	{
-		if ((elapsed.asSeconds() >= 1))
+		// O clockEnemyAttack soh pode resetar se atingir algum dos players
+		if (g->getInfo()->getBoundBox().intersects(player1->getBoundBox()))
 		{
-			// O clockEnemyAttack soh pode resetar se atingir algum dos players
-			if (g->getInfo()->getBoundBox().intersects(player1->getBoundBox()))
+			//checando se o inimigo está colidindo com o player
+			if (player1->getSpeed().x > 0)
+				player1->setPosition({g->getInfo()->getBoundBox().left - player1->getBoundBox().width, player1->getPosition().y});
+			else if (player1->getSpeed().x < 0 && player1->getSpeed().y > 0.6)
+				player1->setPosition({g->getInfo()->getBoundBox().left + player1->getBoundBox().width, player1->getPosition().y});
+			else if (player1->getSpeed().x < 0)
+				player1->setPosition({g->getInfo()->getBoundBox().left + player1->getBoundBox().width, player1->getPosition().y});
+			player1->setSpeed({0, player1->getSpeed().y});
+			g->getInfo()->setSpeed({0, g->getInfo()->getSpeed().y});
+
+			if (elapsed.asSeconds() >= 1)
 			{
 				player1->setHp(player1->getHp() - g->getInfo()->getAttackDamage());
 				clockEnemyAttack.restart();
 			}
-			else if (player2 != NULL)
-				if (g->getInfo()->getBoundBox().intersects(player2->getBoundBox()))
-				{
+		}
+		if (player2 != NULL)
+			if (g->getInfo()->getBoundBox().intersects(player2->getBoundBox()))
+			{
+				if (player2->getSpeed().x > 0)
+					player2->setPosition({g->getInfo()->getBoundBox().left - player2->getBoundBox().width, player2->getPosition().y});
+				else if (player2->getSpeed().x < 0 && player2->getSpeed().y > 0.6)
+					player2->setPosition({g->getInfo()->getBoundBox().left + player2->getBoundBox().width, player2->getPosition().y});
+				else if (player2->getSpeed().x < 0)
+					player2->setPosition({g->getInfo()->getBoundBox().left + player2->getBoundBox().width, player2->getPosition().y});
+				player2->setSpeed({0, player1->getSpeed().y});
+				g->getInfo()->setSpeed({0, g->getInfo()->getSpeed().y});
 
+				if (elapsed.asSeconds() >= 1)
+				{
 					player2->setHp(player2->getHp() - g->getInfo()->getAttackDamage());
 					clockEnemyAttack.restart();
 				}
-		}
+			}
 		g = g->getNext();
 	}
 	// Nao sei se tem problema em o clock estourar, mas vou previnir
@@ -209,22 +230,31 @@ void CollisionManager::playerCollidesEnemy()
 	while (g != NULL)
 	{
 		// Somente 1 dos players pode dar dano e.e E o dano do player2 eh maior
-		if ((elapsed.asSeconds() >= 1))
+		if ((elapsed.asSeconds() >= 0.01))
 		{
-			if (!player1->getOnGround())
+			//checando se o player tá na cabeça do inimigo e fazendo a colisão caso sim
+			if (!player1->getOnGround() && abs(player1->getPosition().x - g->getInfo()->getPosition().x) <= (g->getInfo()->getBoundBox().width + 10))
 			{
 				if (player1->getBoundBox().intersects(g->getInfo()->getBoundBox()))
 				{
 					g->getInfo()->setHp(g->getInfo()->getHp() - player1->getAttackDamage());
+					player1->setOnGround(true);
+					player1->setSpeed({player1->getSpeed().x, 0});
+					player1->jump();
 					clockPlayerAttack.restart();
+					clockEnemyAttack.restart();
 				}
 			}
 			else if (player2 != NULL)
-				if (!player2->getOnGround())
+				if (!player2->getOnGround() && abs(player1->getPosition().x - g->getInfo()->getPosition().x) <= (g->getInfo()->getBoundBox().width + 10))
 					if (player2->getBoundBox().intersects(g->getInfo()->getBoundBox()))
 					{
 						g->getInfo()->setHp(g->getInfo()->getHp() - player2->getAttackDamage());
+						player2->setOnGround(true);
+						player2->setSpeed({player1->getSpeed().x, 0});
+						player2->jump();
 						clockPlayerAttack.restart();
+						clockEnemyAttack.restart();
 					}
 		}
 		g = g->getNext();
@@ -245,13 +275,13 @@ void CollisionManager::obstacleCollidesPlayers()
 		{
 			if ((g->getInfo()->getBoundBox().intersects(player1->getBoundBox())) && (elapsed1.asSeconds() >= 0.3))
 			{
-				player1->setHp(player1->getHp() - g->getInfo()->getAttackDamage());
+				player1->setHp(0);
 				spikeTrapAttack1.restart();
 			}
 			if (player2 != NULL)
 				if ((g->getInfo()->getBoundBox().intersects(player2->getBoundBox())) && (elapsed2.asSeconds() >= 0.3))
 				{
-					player2->setHp(player2->getHp() - g->getInfo()->getAttackDamage());
+					player2->setHp(0);
 					spikeTrapAttack2.restart();
 				}
 		}
