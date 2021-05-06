@@ -3,13 +3,13 @@
 using PhaseMap::PhaseManager;
 
 PhaseManager::PhaseManager(sf::RenderWindow *window) : 
-                                                    player1(window, {2*48, 20*48}, {0, 0}, 100, 30.0),
-                                                    player2(window, {2*48, 20*48}, {0, 0}, 100, 100.0),
                                                     phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
                                                     phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
                                                     phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
                                                     phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
                                                     extraLevel(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
+                                                    player1(window, {2*48, 20*48}, {0, 0}, 100, 30.0),
+                                                    player2(window, {2*48, 20*48}, {0, 0}, 100, 100.0),
                                                     needToLoadPhase(true),
                                                     controller(EXIT_GAME),
                                                     enemiesList(NULL),
@@ -22,6 +22,7 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) :
 PhaseManager::~PhaseManager() 
 {
     window = NULL;
+    //delete(enemiesList);
     ResetALL();
 }
 int PhaseManager::Start(json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
@@ -95,6 +96,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             extraLevel.loadListsInCollision();
             extraLevel.update(phase);
             extraLevel.render(phase);
+            break;
 
         case PLAYER_DIE:
             normalizeView();
@@ -355,7 +357,7 @@ void PhaseManager::ResetALL()
     phaseMap3.ResetAll();
     phaseMap4.ResetAll();
 
-    player1.setHp(400);
+    player1.setHp(100);
     player1.setPoints(0);
     player2.setHp(100);
 

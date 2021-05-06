@@ -57,8 +57,6 @@ namespace Lists
                     kill(zAux);
                     z = z->getNext();
                 }
-                KIND* zAux2 = z->getInfo();
-                delete(zAux2);
                 kill(z);
             }
 
@@ -137,6 +135,7 @@ namespace Lists
                 z->getPrevious()->setNext(z->getNext());
                 z->getNext()->setPrevious(z->getPrevious());
             }
+            free(z->getInfo());
             delete (z);
         }
 

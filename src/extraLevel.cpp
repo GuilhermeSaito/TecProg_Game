@@ -113,7 +113,7 @@ void ExtraLevel::renderPhaseBackGround()
 void ExtraLevel::placingEnemies()
 {
     this->elapsed = clock.getElapsedTime();
-    if (threadedBosses.size() == 0 && elapsed.asSeconds() > 15)
+    if (threadedBosses.size() == 0 && elapsed.asSeconds() > 10)
     {
         Thread::ThreadedBoss* tb = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
         tb->setPaused(true);
