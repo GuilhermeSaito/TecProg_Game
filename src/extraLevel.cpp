@@ -58,7 +58,7 @@ void ExtraLevel::update(int &controller)
         this->enemiesList.update(this->player1);
 
     //-------------------------------- Esse metodo precisa ser melhorado, ele nao volta ao normal na 4 fase se terminar------------------------
-    if (isGameClear() && elapsed.asSeconds() >= 8)
+    if (isGameClear() && elapsed.asSeconds() >= 20)
     {
         controller = RANK;
         return;

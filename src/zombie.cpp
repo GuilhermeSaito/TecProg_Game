@@ -36,8 +36,11 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
   {
     this->speed.x = this->walkSpeed;
     this->position.x -= this->speed.x;
-    sprite.setTexture(zombieTexture);
-    sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
+    if (playerPosition.x - this->position.x < (-8))
+    {  
+      sprite.setTexture(zombieTexture);
+      sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
+    }
   }
 
   else if (playerPosition.x > this->position.x)
@@ -47,6 +50,9 @@ void Zombie::movimentation(sf::Vector2f playerPosition)
     sprite.setTexture(zombieTexture);
     sprite.setTextureRect(sf::IntRect(2, 50, 32, 47));
   }
+
+  if (abs(playerPosition.x - this->position.x) < 5)
+    this->speed.x = 0;
 
   this->rect.setPosition(position);
   this->sprite.setPosition(position);

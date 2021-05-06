@@ -14,11 +14,11 @@ FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
-  rect.setSize(sf::Vector2f(38.f, 42.f));
+  rect.setSize(sf::Vector2f(2*38.f, 2*42.f));
   rect.setPosition(pos);
 
   sprite.setTexture(flyingEnemyTexture);
-  sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
+  sprite.setTextureRect(sf::IntRect(1, 95, 38, 42));
   sprite.setScale({2.f, 2.f});
   sprite.setPosition(rect.getPosition());
 
@@ -50,7 +50,7 @@ void FlyingEnemy::movimentation(sf::Vector2f playerPosition)
     this->position.x -= this->speed.x;
     sprite.setTexture(flyingEnemyTexture);
     sprite.setScale({2.f, 2.f});
-    sprite.setTextureRect(sf::IntRect(2, 2, 38, 42));
+    sprite.setTextureRect(sf::IntRect(1, 95, 38, 42));
   }
 
   else if (playerPosition.x > this->position.x)
@@ -58,7 +58,8 @@ void FlyingEnemy::movimentation(sf::Vector2f playerPosition)
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
     sprite.setTexture(flyingEnemyTexture);
-    sprite.setScale({-2.f, 2.f});
+    sprite.setScale({2.f, 2.f});
+    sprite.setTextureRect(sf::IntRect(98, 2, 38, 42));
   }
 
   this->elapsed = this->clock.getElapsedTime();
