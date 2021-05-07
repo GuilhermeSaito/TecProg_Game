@@ -70,6 +70,7 @@ void Boss::movimentation(sf::Vector2f playerPosition)
   this->sprite.setPosition(position);
 }
 
+//a função faz a atualização do boss
 void Boss::update(Entidade::Player::Player1 *p)
 {
   healthBar.setSize(sf::Vector2f(hp, 5.f));

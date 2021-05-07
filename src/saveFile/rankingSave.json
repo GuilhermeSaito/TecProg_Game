@@ -56,6 +56,20 @@
                 "player1Name": "",
                 "score": 0
             }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 0
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 0
+            }
         }
     ]
 }

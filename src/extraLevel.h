@@ -13,7 +13,7 @@ namespace PhaseMap
 		sf::Time elapsed;
 
         int event_id;
-        vector<Thread::ThreadedBoss*> threadedBosses;
+        Thread::ThreadedBoss threadedBosses;
 
     public:
         ExtraLevel(sf::RenderWindow *window = NULL, std::string path = "");

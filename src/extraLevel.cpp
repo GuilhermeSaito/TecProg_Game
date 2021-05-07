@@ -4,7 +4,8 @@ using namespace PhaseMap;
 
 ExtraLevel::ExtraLevel(sf::RenderWindow *window, std::string path) : PhaseMapGeneral(window, path),
                                                                         clock(),
-                                                                        elapsed()
+                                                                        elapsed(),
+                                                                        threadedBosses(window, {20.f, 2*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1)
 {
     if (!lastPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/deathPhaseBackGround.png"))
         EXIT_FAILURE;
@@ -30,14 +31,19 @@ ExtraLevel::~ExtraLevel()
 
     window = NULL;
 
-    threadedBosses.clear();
+   // threadedBosses.clear();
 }
 
 void ExtraLevel::update(int &controller)
 {
     placingEnemies();
 
-    for (auto* tb : threadedBosses) tb->setPaused(false); 
+
+    std::cout << "seg antes paused" << std::endl;
+    //if (!threadedBosses.empty())
+        //for (auto* tb : threadedBosses) tb->setPaused(true); 
+        threadedBosses.setPaused(false);
+    std::cout << "seg depois paused" << std::endl;
 
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
@@ -46,6 +52,7 @@ void ExtraLevel::update(int &controller)
         return;
     }
 
+
     player1->gravity();
     player1->movementation();
     if (player2 != NULL)
@@ -53,9 +60,8 @@ void ExtraLevel::update(int &controller)
         player2->gravity();
         player2->movementation();
     }
-
-    if (!this->enemiesList.isEmpty())
-        this->enemiesList.update(this->player1);
+    // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
+    enemyKilled();
 
     //-------------------------------- Esse metodo precisa ser melhorado, ele nao volta ao normal na 4 fase se terminar------------------------
     if (isGameClear() && elapsed.asSeconds() >= 20)
@@ -63,18 +69,12 @@ void ExtraLevel::update(int &controller)
         controller = RANK;
         return;
     }
-    // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
-    enemyKilled();
-
-    for (auto* tb : threadedBosses) tb->setPaused(true); 
 }
 
 void ExtraLevel::render(int &controller)
 {
     // Soh nessa fase que eu nao vou atualizar o view se a posicao do player estiver muito alta
     setViewInPlayer1(controller);
-
-    for (auto* tb : threadedBosses) tb->setPaused(false); 
 
     sf::Event event;
     if (window->pollEvent(event))
@@ -90,6 +90,7 @@ void ExtraLevel::render(int &controller)
     }
 
     window->clear();
+
     renderPhaseBackGround();
     player1->draw();
     if (player2 != NULL)
@@ -98,10 +99,17 @@ void ExtraLevel::render(int &controller)
     if (!this->enemiesList.isEmpty())
         this->enemiesList.render();
 
-    for (auto* tb : threadedBosses) tb->render(); 
-
     phaseMapManager.draw();
     window->display();
+
+    //for (auto* tb : threadedBosses) tb->render(); 
+
+    std::cout << "seg antes true" << std::endl;
+    //if (!threadedBosses.empty())
+       // for (auto* tb : threadedBosses) tb->setPaused(true); 
+    //threadedBosses.render();
+    threadedBosses.setPaused(true);
+    std::cout << "seg depois true" << std::endl;
 }
 
 void ExtraLevel::renderPhaseBackGround()
@@ -113,16 +121,22 @@ void ExtraLevel::renderPhaseBackGround()
 void ExtraLevel::placingEnemies()
 {
     this->elapsed = clock.getElapsedTime();
-    if (threadedBosses.size() == 0 && elapsed.asSeconds() > 10)
+    if (elapsed.asSeconds() > 10)
     {
-        Thread::ThreadedBoss* tb = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
+        threadedBosses.start();
+        /*Thread::ThreadedBoss* tb = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
+        tb->start();
         tb->setPaused(true);
-        //tb->start();
         this->threadedBosses.push_back(tb);
-        Thread::ThreadedBoss* tb2 = new Thread::ThreadedBoss(window, {600.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
+        /*Thread::ThreadedBoss* tb2 = new Thread::ThreadedBoss(window, {600.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
+        tb->start();
         tb->setPaused(true);
-        //tb->start();
-        this->threadedBosses.push_back(tb2);
+        this->threadedBosses.push_back(tb2);*/
+
+        /*this->threadedBosses = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
+        threadedBosses->start();
+        threadedBosses->setPaused(true);
+        std::cout << "spawnaram" << std::endl;*/
     }
 }
 void ExtraLevel::placingObstacles()
