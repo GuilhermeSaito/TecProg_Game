@@ -100,17 +100,24 @@ void PhaseMap2::placingEnemies()
 {
     if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
     {
-        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 9, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 10);
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {15 * TILE_SIZE, 17 * TILE_SIZE}, {3, 3}, 50, 9, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 10);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z1));
-        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage(window, {7 * TILE_SIZE, 23 * TILE_SIZE}, {3, 3}, 50, 9, GOBLIN_MAGE_POINTS);
-        this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g1));
+        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {17 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 9, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 5);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
     }
     if (this->player1->getPosition().x >= 50 * TILE_SIZE && this->enemiesList.getQuantity() == 2)
     {
-        Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 9, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 5);
-        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
+        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage(window, {70 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 9, GOBLIN_MAGE_POINTS);
+        this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g1));
         Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage(window, {78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 9, GOBLIN_MAGE_POINTS);
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g2));
+    }
+    if (this->player1->getPosition().x >= 100 * TILE_SIZE && this->enemiesList.getQuantity() == 4)
+    {
+        Entidade::Enemy::Zombie *z1 = new Entidade::Enemy::Zombie(window, {120 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 9, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 10);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z1));
+        Entidade::Enemy::GoblinMage *g1 = new Entidade::Enemy::GoblinMage(window, {93 * TILE_SIZE, 27 * TILE_SIZE}, {3, 3}, 50, 9, GOBLIN_MAGE_POINTS);
+        this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g1));
     }
 }
 void PhaseMap2::placingObstacles()

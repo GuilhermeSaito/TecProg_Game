@@ -9,6 +9,13 @@
         },
         {
             "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 210
+            }
+        },
+        {
+            "state": {
                 "multiplayer": true,
                 "player1Name": "Arudina ",
                 "player2Name": "Alpheratz",
@@ -33,6 +40,20 @@
             "state": {
                 "multiplayer": false,
                 "player1Name": "Alert",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "joao",
                 "score": 70
             }
         },

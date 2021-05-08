@@ -42,7 +42,7 @@ const int OpenMenu::Start()
 {
     int controller = 0;
 
-    // Soh sai desse loop se o jogador escolher sair da aplicacao (pelo x ou altF4) ou se escolher o newGame/Continue/Exit (Ranking tambem, mas voltaria nessa tela depois)
+    // Só sai desse loop se o jogador escolher sair da aplicação (pelo x ou altF4) ou se escolher o newGame/Continue/Exit (Ranking tambem, mas voltaria nessa tela depois)
     while (1)
     {
         sf::Event event;
@@ -67,7 +67,7 @@ const int OpenMenu::Start()
                 case sf::Keyboard::Return:
                     if (controller == 0)
                     {
-                        // Eh necessario limpar o jSvae, para nao passar lixo para o mainController.
+                        // É necessario limpar o jSvae, para nao passar lixo para o mainController.
                         if (!jSave.empty())
                             jSave.clear();
                         return PHASE_SELECTION;

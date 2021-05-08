@@ -105,7 +105,11 @@ void PhaseMap3::placingEnemies()
     {
         Entidade::Enemy::Zombie *z2 = new Entidade::Enemy::Zombie(window, {70 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 7);
         this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
+        Entidade::Enemy::Zombie *z3 = new Entidade::Enemy::Zombie(window, {73 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15, ZOMBIE_POINTS, ZOMBIE_RESURRECTION_QUANTITY + 7);
+        this->enemiesList.include(static_cast<Entidade::EnemyEntity *>(z2));
         Entidade::Enemy::GoblinMage *g2 = new Entidade::Enemy::GoblinMage(window, {78 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15, GOBLIN_MAGE_POINTS);
+        this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g2));
+        Entidade::Enemy::GoblinMage *g3 = new Entidade::Enemy::GoblinMage(window, {81 * TILE_SIZE, 21 * TILE_SIZE}, {3, 3}, 50, 15, GOBLIN_MAGE_POINTS);
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(g2));
         Entidade::Enemy::FlyingEnemy *f2 = new Entidade::Enemy::FlyingEnemy(window, {65 * TILE_SIZE, 18 * TILE_SIZE}, {3, 3}, 50, 15, FLYING_ENEMY_POINTS);
         this->enemiesList.include(static_cast<Entidade::ShooterEntity *>(f2));

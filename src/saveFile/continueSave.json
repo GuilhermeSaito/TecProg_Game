@@ -9,8 +9,8 @@
         },
         {
             "players1": {
-                "hp": 70.0,
-                "player1PositionX": 1696.0,
+                "hp": 86.0,
+                "player1PositionX": 1607.0,
                 "player1PositionY": 816.0,
                 "score": 0
             }
@@ -18,16 +18,16 @@
         {
             "enemies": [
                 {
-                    "hp": 20.0,
+                    "hp": 50.0,
                     "kind": 31,
-                    "positionX": 1691.0,
+                    "positionX": 1611.0,
                     "positionY": 1057.0
                 },
                 {
-                    "hp": 20.0,
+                    "hp": 50.0,
                     "kind": 31,
-                    "positionX": 1691.0,
-                    "positionY": 1057.0
+                    "positionX": 1606.0,
+                    "positionY": 1057.5999755859375
                 }
             ]
         }

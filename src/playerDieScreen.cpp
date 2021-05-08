@@ -4,7 +4,7 @@ using namespace Screen;
 
 PlayerDieScreen::PlayerDieScreen(sf::RenderWindow *window) : Menu(window)
 {
-    if (!playerDieTexture.loadFromFile("src/data/playerDieImageScenario/deathWithEffectPhrase.jpg"))
+    if (!playerDieTexture.loadFromFile("src/data/playerDieImageScenario/fairy-with-dying-warrior-wallpaper-1920x1080.jpg"))
         EXIT_FAILURE;
 }
 PlayerDieScreen::~PlayerDieScreen()
@@ -17,7 +17,8 @@ const int PlayerDieScreen::Start()
     window->clear();
     sf::Sprite playerDie;
     playerDie.setTexture(playerDieTexture);
-    playerDie.setPosition(sf::Vector2f(window->getSize().x / 2 - window->getSize().x / 4, window->getSize().y / 2 - window->getSize().y / 4));
+    playerDie.setScale({0.35, 0.35});
+    playerDie.setPosition(sf::Vector2f(window->getSize().x / 3, window->getSize().y / 3));
     window->draw(playerDie);
     window->display();
 

@@ -83,6 +83,8 @@ void PhaseMapGeneral::enemyKilled()
         g = g->getNext();
         if (aux->getInfo()->getHp() <= 0)
         {
+            if (aux->getInfo()->getHasProjectiles())
+                //aux->getInfo()->getProjectiles()->setNull();
             player1->updateScore(aux->getInfo()->getPoints());
             enemiesList.kill(aux);
         }
