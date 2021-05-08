@@ -2,24 +2,23 @@
 
 using PhaseMap::PhaseManager;
 
-PhaseManager::PhaseManager(sf::RenderWindow *window) : 
-                                                    phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
-                                                    phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
-                                                    phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
-                                                    phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
-                                                    extraLevel(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
-                                                    player1(window, {2*48, 20*48}, {0, 0}, 100, 50.0),
-                                                    player2(window, {2*48, 20*48}, {0, 0}, 100, 100.0),
-                                                    needToLoadPhase(true),
-                                                    controller(EXIT_GAME),
-                                                    enemiesList(NULL),
-                                                    Menu(window)
+PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/data/phaseMap/PhaseMapsJson/phaseMap1.json"),
+                                                       phaseMap2(window, "src/data/phaseMap/PhaseMapsJson/phaseMap2.json"),
+                                                       phaseMap3(window, "src/data/phaseMap/PhaseMapsJson/phaseMap3.json"),
+                                                       phaseMap4(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
+                                                       extraLevel(window, "src/data/phaseMap/PhaseMapsJson/phaseMap4.json"),
+                                                       player1(window, {2 * 48, 20 * 48}, {0, 0}, 100, 50.0),
+                                                       player2(window, {2 * 48, 20 * 48}, {0, 0}, 100, 100.0),
+                                                       needToLoadPhase(true),
+                                                       controller(EXIT_GAME),
+                                                       enemiesList(NULL),
+                                                       Menu(window)
 {
     if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
         EXIT_FAILURE;
 }
 
-PhaseManager::~PhaseManager() 
+PhaseManager::~PhaseManager()
 {
     window = NULL;
     //delete(enemiesList);
@@ -27,7 +26,7 @@ PhaseManager::~PhaseManager()
 }
 int PhaseManager::Start(json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
 {
-        std::cout<<"antes de entrar" << std::endl;
+    std::cout << "antes de entrar" << std::endl;
     // Se ele nao estiver vazio, quer dizer que alguem apertou o continuar.
     // Na verdade, posso colocar tudo isso em um metodo, para ficar bonitinho com 1 linha soh aqui, mas estou com preguica no momento...
     if (!jContinueSave.empty())
@@ -90,10 +89,9 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap4.render(phase);
             break;
         case EXTRALEVEL:
-            std::cout << "entrou " << std::endl;
+            //std::cout << "entrou " << std::endl;
             controller = phase;
-            this->enemiesList = extraLevel.getEnemiesList();
-            extraLevel.loadListsInCollision();
+            //extraLevel.loadListsInCollision();
             extraLevel.update(phase);
             extraLevel.render(phase);
             break;
@@ -105,6 +103,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
 
         case OPTIONS:
             showOptions(phase);
+            normalizeView();
             if (phase == EXIT_GAME)
                 return EXIT_GAME;
             else if (phase == SAVE)
@@ -149,14 +148,14 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
     phaseMap2.setPlayer1(&player1);
     phaseMap3.setPlayer1(&player1);
     phaseMap4.setPlayer1(&player1);
-    extraLevel.setPlayer1(&player1);
+    extraLevel.setSpecialPlayer1(&player1);
     if (multiplayer)
     {
         phaseMap1.setPlayer2(&player2);
         phaseMap2.setPlayer2(&player2);
         phaseMap3.setPlayer2(&player2);
         phaseMap4.setPlayer2(&player2);
-        extraLevel.setPlayer2(&player2);
+        extraLevel.setSpecialPlayer2(&player2);
     }
 
     return 1;
@@ -164,7 +163,7 @@ int PhaseManager::loadPhaseMap(const bool multiplayer)
 
 void PhaseManager::normalizeView()
 {
-    sf::View normalView(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f(1080, 720));
+    sf::View normalView(sf::Vector2f(window->getSize().x / 2, window->getSize().y / 2), sf::Vector2f((float)window->getSize().x, (float)window->getSize().y));
     window->setView(normalView);
 }
 
@@ -178,17 +177,17 @@ void PhaseManager::showOptions(int &phase)
 
     menu1.setFont(openMenufont);
     menu1.setString("Continue");
-    menu1.setPosition({500.f, 200.f});
+    menu1.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height / 2 - (sf::VideoMode::getDesktopMode().height * (float)0.1)});
     menu1.setCharacterSize(25);
 
     menu2.setFont(openMenufont);
     menu2.setString("Save");
-    menu2.setPosition({500.f, 280.f});
+    menu2.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height / (float)2});
     menu2.setCharacterSize(25);
 
     menu3.setFont(openMenufont);
     menu3.setString("Exit");
-    menu3.setPosition({500.f, 360.f});
+    menu3.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height / 2 + (sf::VideoMode::getDesktopMode().height * (float)0.1)});
     menu3.setCharacterSize(25);
 
     int controller = 0;

@@ -10,7 +10,7 @@
 #include "zombie.h"
 #include "goblinMage.h"
 #include "flyingEnemy.h"
-#include "boss.h"
+#include "threadedBoss.h"
 // Esses 2 aqui sao para utilizar o #define no metodo do dano do objeto no player
 #include "spikeTrap.h"
 #include "fallStone.h"
@@ -25,11 +25,13 @@ private:
 	PhaseMap::Tiles::PhaseMapManager *phaseMapManager;
 	Lists::EnemiesList *enemiesList;
 	Lists::ObstacleList *obstacleList;
+	Tred::ThreadedBoss *threadedBosses;
 
 	sf::Clock clockEnemyAttack;
 	sf::Clock clockPlayerAttack;
 	sf::Clock spikeTrapAttack1;
 	sf::Clock spikeTrapAttack2;
+	sf::Clock clockThreadedBossAttack;
 
 public:
 	CollisionManager();
@@ -49,6 +51,9 @@ private:
 	void playerCollidesEnemy();
 	void obstacleCollidesPlayers();
 	void obstacleCollisionY();
+	void threadedBossCollisionX();
+	void threadedBossCollisionY();
+	void threadedBossCollisionPlayer();
 
 public:
 	void setPlayer1(Entidade::Player::Player1 *p1);
@@ -56,6 +61,7 @@ public:
 	void setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa);
 	void setEnemiesList(Lists::EnemiesList *e);
 	void setObstacleList(Lists::ObstacleList *o);
+	void setThreadedBoss(Tred::ThreadedBoss *t);
 
 	void clearAllLists();
 

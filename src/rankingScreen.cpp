@@ -65,8 +65,8 @@ const int RankingScreen::Start()
 
     sf::Sprite sprite;
     sprite.setTexture(rankingScreenTexture);
-    sprite.setScale(sf::Vector2f(1.7, 1.5));
-    sprite.setPosition({-80, 0});
+    sprite.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / (float)720, sf::VideoMode::getDesktopMode().height / (float)480));
+    sprite.setPosition({0, 0});
 
     window->clear();
     window->draw(sprite);

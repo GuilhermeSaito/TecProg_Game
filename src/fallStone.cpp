@@ -21,12 +21,13 @@ FallStone::~FallStone()
 
 void FallStone::update(Entidade::Player::Player1 *p)
 {
-    //if (p != NULL)
-    //if ((getPosition().x - p->getPosition().x) <= (48 * 4))
-    sprite.setPosition(position);
+    if (p != NULL)
+        if ((getPosition().x - p->getPosition().x) <= (48 * 4))
+            if (!onGround)
+                gravity();
 
+    sprite.setPosition(position);
     rect.setPosition(position);
-    gravity();
 }
 
 void FallStone::render()

@@ -95,6 +95,7 @@ void Boss::update(Entidade::Player::Player1 *p)
 
 void Boss::render()
 {
+  std::cout << "Deveria estar dando o render!\n";
   window->draw(healthBar);
   window->draw(sprite);
 

@@ -17,7 +17,8 @@ const int SplashScreen::Start()
 {
 	sf::Sprite sprite;
 	sprite.setTexture(splashScreen);
-	sprite.setScale(sf::Vector2f(0.5, 0.8));
+	sprite.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / (float)1920, sf::VideoMode::getDesktopMode().height / (float)1280));
+	sprite.setPosition(sf::Vector2f(0, 0));
 
 	window->clear();
 	window->draw(sprite);

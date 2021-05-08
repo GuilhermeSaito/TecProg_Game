@@ -3,9 +3,8 @@
 using namespace PhaseMap;
 
 ExtraLevel::ExtraLevel(sf::RenderWindow *window, std::string path) : PhaseMapGeneral(window, path),
-                                                                        clock(),
-                                                                        elapsed(),
-                                                                        threadedBosses(window, {20.f, 2*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1)
+                                                                     clock(),
+                                                                     elapsed()
 {
     if (!lastPhaseBackGround.loadFromFile("src/data/possiblePhasesBackGround/deathPhaseBackGround.png"))
         EXIT_FAILURE;
@@ -26,34 +25,30 @@ ExtraLevel::~ExtraLevel()
         delete i;
     phaseBackGroundSprite.clear();
 
-    if (!this->enemiesList.isEmpty())
-        this->enemiesList.setNull();
-
     window = NULL;
 
-   // threadedBosses.clear();
+    if (threadedBosses != NULL)
+        delete threadedBosses;
+
+    // threadedBosses.clear();
 }
 
 void ExtraLevel::update(int &controller)
 {
-    placingEnemies();
-
-
-    std::cout << "seg antes paused" << std::endl;
+    //std::cout << "seg antes paused" << std::endl;
+    //collisionManager.startVerifyCollision();
     //if (!threadedBosses.empty())
-        //for (auto* tb : threadedBosses) tb->setPaused(true); 
-        threadedBosses.setPaused(false);
-    std::cout << "seg depois paused" << std::endl;
+    //for (auto* tb : threadedBosses) tb->setPaused(true);
+    //threadedBosses.setPaused(false);
+    //std::cout << "seg depois paused" << std::endl;
 
-    collisionManager.startVerifyCollision();
     if (isPlayerDead())
     {
         controller = PLAYER_DIE;
         return;
     }
 
-
-    player1->gravity();
+    //player1->gravity();
     player1->movementation();
     if (player2 != NULL)
     {
@@ -69,11 +64,13 @@ void ExtraLevel::update(int &controller)
         controller = RANK;
         return;
     }
+    //std::cout << "seg fim update" << std::endl;
 }
 
 void ExtraLevel::render(int &controller)
 {
     // Soh nessa fase que eu nao vou atualizar o view se a posicao do player estiver muito alta
+    //std::cout << "seg render 1" << std::endl;
     setViewInPlayer1(controller);
 
     sf::Event event;
@@ -88,28 +85,31 @@ void ExtraLevel::render(int &controller)
         controller = OPTIONS;
         return;
     }
+    //std::cout << "seg render 2" << std::endl;
 
-    window->clear();
+    //window->clear();
+    //std::cout << "seg render 3" << std::endl;
 
-    renderPhaseBackGround();
+    //renderPhaseBackGround();
     player1->draw();
     if (player2 != NULL)
         player2->draw();
 
-    if (!this->enemiesList.isEmpty())
-        this->enemiesList.render();
+    //std::cout << "seg render 4" << std::endl;
 
     phaseMapManager.draw();
     window->display();
 
-    //for (auto* tb : threadedBosses) tb->render(); 
+    //std::cout << "seg render 5" << std::endl;
 
-    std::cout << "seg antes true" << std::endl;
+    //for (auto* tb : threadedBosses) tb->render();
+
+    //std::cout << "seg antes true" << std::endl;
     //if (!threadedBosses.empty())
-       // for (auto* tb : threadedBosses) tb->setPaused(true); 
+    // for (auto* tb : threadedBosses) tb->setPaused(true);
     //threadedBosses.render();
-    threadedBosses.setPaused(true);
-    std::cout << "seg depois true" << std::endl;
+    //threadedBosses.setPaused(true);
+    //std::cout << "seg depois true" << std::endl;
 }
 
 void ExtraLevel::renderPhaseBackGround()
@@ -118,26 +118,20 @@ void ExtraLevel::renderPhaseBackGround()
         window->draw(*i);
 }
 
+void ExtraLevel::setSpecialPlayer1(Entidade::Player::Player1 *p1)
+{
+    player1 = p1;
+    threadedBosses = new Tred::ThreadedBoss(window, {20.f, 2 * TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34);
+    threadedBosses->start();
+    threadedBosses->join();
+    std::cout << "Deu o load!\n";
+    threadedBosses->setPlayer1(p1);
+    //collisionManager.setThreadedBoss(&threadedBosses);
+}
+void ExtraLevel::setSpecialPlayer2(Entidade::Player::Player2 *p2) { player2 = p2; }
+
 void ExtraLevel::placingEnemies()
 {
-    this->elapsed = clock.getElapsedTime();
-    if (elapsed.asSeconds() > 10)
-    {
-        threadedBosses.start();
-        /*Thread::ThreadedBoss* tb = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
-        tb->start();
-        tb->setPaused(true);
-        this->threadedBosses.push_back(tb);
-        /*Thread::ThreadedBoss* tb2 = new Thread::ThreadedBoss(window, {600.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
-        tb->start();
-        tb->setPaused(true);
-        this->threadedBosses.push_back(tb2);*/
-
-        /*this->threadedBosses = new Thread::ThreadedBoss(window, {200.f, 18*TILE_SIZE}, {5.f, 5.f}, 300.f, 15.f, 34, this->player1);
-        threadedBosses->start();
-        threadedBosses->setPaused(true);
-        std::cout << "spawnaram" << std::endl;*/
-    }
 }
 void ExtraLevel::placingObstacles()
 {

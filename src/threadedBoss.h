@@ -1,28 +1,25 @@
 #include "boss.h"
 #include "thread.h"
-#include <chrono>
+#include "player1.h"
 
 #pragma once
 
-namespace Thread
+namespace Tred
 {
-    class ThreadedBoss: public Thread::Thread , public Entidade::Enemy::Boss
+    class ThreadedBoss : public Tred::Thread, public Entidade::Enemy::Boss
     {
     private:
         bool continuing;
         bool paused;
 
+        Entidade::Player::Player1 *player1;
+
         void run() override;
 
     public:
-        ThreadedBoss(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0, Entidade::Player::Player1* p = NULL);
-        ~ThreadedBoss();    
+        ThreadedBoss(sf::RenderWindow *window = NULL, sf::Vector2f pos = {0, 0}, sf::Vector2f spee = {0, 0}, float hP = 0, float attackDamage = 0, const int point = 0);
+        ~ThreadedBoss();
 
-        void movimentation(sf::Vector2f playerPosition);
-        void update();
-        void render();  
-
-        void stopUpdating();
-        void setPaused(bool p);
+        void setPlayer1(Entidade::Player::Player1 *p1);
     };
 }

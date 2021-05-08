@@ -19,7 +19,8 @@ SpikeTrap::~SpikeTrap()
 
 void SpikeTrap::update(Entidade::Player::Player1 *p)
 {
-    // Depois colocar umas coisas mais legais aqui kkkk
+    if (!onGround)
+        gravity();
 }
 
 void SpikeTrap::render()

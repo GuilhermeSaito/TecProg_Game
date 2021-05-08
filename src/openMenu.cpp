@@ -10,26 +10,29 @@ OpenMenu::OpenMenu(sf::RenderWindow *window) : Menu(window)
         EXIT_FAILURE;
 
     backGroundSprite.setTexture(openMenuBackGround);
-    backGroundSprite.setScale(sf::Vector2f(1.8, 2.4));
+    // backGroundSprite.setScale(sf::Vector2f(1.8, 2.4));
+    float tempX = sf::VideoMode::getDesktopMode().width / (float)600, tempY = sf::VideoMode::getDesktopMode().height / (float)300;
+    backGroundSprite.setScale(sf::Vector2f(tempX, tempY));
+    backGroundSprite.setPosition(sf::Vector2f(0, 0));
 
     menu1.setFont(openMenufont);
     menu1.setString("New Game");
-    menu1.setPosition({500.f, 200.f});
+    menu1.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height * (float)0.1});
     menu1.setCharacterSize(25);
 
     menu2.setFont(openMenufont);
     menu2.setString("Continue");
-    menu2.setPosition({500.f, 280.f});
+    menu2.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height * (float)0.29});
     menu2.setCharacterSize(25);
 
     menu3.setFont(openMenufont);
     menu3.setString("Ranking");
-    menu3.setPosition({500.f, 360.f});
+    menu3.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height * (float)0.49});
     menu3.setCharacterSize(25);
 
     menu4.setFont(openMenufont);
     menu4.setString("Exit");
-    menu4.setPosition({500.f, 420.f});
+    menu4.setPosition({(float)sf::VideoMode::getDesktopMode().width / 2, sf::VideoMode::getDesktopMode().height * (float)0.7});
     menu4.setCharacterSize(25);
 }
 

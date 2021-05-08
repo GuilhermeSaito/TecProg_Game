@@ -1,50 +1,45 @@
 #include "thread.h"
 
-namespace Thread
+using namespace Tred;
+
+Thread::Thread()
 {
-    pthread_mutex_t Thread::mutex = PTHREAD_MUTEX_INITIALIZER;
+}
+Thread::~Thread()
+{
+}
 
-    Thread::Thread()
-    {
-    }
-    Thread::~Thread()
-    {
-    }
+void *Thread::runThread(void *threadAux)
+{
+    Thread *thread = static_cast<Thread *>(threadAux);
 
-    void* Thread::runThread(void* threadAux)
-    {
-        Thread* thread = static_cast<Thread*>(threadAux);
+    if (thread != NULL)
+        thread->run();
+    else
+        std::cout << "Thread falhou" << std::endl;
+}
 
-        if (thread != NULL)
-        {
-            thread->run();
-        }
-        else
-            std::cout << "não foi possível rodar a thread" << std::endl;
+void Thread::start()
+{
+    int status = pthread_attr_init(&tAttribute);
+    status = pthread_attr_setscope(&tAttribute, PTHREAD_SCOPE_SYSTEM);
+    if (status != 0)
+        std::cout << "falha ao iniciar atributo da thread.\n";
 
-        return NULL;
-    }
+    status = pthread_create(&thread_itself, &tAttribute, Thread::runThread, (void *)this);
+    if (status != 0)
+        std::cout << "falha ao iniciar a thread.\n";
 
-    void Thread::start()
-    {
-        pthread_create(&thread_itself, NULL, runThread, static_cast<void*>(this));
-    }
-    void Thread::join()
-    {
-        pthread_join(thread_itself, NULL);
-    }
-    
-    void Thread::yield()
-    {
-        sched_yield();
-    }
-
-    void Thread::lock()
-    {
-        pthread_mutex_lock(&mutex);
-    }
-    void Thread::unlock()
-    {
-        pthread_mutex_unlock(&mutex);
-    }
+    status = pthread_attr_destroy(&tAttribute);
+    if (status != 0)
+        std::cout << "falha ao destruir atributo da thread.\n";
+}
+void Thread::join()
+{
+    if (pthread_join(thread_itself, NULL) != 0)
+        std::cout << "Comando join falhou.\n";
+}
+void Thread::yield()
+{
+    sched_yield();
 }

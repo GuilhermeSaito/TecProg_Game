@@ -60,8 +60,57 @@
         {
             "state": {
                 "multiplayer": false,
+                "player1Name": "",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 70
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
                 "player1Name": "Luryph",
                 "score": 40
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 0
+            }
+        },
+        {
+            "state": {
+                "multiplayer": false,
+                "player1Name": "",
+                "score": 0
             }
         },
         {

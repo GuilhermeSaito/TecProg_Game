@@ -4,13 +4,15 @@ CollisionManager::CollisionManager() : player1(NULL),
 									   player2(NULL),
 									   phaseMapManager(NULL),
 									   enemiesList(NULL),
-									   obstacleList(NULL)
+									   obstacleList(NULL),
+									   threadedBosses(NULL)
 {
 }
 CollisionManager::~CollisionManager()
 {
 	ResetAll();
 	phaseMapManager = NULL;
+	threadedBosses = NULL;
 }
 
 void CollisionManager::startVerifyCollision()
@@ -35,6 +37,13 @@ void CollisionManager::startVerifyCollision()
 		obstacleCollidesPlayers();
 		obstacleCollisionY();
 	}
+	//if (threadedBosses != NULL)
+	//{
+	//threadedBossCollisionX();
+	//threadedBossCollisionY();
+	//if (player1 != NULL) // Dentro da funcao ja verifica o player 2
+	//	threadedBossCollisionPlayer();
+	//}
 }
 
 void CollisionManager::player1CollisionX()
@@ -319,11 +328,75 @@ void CollisionManager::obstacleCollisionY()
 	}
 }
 
+void CollisionManager::threadedBossCollisionX()
+{
+	int i = 0, j = 0;
+	for (i = threadedBosses->getPosition().x / TILE_SIZE; i < ((threadedBosses->getPosition().x + threadedBosses->getSize().x) / TILE_SIZE); i++)
+	{
+		if (!phaseMapManager->isValidTile(i, threadedBosses->getPosition().y / TILE_SIZE))
+			continue;
+		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(i, threadedBosses->getPosition().y / 48);
+		if (threadedBosses->getBoundBox().intersects(tempTile->getBoundBox()))
+			threadedBosses->collisionInX(tempTile);
+	}
+}
+
+void CollisionManager::threadedBossCollisionY()
+{
+	int i = 0, j = 0;
+	for (j = threadedBosses->getPosition().y / TILE_SIZE; j < ((threadedBosses->getPosition().y + threadedBosses->getSize().y) / TILE_SIZE); j++)
+	{
+		if (!phaseMapManager->isValidTile(threadedBosses->getPosition().x / TILE_SIZE, j))
+			continue;
+		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(threadedBosses->getPosition().x / TILE_SIZE, j);
+		if (threadedBosses->getBoundBox().intersects(tempTile->getBoundBox()))
+			threadedBosses->collisionInY(tempTile);
+		else
+			threadedBosses->setOnGround(false);
+	}
+}
+
+void CollisionManager::threadedBossCollisionPlayer()
+{
+	sf::Time elapsed = clockPlayerAttack.getElapsedTime();
+
+	if (threadedBosses->getBoundBox().intersects(player1->getBoundBox()))
+	{
+		//checando se o inimigo está colidindo com o player
+		if (player1->getSpeed().x > 0)
+			player1->setPosition({threadedBosses->getBoundBox().left - player1->getBoundBox().width, player1->getPosition().y});
+		else if (player1->getSpeed().x < 0 && player1->getSpeed().y > 0.6)
+			player1->setPosition({threadedBosses->getBoundBox().left + player1->getBoundBox().width, player1->getPosition().y});
+		else if (player1->getSpeed().x < 0)
+			player1->setPosition({threadedBosses->getBoundBox().left + player1->getBoundBox().width, player1->getPosition().y});
+		player1->setSpeed({0, player1->getSpeed().y});
+		threadedBosses->setSpeed({0, threadedBosses->getSpeed().y});
+
+		if (elapsed.asSeconds() >= 1)
+		{
+			player1->setHp(player1->getHp() - threadedBosses->getAttackDamage());
+			clockEnemyAttack.restart();
+		}
+	}
+	else if (player2 != NULL)
+		if (!player2->getOnGround() && abs(player1->getPosition().x - threadedBosses->getPosition().x) <= (threadedBosses->getBoundBox().width + 10))
+			if (player2->getBoundBox().intersects(threadedBosses->getBoundBox()))
+			{
+				threadedBosses->setHp(threadedBosses->getHp() - player2->getAttackDamage());
+				player2->setOnGround(true);
+				player2->setSpeed({player1->getSpeed().x, 0});
+				player2->jump();
+				clockPlayerAttack.restart();
+				clockEnemyAttack.restart();
+			}
+}
+
 void CollisionManager::setPlayer1(Entidade::Player::Player1 *p1) { player1 = p1; }
 void CollisionManager::setPlayer2(Entidade::Player::Player2 *p2) { player2 = p2; }
 void CollisionManager::setPhaseMapManager(PhaseMap::Tiles::PhaseMapManager *phaseMapMa) { phaseMapManager = phaseMapMa; }
 void CollisionManager::setEnemiesList(Lists::EnemiesList *e) { this->enemiesList = e; }
 void CollisionManager::setObstacleList(Lists::ObstacleList *o) { this->obstacleList = o; }
+void CollisionManager::setThreadedBoss(Tred::ThreadedBoss *t) { this->threadedBosses = t; }
 
 void CollisionManager::clearAllLists()
 {

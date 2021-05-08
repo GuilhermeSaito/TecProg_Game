@@ -29,9 +29,9 @@ CharacterSelection::CharacterSelection(sf::RenderWindow *window) : isMultiplayer
     menu4.setCharacterSize(25);
 
     player1Sprite.setTexture(player1Image);
-    player1Sprite.setPosition({550.f, 360.f});
+    player1Sprite.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.1), (float)sf::VideoMode::getDesktopMode().height / 2});
     player2Sprite.setTexture(player2Image);
-    player2Sprite.setPosition({815.f, 360.f});
+    player2Sprite.setPosition({sf::VideoMode::getDesktopMode().width / 2 + (sf::VideoMode::getDesktopMode().width * (float)0.1), (float)sf::VideoMode::getDesktopMode().height / 2});
 }
 
 CharacterSelection::~CharacterSelection()
@@ -49,10 +49,10 @@ int CharacterSelection::characterSelection()
     int controller = 0;
 
     menu1.setString("1 Player");
-    menu1.setPosition({100.f, 225.f});
+    menu1.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.3), sf::VideoMode::getDesktopMode().height / 2 - (sf::VideoMode::getDesktopMode().height * (float)0.2)});
 
     menu2.setString("2 Player");
-    menu2.setPosition({100.f, 525.f});
+    menu2.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.3), sf::VideoMode::getDesktopMode().height / 2 + (sf::VideoMode::getDesktopMode().height * (float)0.2)});
 
     // Soh arrumando a cor dos menus, se necessario
     updateMenuCollor(0);
@@ -106,25 +106,25 @@ int CharacterSelection::nameCharacterSelection()
     player1Name = "";
     player2Name = "";
 
-    menu1.setPosition({340.f, 230.f});
-    menu1.setFillColor(sf::Color(sf::Color::White));
-    menu1.setCharacterSize(40);
-    menu1.setString(player1Name);
+    menu4.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.2), sf::VideoMode::getDesktopMode().height / 2 - (sf::VideoMode::getDesktopMode().height * (float)0.4)});
+    menu4.setFillColor(sf::Color(sf::Color::White));
+    menu4.setCharacterSize(30);
+    menu4.setString("Tab to name other player");
 
-    menu2.setPosition({340.f, 270.f});
-    menu2.setFillColor(sf::Color(sf::Color::White));
-    menu2.setCharacterSize(40);
-    menu2.setString(player2Name);
-
-    menu3.setPosition({340.f, 100.f});
+    menu3.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.2), sf::VideoMode::getDesktopMode().height / 2 - (sf::VideoMode::getDesktopMode().height * (float)0.3)});
     menu3.setFillColor(sf::Color(sf::Color::White));
     menu3.setCharacterSize(30);
     menu3.setString("Type your character name: (Enter to Start)");
 
-    menu4.setPosition({340.f, 50.f});
-    menu4.setFillColor(sf::Color(sf::Color::White));
-    menu4.setCharacterSize(30);
-    menu4.setString("Tab to name other player");
+    menu1.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.2), sf::VideoMode::getDesktopMode().height / 2 - (sf::VideoMode::getDesktopMode().height * (float)0.1)});
+    menu1.setFillColor(sf::Color(sf::Color::White));
+    menu1.setCharacterSize(40);
+    menu1.setString(player1Name);
+
+    menu2.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.2), sf::VideoMode::getDesktopMode().height / 2 + (sf::VideoMode::getDesktopMode().height * (float)0.1)});
+    menu2.setFillColor(sf::Color(sf::Color::White));
+    menu2.setCharacterSize(40);
+    menu2.setString(player2Name);
 
     while (1)
     {

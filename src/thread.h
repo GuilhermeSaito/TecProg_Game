@@ -2,17 +2,17 @@
 #include <iostream>
 
 #pragma once
-namespace Thread
+namespace Tred
 {
-//classe criada para administrar as funções de thread
+    //classe criada para administrar as funções de thread
     class Thread
     {
     protected:
         pthread_t thread_itself;
-        static pthread_mutex_t mutex;
+        pthread_attr_t tAttribute;
 
-        static void* runThread(void* threadAux);
-        
+        static void *runThread(void *);
+
     public:
         Thread();
         ~Thread();
@@ -21,11 +21,6 @@ namespace Thread
 
         void start();
         void join();
-
-        //coloca a thread no último lugar da fila, dando permissão para a próxima rodar
         void yield();
-
-        void lock();
-        void unlock();
     };
 }

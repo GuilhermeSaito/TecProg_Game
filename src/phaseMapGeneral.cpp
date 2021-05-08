@@ -3,8 +3,8 @@
 using namespace PhaseMap;
 
 PhaseMapGeneral::PhaseMapGeneral(sf::RenderWindow *window, std::string path) : phaseMapManager(window, path),
-                                                                                player1(NULL),
-                                                                                player2(NULL),
+                                                                               player1(NULL),
+                                                                               player2(NULL),
                                                                                enemiesList(),
                                                                                obstacleList(),
                                                                                Menu(window)
@@ -41,6 +41,8 @@ void PhaseMapGeneral::setViewInPlayer1(const int controller)
         {
             if (controller != PHASE4)
                 player1View.setCenter(sf::Vector2f(player1->getPosition().x, player1->getPosition().y));
+            else
+                player1View.setCenter(sf::Vector2f(player1->getPosition().x, 23 * TILE_SIZE));
         }
         else
             player1View.setCenter(sf::Vector2f(player1->getPosition().x, 23 * TILE_SIZE));
@@ -85,7 +87,7 @@ void PhaseMapGeneral::enemyKilled()
         {
             if (aux->getInfo()->getHasProjectiles())
                 //aux->getInfo()->getProjectiles()->setNull();
-            player1->updateScore(aux->getInfo()->getPoints());
+                player1->updateScore(aux->getInfo()->getPoints());
             enemiesList.kill(aux);
         }
         aux = g;

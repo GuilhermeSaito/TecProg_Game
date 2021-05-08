@@ -17,42 +17,42 @@ PhaseSelection::PhaseSelection(sf::RenderWindow *window) : witchPhaseIs(PHASE1),
 
     menu1.setFont(openMenufont);
     menu1.setString("Beginner Phase");
-    menu1.setPosition({100.f, 125.f});
+    menu1.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.1), sf::VideoMode::getDesktopMode().height * (float)0.07});
     menu1.setCharacterSize(25);
 
     menu2.setFont(openMenufont);
     menu2.setString("Blue Ocean Phase");
-    menu2.setPosition({100.f, 250.f});
+    menu2.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.1), sf::VideoMode::getDesktopMode().height * (float)0.23});
     menu2.setCharacterSize(25);
 
     menu3.setFont(openMenufont);
     menu3.setString("Cave Phase");
-    menu3.setPosition({100.f, 375.f});
+    menu3.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.1), sf::VideoMode::getDesktopMode().height * (float)0.41});
     menu3.setCharacterSize(25);
 
     menu4.setFont(openMenufont);
     menu4.setString("Death Phase");
-    menu4.setPosition({100.f, 500.f});
+    menu4.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.1), sf::VideoMode::getDesktopMode().height * (float)0.61});
     menu4.setCharacterSize(25);
 
     menu5.setFont(openMenufont);
     menu5.setString("Threaded Level");
-    menu5.setPosition({100.f, 625.f});
+    menu5.setPosition({sf::VideoMode::getDesktopMode().width / 2 - (sf::VideoMode::getDesktopMode().width * (float)0.1), sf::VideoMode::getDesktopMode().height * (float)0.79});
     menu5.setCharacterSize(25);
 
     beginnerPhaseSprite.setTexture(beginnerPhaseBackGround);
     // Width 550, Height 690
-    beginnerPhaseSprite.setPosition({500.f, 20.f});
-    beginnerPhaseSprite.setScale(sf::Vector2f(0.2865, 0.8323));
+    beginnerPhaseSprite.setScale(sf::Vector2f(0.2865, 0.66));
+    beginnerPhaseSprite.setPosition({sf::VideoMode::getDesktopMode().width / 2 + (sf::VideoMode::getDesktopMode().width * (float)0.07), 15.f});
     blueOceanPhaseSprite.setTexture(blueOceanPhaseBackGround);
-    blueOceanPhaseSprite.setPosition({500.f, 20.f});
     blueOceanPhaseSprite.setScale(sf::Vector2f(0.1571, 0.3504));
+    blueOceanPhaseSprite.setPosition({sf::VideoMode::getDesktopMode().width / 2 + (sf::VideoMode::getDesktopMode().width * (float)0.07), 20.f});
     cavePhaseSprite.setTexture(cavePhaseBackGround);
-    cavePhaseSprite.setPosition({500.f, 20.f});
     cavePhaseSprite.setScale(sf::Vector2f(0.1572, 0.3504));
+    cavePhaseSprite.setPosition({sf::VideoMode::getDesktopMode().width / 2 + (sf::VideoMode::getDesktopMode().width * (float)0.07), 20.f});
     deathPhaseSprite.setTexture(deathPhaseBackGround);
-    deathPhaseSprite.setPosition({500.f, 20.f});
     deathPhaseSprite.setScale(sf::Vector2f(0.4297, 0.9584));
+    deathPhaseSprite.setPosition({sf::VideoMode::getDesktopMode().width / 2 + (sf::VideoMode::getDesktopMode().width * (float)0.07), 20.f});
 }
 PhaseSelection::~PhaseSelection()
 {
@@ -152,7 +152,7 @@ void PhaseSelection::updateMenuCollor(int controller)
         menu5.setFillColor(sf::Color(255, 255, 255, 255));
         window->draw(deathPhaseSprite);
     }
-    else 
+    else
     {
         menu1.setFillColor(sf::Color(255, 255, 255, 255));
         menu2.setFillColor(sf::Color(255, 255, 255, 255));

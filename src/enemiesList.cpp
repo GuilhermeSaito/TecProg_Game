@@ -23,13 +23,6 @@ void EnemiesList::kill(Element<Entidade::EnemyEntity> *e)
 }
 void EnemiesList::setNull()
 {
-    Element<Entidade::EnemyEntity>* aux = this->enemiesList.getFirst();
-    while (aux != NULL)
-    {
-        if (aux->getInfo()->getHasProjectiles())
-            aux->getInfo()->getProjectiles()->setNull();
-    }
-    
     this->enemiesList.setNull();
 }
 

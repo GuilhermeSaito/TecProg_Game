@@ -17,8 +17,8 @@ const int PlayerDieScreen::Start()
     window->clear();
     sf::Sprite playerDie;
     playerDie.setTexture(playerDieTexture);
-    playerDie.setScale({0.35, 0.35});
-    playerDie.setPosition(sf::Vector2f(window->getSize().x / 3, window->getSize().y / 3));
+    playerDie.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / (float)1920, sf::VideoMode::getDesktopMode().height / (float)1080));
+    playerDie.setPosition(sf::Vector2f(0, 0));
     window->draw(playerDie);
     window->display();
 
