@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 // Em vez de ficar usando numeros, coloquei com nomes.	Acredito que daria para usar um Enum aqui...
 #define EXIT_GAME -1
@@ -27,7 +28,7 @@ public:
 	Menu(sf::RenderWindow *window);
 	virtual ~Menu();
 
-	void setWindow(sf::RenderWindow* w);
+	void setWindow(sf::RenderWindow *w);
 
 	virtual const int Start() = 0;
 };

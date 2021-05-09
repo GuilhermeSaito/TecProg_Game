@@ -7,7 +7,7 @@ OBJECTS:=$(patsubst src/%.cpp,bin/%.o,$(SRCS))
 # $< are the names of all prerequisites (the object files)
 # $@ is the name of the target (obj/myprogram in this case)
 main.exe: $(OBJECTS)
-	g++ $^ -o $@ -lsfml-graphics -lsfml-window -lsfml-system -lpthread
+	g++ $^ -o $@ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -lpthread
 
 # but now we have to tell make how to build the object files
 # -c option tells g++ to only compile one source file at a tile

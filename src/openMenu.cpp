@@ -8,6 +8,8 @@ OpenMenu::OpenMenu(sf::RenderWindow *window) : Menu(window)
         EXIT_FAILURE;
     if (!openMenuBackGround.loadFromFile("src/data/imageOpenMenu.png"))
         EXIT_FAILURE;
+    if (!music.openFromFile("src/data/musicsForBackGround_Games/05 Setting Off (New Struggle).ogg"))
+        EXIT_FAILURE;
 
     backGroundSprite.setTexture(openMenuBackGround);
     // backGroundSprite.setScale(sf::Vector2f(1.8, 2.4));
@@ -43,6 +45,7 @@ OpenMenu::~OpenMenu()
 
 const int OpenMenu::Start()
 {
+    music.play();
     int controller = 0;
 
     // Só sai desse loop se o jogador escolher sair da aplicação (pelo x ou altF4) ou se escolher o newGame/Continue/Exit (Ranking tambem, mas voltaria nessa tela depois)
@@ -68,6 +71,7 @@ const int OpenMenu::Start()
                 // 2 = Ranking
                 // 3 = Exit
                 case sf::Keyboard::Return:
+                    music.pause();
                     if (controller == 0)
                     {
                         // É necessario limpar o jSvae, para nao passar lixo para o mainController.

@@ -9,6 +9,8 @@ namespace Screen
 	private:
 		sf::Texture splashScreen;
 
+		sf::Music music;
+
 	public:
 		SplashScreen(sf::RenderWindow *window = NULL);
 		~SplashScreen();

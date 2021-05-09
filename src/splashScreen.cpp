@@ -6,6 +6,8 @@ SplashScreen::SplashScreen(sf::RenderWindow *window) : Menu(window)
 {
 	if (!splashScreen.loadFromFile("src/data/backGroundForPhaseAfterPlayerDie/backGround1.jpg"))
 		EXIT_FAILURE;
+	if (!music.openFromFile("src/data/musicsForBackGround_Games/20 Miracle of the Twin Dragons (End the Fighting).ogg"))
+		EXIT_FAILURE;
 }
 
 SplashScreen::~SplashScreen()
@@ -15,6 +17,7 @@ SplashScreen::~SplashScreen()
 
 const int SplashScreen::Start()
 {
+	music.play();
 	sf::Sprite sprite;
 	sprite.setTexture(splashScreen);
 	sprite.setScale(sf::Vector2f(sf::VideoMode::getDesktopMode().width / (float)1920, sf::VideoMode::getDesktopMode().height / (float)1280));
@@ -32,8 +35,10 @@ const int SplashScreen::Start()
 			{
 			case sf::Event::MouseButtonPressed:
 			case sf::Event::KeyPressed:
+				music.pause();
 				return OPEN_MENU;
 			case sf::Event::Closed:
+				music.pause();
 				return EXIT_GAME;
 			}
 	}

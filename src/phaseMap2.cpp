@@ -15,6 +15,8 @@ PhaseMap2::PhaseMap2(sf::RenderWindow *window, std::string path) : PhaseMapGener
         sprite->setPosition(sf::Vector2f(1080 * i, 48 * 4));
         phaseBackGroundSprite.push_back(sprite);
     }
+    if (!music.openFromFile("src/data/musicsForBackGround_Games/17 Breaking the Barrier (Mission 7).ogg"))
+        EXIT_FAILURE;
 }
 PhaseMap2::~PhaseMap2()
 {

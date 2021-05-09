@@ -30,6 +30,8 @@ namespace StartScreen
 		sf::Texture openMenuBackGround;
 		sf::Font openMenufont;
 
+		sf::Music music;
+
 	public:
 		OpenMenu(sf::RenderWindow *window);
 		~OpenMenu();

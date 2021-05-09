@@ -18,6 +18,8 @@ PhaseMap4::PhaseMap4(sf::RenderWindow *window, std::string path) : PhaseMapGener
         sprite->setPosition(sf::Vector2f(1280 * i, 48 * 16));
         phaseBackGroundSprite.push_back(sprite);
     }
+    if (!music.openFromFile("src/data/musicsForBackGround_Games/16 Wicked God (Mission 6).ogg"))
+        EXIT_FAILURE;
 }
 PhaseMap4::~PhaseMap4()
 {

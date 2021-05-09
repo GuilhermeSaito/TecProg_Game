@@ -6,6 +6,8 @@ PlayerDieScreen::PlayerDieScreen(sf::RenderWindow *window) : Menu(window)
 {
     if (!playerDieTexture.loadFromFile("src/data/playerDieImageScenario/fairy-with-dying-warrior-wallpaper-1920x1080.jpg"))
         EXIT_FAILURE;
+    if (!music.openFromFile("src/data/musicsForBackGround_Games/21 Sweet Memories (Ending Theme).ogg"))
+        EXIT_FAILURE;
 }
 PlayerDieScreen::~PlayerDieScreen()
 {
@@ -14,6 +16,7 @@ PlayerDieScreen::~PlayerDieScreen()
 
 const int PlayerDieScreen::Start()
 {
+    music.play();
     window->clear();
     sf::Sprite playerDie;
     playerDie.setTexture(playerDieTexture);
@@ -30,8 +33,10 @@ const int PlayerDieScreen::Start()
             {
             case sf::Event::MouseButtonPressed:
             case sf::Event::KeyPressed:
+                music.pause();
                 return OPEN_MENU;
             case sf::Event::Closed:
+                music.pause();
                 return EXIT_GAME;
             }
     }

@@ -153,10 +153,21 @@ void PhaseMapGeneral::ResetAll()
     if (!enemiesList.isEmpty())
         enemiesList.setNull();
     collisionManager.ResetAll();
+
+    musicResume();
 }
 
 void PhaseMapGeneral::resetObstacleList()
 {
     if (!obstacleList.isEmpty())
         obstacleList.setNull();
+}
+
+void PhaseMapGeneral::musicPlay()
+{
+    music.play();
+}
+void PhaseMapGeneral::musicResume()
+{
+    music.pause();
 }

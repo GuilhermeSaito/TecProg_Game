@@ -12,6 +12,8 @@ namespace Screen
         sf::Texture rankingScreenTexture;
         sf::Font openMenufont;
 
+        sf::Music music;
+
     public:
         RankingScreen(sf::RenderWindow *window = NULL);
         ~RankingScreen();

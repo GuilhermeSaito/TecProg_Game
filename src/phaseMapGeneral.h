@@ -39,6 +39,8 @@ namespace PhaseMap
 		// Em vez de ir criando varios Sprite para o background, eu coloco tudo no vector, dai eh soh percorrer e dar um draw
 		std::vector<sf::Sprite *> phaseBackGroundSprite;
 
+		sf::Music music;
+
 	public:
 		PhaseMapGeneral(sf::RenderWindow *window = NULL, std::string path = "");
 		virtual ~PhaseMapGeneral();
@@ -73,5 +75,7 @@ namespace PhaseMap
 		void ResetAll();
 
 		void resetObstacleList();
+		void musicPlay();
+		void musicResume();
 	};
 }

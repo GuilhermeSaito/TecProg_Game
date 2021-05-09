@@ -9,6 +9,8 @@ namespace Screen
     private:
         sf::Texture playerDieTexture;
 
+        sf::Music music;
+
     public:
         PlayerDieScreen(sf::RenderWindow *window = NULL);
         ~PlayerDieScreen();

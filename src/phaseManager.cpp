@@ -377,18 +377,25 @@ void PhaseManager::resetLoadObstacles(const int phase)
             case PHASE1:
                 phaseMap1.resetObstacleList();
                 phaseMap1.placingObstacles();
+                phaseMap1.musicPlay();
                 break;
             case PHASE2:
                 phaseMap1.resetObstacleList();
                 phaseMap2.placingObstacles();
+                phaseMap1.musicResume();
+                phaseMap2.musicPlay();
                 break;
             case PHASE3:
                 phaseMap2.resetObstacleList();
                 phaseMap3.placingObstacles();
+                phaseMap2.musicResume();
+                phaseMap3.musicPlay();
                 break;
             case PHASE4:
                 phaseMap3.resetObstacleList();
                 phaseMap4.placingObstacles();
+                phaseMap3.musicResume();
+                phaseMap4.musicPlay();
                 break;
 
             default:

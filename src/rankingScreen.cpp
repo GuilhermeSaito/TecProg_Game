@@ -8,6 +8,8 @@ RankingScreen::RankingScreen(sf::RenderWindow *window) : Menu(window)
         EXIT_FAILURE;
     if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
         EXIT_FAILURE;
+    if (!music.openFromFile("src/data/musicsForBackGround_Games/09 Ending (Reunion with Marian).ogg"))
+        EXIT_FAILURE;
 }
 
 RankingScreen::~RankingScreen()
@@ -17,6 +19,7 @@ RankingScreen::~RankingScreen()
 
 const int RankingScreen::Start()
 {
+    music.play();
     std::vector<std::vector<sf::Text *>> namesScoreDisplay;
     std::string temp;
     int cont = 1;
@@ -86,12 +89,14 @@ const int RankingScreen::Start()
                     for (auto *j : i)
                         delete j;
                 namesScoreDisplay.clear();
+                music.pause();
                 return OPEN_MENU;
             case sf::Event::Closed:
                 for (std::vector<sf::Text *> i : namesScoreDisplay)
                     for (auto *j : i)
                         delete j;
                 namesScoreDisplay.clear();
+                music.pause();
                 return EXIT_GAME;
             }
     }

@@ -15,6 +15,9 @@ PhaseMap1::PhaseMap1(sf::RenderWindow *window, std::string path) : PhaseMapGener
         sprite->setPosition(sf::Vector2f(1080 * i, 48 * 4));
         phaseBackGroundSprite.push_back(sprite);
     }
+
+    if (!music.openFromFile("src/data/musicsForBackGround_Games/01 Opening (Double Dragon).ogg"))
+        EXIT_FAILURE;
 }
 PhaseMap1::~PhaseMap1()
 {

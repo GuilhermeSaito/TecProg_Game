@@ -17,21 +17,18 @@ CollisionManager::~CollisionManager()
 
 void CollisionManager::startVerifyCollision()
 {
-	std::cout << "Players\n";
+
 	if (player1 != NULL)
 	{
-		std::cout << "PlayersX\n";
 		player1CollisionX();
-		std::cout << "PlayersY\n";
 		player1CollisionY();
-		std::cout << "Fim\n";
 	}
 	if (player2 != NULL)
 	{
 		player2CollisionX();
 		player2CollisionY();
 	}
-	std::cout << "Enemies\n";
+
 	if (enemiesList != NULL)
 	{
 		enemiesCollisionX();
@@ -40,13 +37,13 @@ void CollisionManager::startVerifyCollision()
 		enemyCollidesPlayer();
 		playerCollidesEnemy();
 	}
-	std::cout << "Object\n";
+
 	if (obstacleList != NULL)
 	{
 		obstacleCollidesPlayers();
 		obstacleCollisionY();
 	}
-	std::cout << "Fim\n";
+
 	//if (threadedBosses != NULL)
 	//{
 	//threadedBossCollisionX();
@@ -59,17 +56,16 @@ void CollisionManager::startVerifyCollision()
 void CollisionManager::player1CollisionX()
 {
 	int i = 0, j = 0;
-	std::cout << "PositionXY\n";
+
 	for (i = player1->getPosition().x / TILE_SIZE; i < ((player1->getPosition().x + player1->getSize().x) / TILE_SIZE); i++)
 	{
-		std::cout << "PositionXU\n";
+
 		if (!phaseMapManager->isValidTile(i, player1->getPosition().y / TILE_SIZE))
 			continue;
-		std::cout << "Dentro do if\n";
+
 		PhaseMap::Tiles::Tile *tempTile = phaseMapManager->getTile(i, player1->getPosition().y / 48);
 		if (player1->getBoundBox().intersects(tempTile->getBoundBox()))
 			player1->collisionInX(tempTile);
-		std::cout << "Dentro do if tiles\n";
 	}
 }
 void CollisionManager::player1CollisionY()
