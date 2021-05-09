@@ -10,7 +10,6 @@ ShooterEntity::ShooterEntity(sf::RenderWindow *window, sf::Vector2f pos, sf::Vec
 ShooterEntity::~ShooterEntity()
 {
     window = NULL;
-    this->projectiles.setNull();
 }
 
 Lists::ProjectilesList *ShooterEntity::getProjectiles()

@@ -149,13 +149,29 @@ namespace Lists
             return (this->first == NULL);
         }
 
-        void setQuantity(int i)
+        void setQuantity(const int i)
         {
             this->quantity = i;
         }
         const int getQuantity() const
         {
             return this->quantity;
+        }
+
+        Element<KIND> *operator[](const int pos)
+        {
+            int cont = 1;
+            Element<KIND> *aux = getFirst();
+            if ((pos >= 0) && (pos <= getQuantity()))
+            {
+                while (cont != pos)
+                {
+                    aux = aux->getNext();
+                    cont++;
+                }
+                return aux;
+            }
+            return NULL;
         }
     };
 }

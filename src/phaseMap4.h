@@ -21,9 +21,10 @@ namespace PhaseMap
 
 		void resetClock();
 
+		void placingObstacles() override;
+
 	private:
 		void placingEnemies() override;
-		void placingObstacles() override;
 
 		void renderPhaseBackGround();
 	};

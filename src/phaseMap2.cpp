@@ -35,7 +35,6 @@ PhaseMap2::~PhaseMap2()
 void PhaseMap2::update(int &controller)
 {
     placingEnemies();
-    placingObstacles();
 
     collisionManager.startVerifyCollision();
     if (isPlayerDead())
@@ -127,54 +126,43 @@ void PhaseMap2::placingEnemies()
 }
 void PhaseMap2::placingObstacles()
 {
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 0)
-    {
-        // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
-        Entidade::Obstacle::SpikeTrap *s1 = new Entidade::Obstacle::SpikeTrap(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
-        s1->setWitchTypeOfTrap(SPIKE_TRAP);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s1));
-        Entidade::Obstacle::FallStone *f1 = new Entidade::Obstacle::FallStone(window, {7 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
-        f1->setWitchTypeOfTrap(FALL_STONE);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f1));
-    }
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 1)
-    {
-        // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
-        Entidade::Obstacle::SpikeTrap *s2 = new Entidade::Obstacle::SpikeTrap(window, {32 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
-        s2->setWitchTypeOfTrap(SPIKE_TRAP);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s2));
-        Entidade::Obstacle::FallStone *f2 = new Entidade::Obstacle::FallStone(window, {35 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
-        f2->setWitchTypeOfTrap(FALL_STONE);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f2));
-    }
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 2)
-    {
-        // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
-        Entidade::Obstacle::SpikeTrap *s3 = new Entidade::Obstacle::SpikeTrap(window, {72 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
-        s3->setWitchTypeOfTrap(SPIKE_TRAP);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s3));
-        Entidade::Obstacle::FallStone *f3 = new Entidade::Obstacle::FallStone(window, {75 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
-        f3->setWitchTypeOfTrap(FALL_STONE);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f3));
-    }
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 3)
-    {
-        // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
-        Entidade::Obstacle::SpikeTrap *s4 = new Entidade::Obstacle::SpikeTrap(window, {120 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
-        s4->setWitchTypeOfTrap(SPIKE_TRAP);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s4));
-        Entidade::Obstacle::FallStone *f4 = new Entidade::Obstacle::FallStone(window, {122 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
-        f4->setWitchTypeOfTrap(FALL_STONE);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f4));
-    }
-    if (this->player1->getPosition().x >= 1 * TILE_SIZE && this->enemiesList.getQuantity() == 4)
-    {
-        // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
-        Entidade::Obstacle::SpikeTrap *s5 = new Entidade::Obstacle::SpikeTrap(window, {123 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
-        s5->setWitchTypeOfTrap(SPIKE_TRAP);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s5));
-        Entidade::Obstacle::FallStone *f5 = new Entidade::Obstacle::FallStone(window, {125 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
-        f5->setWitchTypeOfTrap(FALL_STONE);
-        this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f5));
-    }
+    // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
+    Entidade::Obstacle::SpikeTrap *s1 = new Entidade::Obstacle::SpikeTrap(window, {5 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
+    s1->setWitchTypeOfTrap(SPIKE_TRAP);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s1));
+    Entidade::Obstacle::FallStone *f1 = new Entidade::Obstacle::FallStone(window, {7 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
+    f1->setWitchTypeOfTrap(FALL_STONE);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f1));
+
+    // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
+    Entidade::Obstacle::SpikeTrap *s2 = new Entidade::Obstacle::SpikeTrap(window, {32 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
+    s2->setWitchTypeOfTrap(SPIKE_TRAP);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s2));
+    Entidade::Obstacle::FallStone *f2 = new Entidade::Obstacle::FallStone(window, {35 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
+    f2->setWitchTypeOfTrap(FALL_STONE);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f2));
+
+    // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
+    Entidade::Obstacle::SpikeTrap *s3 = new Entidade::Obstacle::SpikeTrap(window, {72 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
+    s3->setWitchTypeOfTrap(SPIKE_TRAP);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s3));
+    Entidade::Obstacle::FallStone *f3 = new Entidade::Obstacle::FallStone(window, {75 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
+    f3->setWitchTypeOfTrap(FALL_STONE);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f3));
+
+    // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
+    Entidade::Obstacle::SpikeTrap *s4 = new Entidade::Obstacle::SpikeTrap(window, {120 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
+    s4->setWitchTypeOfTrap(SPIKE_TRAP);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s4));
+    Entidade::Obstacle::FallStone *f4 = new Entidade::Obstacle::FallStone(window, {122 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
+    f4->setWitchTypeOfTrap(FALL_STONE);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f4));
+
+    // Tem esse spikeTrapPoints, pq pode ser q futuramente de para quebrar as traps neh? e.e
+    Entidade::Obstacle::SpikeTrap *s5 = new Entidade::Obstacle::SpikeTrap(window, {123 * TILE_SIZE, 27 * TILE_SIZE}, {0, 0}, 1, 5, SPIKE_TRAP_POINTS);
+    s5->setWitchTypeOfTrap(SPIKE_TRAP);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(s5));
+    Entidade::Obstacle::FallStone *f5 = new Entidade::Obstacle::FallStone(window, {125 * TILE_SIZE, 8 * TILE_SIZE}, {0, 10}, 1, 50, FALL_STONE_POINTS);
+    f5->setWitchTypeOfTrap(FALL_STONE);
+    this->obstacleList.include(static_cast<Entidade::EnemyEntity *>(f5));
 }

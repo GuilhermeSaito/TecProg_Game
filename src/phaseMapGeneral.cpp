@@ -114,8 +114,8 @@ void PhaseMapGeneral::resetEverythingForTransition()
 
     if (!enemiesList.isEmpty())
         enemiesList.setNull();
-    if (!obstacleList.isEmpty())
-        obstacleList.setNull();
+
+    resetObstacleList();
 
     collisionManager.clearAllLists();
 }
@@ -153,4 +153,10 @@ void PhaseMapGeneral::ResetAll()
     if (!enemiesList.isEmpty())
         enemiesList.setNull();
     collisionManager.ResetAll();
+}
+
+void PhaseMapGeneral::resetObstacleList()
+{
+    if (!obstacleList.isEmpty())
+        obstacleList.setNull();
 }

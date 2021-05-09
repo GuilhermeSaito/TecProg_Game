@@ -55,12 +55,12 @@ namespace PhaseMap
 		const bool isGameClear();
 
 		virtual void placingEnemies();
-		virtual void placingObstacles();
 
 		// Soh para evitar possiveis problemas de polimorfismo
 		const int Start() override { return 0; }
 
 	public:
+		virtual void placingObstacles();
 		void resetEverythingForTransition();
 
 		void setPlayer1(Entidade::Player::Player1 *p1);
@@ -71,5 +71,7 @@ namespace PhaseMap
 		Lists::ObstacleList *getObstacleList();
 
 		void ResetAll();
+
+		void resetObstacleList();
 	};
 }

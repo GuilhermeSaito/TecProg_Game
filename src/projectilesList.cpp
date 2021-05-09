@@ -5,6 +5,7 @@ ProjectilesList::ProjectilesList()
 {
 }
 
+// Ja estah sendo destruida na lista template
 ProjectilesList::~ProjectilesList()
 {
 }

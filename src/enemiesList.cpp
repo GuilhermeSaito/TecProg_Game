@@ -42,3 +42,8 @@ Element<Entidade::EnemyEntity> *EnemiesList::getFirst()
 
 const bool EnemiesList::isEmpty() const { return (this->enemiesList.isEmpty()); }
 const int EnemiesList::getQuantity() const { return this->enemiesList.getQuantity(); }
+
+Element<Entidade::EnemyEntity> *EnemiesList::operator[](const int pos)
+{
+    return this->enemiesList.operator[](pos);
+}

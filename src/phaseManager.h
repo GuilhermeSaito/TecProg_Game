@@ -12,7 +12,7 @@
 // o include do menu.h estah no PhaseMapManager
 
 namespace PhaseMap
-{ 
+{
 	class PhaseManager : public Menu
 	{
 	private:
@@ -39,6 +39,8 @@ namespace PhaseMap
 
 		sf::Font openMenufont;
 
+		bool fragResetLoad;
+
 	public:
 		PhaseManager(sf::RenderWindow *window = NULL);
 		~PhaseManager();
@@ -55,6 +57,8 @@ namespace PhaseMap
 		void saveState();
 
 		void ResetALL();
+
+		void resetLoadObstacles(const int phase);
 
 		const int Start() override { return 0; }
 	};

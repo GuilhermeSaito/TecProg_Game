@@ -26,5 +26,7 @@ namespace Lists
         Element<Entidade::EnemyEntity> *getFirst();
         const bool isEmpty() const;
         const int getQuantity() const;
+
+        Element<Entidade::EnemyEntity> *operator[](const int pos);
     };
 }

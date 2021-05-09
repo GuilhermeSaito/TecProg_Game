@@ -52,7 +52,6 @@ void Boss::movimentation(sf::Vector2f playerPosition)
     sprite.setTextureRect(sf::IntRect(0, 0, 87, 96));
     sprite.setScale({2.f, 2.f});
   }
-
   else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;
@@ -60,10 +59,6 @@ void Boss::movimentation(sf::Vector2f playerPosition)
     sprite.setTexture(bossTexture);
     sprite.setTextureRect(sf::IntRect(4, 96, 87, 96));
     sprite.setScale({2.f, 2.f});
-  }
-
-  else
-  {
   }
 
   this->rect.setPosition(position);
@@ -87,15 +82,14 @@ void Boss::update(Entidade::Player::Player1 *p)
   if (!this->projectiles.isEmpty())
     projectiles.update(p);
 
-  /*sf::Time elapsedJump = clockJump.getElapsedTime();
+  sf::Time elapsedJump = clockJump.getElapsedTime();
   if (p != NULL)
     if (elapsedJump.asSeconds() >= 3 && (abs(p->getPosition().x - getPosition().x) <= (48 * 2)))
-      jumpToAttack(p);*/
+      jumpToAttack(p);
 }
 
 void Boss::render()
 {
-  std::cout << "Deveria estar dando o render!\n";
   window->draw(healthBar);
   window->draw(sprite);
 

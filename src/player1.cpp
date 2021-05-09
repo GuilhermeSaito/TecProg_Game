@@ -35,14 +35,14 @@ void Player1::movementation()
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) && (position.x >= 48))
 	{
 		speed.x = -walkSpeed;
-		position.x += speed.x;
+		operator++();
 		isLookingRight = false;
 		updateContAnimation();
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 	{
 		speed.x = walkSpeed;
-		position.x += speed.x;
+		operator++();
 		isLookingRight = true;
 		updateContAnimation();
 	}
@@ -107,4 +107,9 @@ void Player1::updateContAnimation()
 	}
 	if (contAnimation > 2)
 		contAnimation = 0;
+}
+
+void Player1::operator++()
+{
+	position.x += speed.x;
 }

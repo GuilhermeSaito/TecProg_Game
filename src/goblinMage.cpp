@@ -24,7 +24,6 @@ GoblinMage::GoblinMage(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2f 
 GoblinMage::~GoblinMage()
 {
   window = NULL;
-  this->projectiles.setNull();
 }
 
 void GoblinMage::shootProjectile(sf::Vector2f playerPosition)
@@ -49,17 +48,12 @@ void GoblinMage::movimentation(sf::Vector2f playerPosition)
     sprite.setTexture(goblinMageTexture);
     sprite.setTextureRect(sf::IntRect(0, 0, 32, 47));
   }
-
   else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;
     this->position.x += this->speed.x;
     sprite.setTexture(goblinMageTexture);
     sprite.setTextureRect(sf::IntRect(2, 49, 32, 47));
-  }
-
-  else
-  {
   }
 
   this->rect.setPosition(position);

@@ -24,7 +24,7 @@ namespace Entidade
             virtual json getSave() override;
 
         private:
-        void movimentation(sf::Vector2f playerPosition) override;
+            void movimentation(sf::Vector2f playerPosition) override;
             Lists::ProjectilesList *getProjectiles() override;
         };
     }

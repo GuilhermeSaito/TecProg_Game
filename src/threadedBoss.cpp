@@ -31,14 +31,9 @@ ThreadedBoss::~ThreadedBoss()
 
 void ThreadedBoss::run()
 {
-    std::cout << "Vai dar o update" << std::endl;
     if (player1 != NULL)
         update(player1);
-    else
-        std::cout << "Player1 = NULL" << std::endl;
-    std::cout << "Deu o update" << std::endl;
     render();
-    std::cout << "Deu o render" << std::endl;
 }
 
 void ThreadedBoss::setPlayer1(Entidade::Player::Player1 *p1) { player1 = p1; }

@@ -21,7 +21,6 @@ namespace Entidade
 
 			sf::Texture player1Image;
 
-
 		public:
 			Player1(sf::RenderWindow *window = NULL, sf::Vector2f pos = {2 * 48, 27 * 48}, sf::Vector2f spee = {0, 0}, float hP = 100, float attackDamage = 30, const int point = 0);
 			virtual ~Player1();
@@ -41,6 +40,8 @@ namespace Entidade
 		protected:
 			void spriteAnimation();
 			void updateContAnimation();
+
+			void operator++();
 		};
 	}
 }

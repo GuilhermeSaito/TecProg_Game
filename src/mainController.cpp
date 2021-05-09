@@ -18,6 +18,9 @@ MainController::MainController() : splashScreen(&window),
 
 MainController::~MainController()
 {
+	for (auto *i : switcher)
+		i = NULL;
+	switcher.clear();
 }
 
 void MainController::Start()

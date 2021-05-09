@@ -12,7 +12,8 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/da
                                                        needToLoadPhase(true),
                                                        controller(EXIT_GAME),
                                                        enemiesList(NULL),
-                                                       Menu(window)
+                                                       Menu(window),
+                                                       fragResetLoad(true)
 {
     if (!openMenufont.loadFromFile("src/data/fonts/TurretRoad-Medium.ttf"))
         EXIT_FAILURE;
@@ -21,12 +22,10 @@ PhaseManager::PhaseManager(sf::RenderWindow *window) : phaseMap1(window, "src/da
 PhaseManager::~PhaseManager()
 {
     window = NULL;
-    //delete(enemiesList);
     ResetALL();
 }
 int PhaseManager::Start(json jContinueSave, const string player1Name, const string player2Name, const bool multiplayer, const int phaseIs)
 {
-    std::cout << "antes de entrar" << std::endl;
     // Se ele nao estiver vazio, quer dizer que alguem apertou o continuar.
     // Na verdade, posso colocar tudo isso em um metodo, para ficar bonitinho com 1 linha soh aqui, mas estou com preguica no momento...
     if (!jContinueSave.empty())
@@ -61,6 +60,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
         switch (phase)
         {
         case PHASE1:
+            resetLoadObstacles(phase);
             controller = phase;
             this->enemiesList = phaseMap1.getEnemiesList();
             phaseMap1.loadListsInCollision();
@@ -68,6 +68,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap1.render(phase);
             break;
         case PHASE2:
+            resetLoadObstacles(phase);
             controller = phase;
             this->enemiesList = phaseMap2.getEnemiesList();
             phaseMap2.loadListsInCollision();
@@ -75,6 +76,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap2.render(phase);
             break;
         case PHASE3:
+            resetLoadObstacles(phase);
             controller = phase;
             this->enemiesList = phaseMap3.getEnemiesList();
             phaseMap3.loadListsInCollision();
@@ -82,6 +84,7 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap3.render(phase);
             break;
         case PHASE4:
+            resetLoadObstacles(phase);
             controller = phase;
             this->enemiesList = phaseMap4.getEnemiesList();
             phaseMap4.loadListsInCollision();
@@ -89,7 +92,6 @@ int PhaseManager::Start(json jContinueSave, const string player1Name, const stri
             phaseMap4.render(phase);
             break;
         case EXTRALEVEL:
-            //std::cout << "entrou " << std::endl;
             controller = phase;
             //extraLevel.loadListsInCollision();
             extraLevel.update(phase);
@@ -361,4 +363,40 @@ void PhaseManager::ResetALL()
     player2.setHp(100);
 
     needToLoadPhase = false;
+}
+
+void PhaseManager::resetLoadObstacles(const int phase)
+{
+    if (controller == phase)
+    {
+        // Eh a primeira vez que caiu
+        if (fragResetLoad)
+        {
+            switch (phase)
+            {
+            case PHASE1:
+                phaseMap1.resetObstacleList();
+                phaseMap1.placingObstacles();
+                break;
+            case PHASE2:
+                phaseMap1.resetObstacleList();
+                phaseMap2.placingObstacles();
+                break;
+            case PHASE3:
+                phaseMap2.resetObstacleList();
+                phaseMap3.placingObstacles();
+                break;
+            case PHASE4:
+                phaseMap3.resetObstacleList();
+                phaseMap4.placingObstacles();
+                break;
+
+            default:
+                break;
+            }
+            fragResetLoad = false;
+        }
+    }
+    else
+        fragResetLoad = true;
 }

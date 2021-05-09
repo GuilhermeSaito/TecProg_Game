@@ -14,7 +14,7 @@ FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2
   this->hasProjectiles = true;
   this->walkSpeed = spee.x;
 
-  rect.setSize(sf::Vector2f(2*38.f, 2*42.f));
+  rect.setSize(sf::Vector2f(2 * 38.f, 2 * 42.f));
   rect.setPosition(pos);
 
   sprite.setTexture(flyingEnemyTexture);
@@ -28,7 +28,6 @@ FlyingEnemy::FlyingEnemy(sf::RenderWindow *window, sf::Vector2f pos, sf::Vector2
 FlyingEnemy::~FlyingEnemy()
 {
   window = NULL;
-  this->projectiles.setNull();
 }
 
 void FlyingEnemy::shootProjectile(sf::Vector2f playerPosition)
@@ -52,7 +51,6 @@ void FlyingEnemy::movimentation(sf::Vector2f playerPosition)
     sprite.setScale({2.f, 2.f});
     sprite.setTextureRect(sf::IntRect(1, 95, 38, 42));
   }
-
   else if (playerPosition.x > this->position.x)
   {
     this->speed.x = this->walkSpeed;

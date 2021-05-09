@@ -11,19 +11,22 @@ CollisionManager::CollisionManager() : player1(NULL),
 CollisionManager::~CollisionManager()
 {
 	ResetAll();
-	phaseMapManager = NULL;
-	threadedBosses = NULL;
 }
 
 void CollisionManager::startVerifyCollision()
 {
-	player1CollisionX();
-	player1CollisionY();
+	std::cout << "Players\n";
+	if (player1 != NULL)
+	{
+		player1CollisionX();
+		player1CollisionY();
+	}
 	if (player2 != NULL)
 	{
 		player2CollisionX();
 		player2CollisionY();
 	}
+	std::cout << "Enemies\n";
 	if (enemiesList != NULL)
 	{
 		enemiesCollisionX();
@@ -32,11 +35,13 @@ void CollisionManager::startVerifyCollision()
 		enemyCollidesPlayer();
 		playerCollidesEnemy();
 	}
+	std::cout << "Object\n";
 	if (obstacleList != NULL)
 	{
 		obstacleCollidesPlayers();
 		obstacleCollisionY();
 	}
+	std::cout << "Fim\n";
 	//if (threadedBosses != NULL)
 	//{
 	//threadedBossCollisionX();
@@ -414,6 +419,8 @@ void CollisionManager::ResetAll()
 {
 	player1 = NULL;
 	player2 = NULL;
+	phaseMapManager = NULL;
 	enemiesList = NULL;
 	obstacleList = NULL;
+	threadedBosses = NULL;
 }
