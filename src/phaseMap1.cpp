@@ -35,18 +35,16 @@ PhaseMap1::~PhaseMap1()
 
 void PhaseMap1::update(int &controller)
 {
-    std::cout << "PlacingEnemies\n";
     placingEnemies();
 
-    std::cout << "ComecoColisao\n";
     collisionManager.startVerifyCollision();
-    std::cout << "FinalColisao\n";
+
     if (isPlayerDead())
     {
         controller = PLAYER_DIE;
         return;
     }
-    std::cout << "ComecoPlayer1\n";
+
     player1->gravity();
     player1->movementation();
     if (player2 != NULL)
@@ -56,16 +54,14 @@ void PhaseMap1::update(int &controller)
     }
     phaseTransition(controller);
 
-    std::cout << "FinalPlayer1\n";
     //updates all zombies
     if (!this->enemiesList.isEmpty())
         this->enemiesList.update(this->player1);
     if (!this->obstacleList.isEmpty())
         this->obstacleList.update(this->player1);
-    std::cout << "FinalEnmiesList\n";
+
     // Metodo para ir verificando se tem algum inimigo com hp <= 0, se tiver, tira da lista
     enemyKilled();
-    std::cout << "FinalUpdate\n";
 }
 
 void PhaseMap1::render(int &controller)
@@ -101,7 +97,6 @@ void PhaseMap1::render(int &controller)
 
     phaseMapManager.draw();
     window->display();
-    std::cout << "FinalRender\n";
 }
 
 void PhaseMap1::renderPhaseBackGround()
